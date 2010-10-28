@@ -1,0 +1,13 @@
+*.o
+*.html
+*.txt
+*.bak
+
+html/*
+latex/*
+*/bin/*
+*/obj/*
+
+.*
+!.gitignore
+
