@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="v2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/v2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../base" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/v2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../base" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../base" />
+		</Compiler>
+		<Unit filename="../base/atvertex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/atvertex.h" />
+		<Unit filename="../base/common.h" />
+		<Unit filename="../base/errors.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/errors.h" />
+		<Unit filename="../base/nasreader.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/nasreader.h" />
+		<Unit filename="../base/neighbour.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/neighbour.h" />
+		<Unit filename="../base/tetranet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/tetranet.h" />
+		<Unit filename="../base/vector.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/vector.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
