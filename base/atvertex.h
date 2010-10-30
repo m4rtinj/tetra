@@ -38,5 +38,10 @@ void atVertex_freeMem( tTetranet tn );
  */
 void atVertex_insert( tTetranet tn, tTetraRef tr );
 
+/**
+ *  Tetraeder eltavolitasa az atvertex nyilvantartasbol
+ *  A rutin johiszemuen feltetelezi, hogy a tetraeder korabban fel lett veve.
+ */
+void atVertex_delete( tTetranet tn, tTetraRef tr );
 #endif /* ATVERTEX_H_ */
 

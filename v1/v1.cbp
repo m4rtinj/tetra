@@ -15,6 +15,7 @@
 					<Add option="-Wall" />
 					<Add option="-pg" />
 					<Add option="-g" />
+					<Add directory="../base" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
@@ -27,6 +28,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../base" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -37,9 +39,6 @@
 			<Add option="-Wall" />
 			<Add directory="../base" />
 		</Compiler>
-		<Unit filename="../base/atvertex.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../base/atvertex.h" />
 		<Unit filename="../base/common.h" />
 		<Unit filename="../base/errors.c">
@@ -62,6 +61,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/vector.h" />
+		<Unit filename="atvertex.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

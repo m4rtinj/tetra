@@ -116,7 +116,30 @@ void atVertex_insert( tTetranet tn, tTetraRef tr ) {
 }
 
 void atVertex_delete( tTetranet tn, tTetraRef tr ) {
-    // ures
+    int k;
+    tElement *elem;
+    tElement *prev;
+    tPointRef pr;
+    tAtVertexDesc *atv = tn->atVertex;
+    bool done = FALSE;
+
+    for( k = 0; k <= 3; k++ ) {
+        pr = tetranet_getVertex( tn, tr, k );
+        elem = atv->idxArr[pr];
+        prev = NULL;
+        done = FALSE;
+        while( !done ) {
+            if( elem->tRef == tr ) {
+                if( prev == NULL ) {
+                    atv->idxArr[pr] = elem->next;
+                } else {
+                    prev->next = elem->next;
+                }
+                free( elem );
+                done = TRUE;
+            }
+        }
+    }
 }
 
 
