@@ -11,12 +11,11 @@
  *
  */
 #include <stdlib.h>
+#include <string.h>
 #include "atvertex.h"
 #include "tetranet.h"
 #include "common.h"
-#include <string.h>
-// todo: nem kell, xsadk degub
-#include <stdio.h>
+#include "errors.h"
 
 struct tElementX {
     tTetraRef tRef;
@@ -26,7 +25,7 @@ typedef struct tElementX tElement;
 
 typedef struct {
     tElement **idxArr; // pointerek dinamikus tombje
-    unsigned long maxPr;
+    tPointRef maxPr;
     tElement *act;
 } tAtVertexDesc;
 
@@ -42,7 +41,7 @@ void atVertex_update( tTetranet tn ) {
     // elokeszites
     atVertex_freeMem( tn );
     atv = malloc( sizeof( tAtVertexDesc ) );
-    atv->maxPr = tetranet_getNrOfPoints( tn );
+    atv->maxPr = tetranet_getLastPointRef( tn );
     len = ( atv->maxPr + 1 ) * sizeof( dummyPointer );
     atv->idxArr = malloc( len );
     memset( atv->idxArr, '\0', len );
@@ -103,7 +102,7 @@ void atVertex_insert( tTetranet tn, tTetraRef tr ) {
         pr = tetranet_getVertex( tn, tr, i );
         if( pr > atv->maxPr ) {
             atv->idxArr = realloc( atv->idxArr, ( pr + 1 ) * sizeof( elem ) );
-            for( k = atv->maxPr; k <= pr; ++k ) {
+            for( k = atv->maxPr + 1; k <= pr; ++k ) {
                 atv->idxArr[k] = NULL;
             }
             atv->maxPr = pr;
@@ -129,6 +128,9 @@ void atVertex_delete( tTetranet tn, tTetraRef tr ) {
         prev = NULL;
         done = FALSE;
         while( !done ) {
+            if( elem == NULL ) {
+                exitText( "atVertex_delete error: vertex isn't indexed." );
+            }
             if( elem->tRef == tr ) {
                 if( prev == NULL ) {
                     atv->idxArr[pr] = elem->next;
@@ -138,6 +140,8 @@ void atVertex_delete( tTetranet tn, tTetraRef tr ) {
                 free( elem );
                 done = TRUE;
             }
+            prev = elem;
+            elem = elem->next;
         }
     }
 }

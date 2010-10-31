@@ -64,7 +64,6 @@ void printarray( long lastIndex ) {
         - Ekkor ha egymas utan ketszer szerepel u.az a pontharmas a tombben,
             akkor a tartalmazo tetraederk szomszedosak.
  * - TODO: Kitol szarmazik ez a modszer?
- * - TODO: Ezt a modult at lehetne dobni egyetlen fuggvenykent a tetranet.c -be
  */
 void neighbours_update( tTetranet tn ) {
     tTetraRef t;
@@ -73,59 +72,51 @@ void neighbours_update( tTetranet tn ) {
     unsigned long nrOfElements;
 
     // oldalak tombjenek letrehozasa
-    nrOfElements = tn->lastTetraRef * 4;
+    nrOfElements = tetranet_getNumberOfTetras( tn ) * 4;
     arraySize = nrOfElements * sizeof( element );
     sarray = malloc( arraySize );
 
     // feltoltes
     s = 0;
     tetranet_iteratorInit( tn );
-    t = tetranet_iteratorNext( tn );
-    while( s < nrOfElements ) {
-        // mivel a "case 0"-ban olvassuk be a köv tetraedert, nagyon fontos az utasitasok sorrendje
-        switch( s % 4 ) {
-        case 0:
-            sarray[s].pts[0] = tn->vertices[t][1];
-            sarray[s].pts[1] = tn->vertices[t][2];
-            sarray[s].pts[2] = tn->vertices[t][3];
-            break;
-        case 1:
-            sarray[s].pts[0] = tn->vertices[t][0];
-            sarray[s].pts[1] = tn->vertices[t][2];
-            sarray[s].pts[2] = tn->vertices[t][3];
-            break;
-        case 2:
-            sarray[s].pts[0] = tn->vertices[t][0];
-            sarray[s].pts[1] = tn->vertices[t][1];
-            sarray[s].pts[2] = tn->vertices[t][3];
-            break;
-        case 3:
-            sarray[s].pts[0] = tn->vertices[t][0];
-            sarray[s].pts[1] = tn->vertices[t][1];
-            sarray[s].pts[2] = tn->vertices[t][2];
-            break;
-        default:
-            exitText( "Index failed by getSidePoints." );
-        }
+    while(( t = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+        sarray[s].pts[0] = tetranet_getVertex( tn, t, 1 );
+        sarray[s].pts[1] = tetranet_getVertex( tn, t, 2 );
+        sarray[s].pts[2] = tetranet_getVertex( tn, t, 3 );
         sarray[s].tetra = t;
         sarray[s].sideIndex = s % 4;
         ++s;
-        if(( s % 4 ) == 0 ) {
-            t = tetranet_iteratorNext( tn );
-        }
+        sarray[s].pts[0] = tetranet_getVertex( tn, t, 0 );
+        sarray[s].pts[1] = tetranet_getVertex( tn, t, 2 );
+        sarray[s].pts[2] = tetranet_getVertex( tn, t, 3 );
+        sarray[s].tetra = t;
+        sarray[s].sideIndex = s % 4;
+        ++s;
+        sarray[s].pts[0] = tetranet_getVertex( tn, t, 0 );
+        sarray[s].pts[1] = tetranet_getVertex( tn, t, 1 );
+        sarray[s].pts[2] = tetranet_getVertex( tn, t, 3 );
+        sarray[s].tetra = t;
+        sarray[s].sideIndex = s % 4;
+        ++s;
+        sarray[s].pts[0] = tetranet_getVertex( tn, t, 0 );
+        sarray[s].pts[1] = tetranet_getVertex( tn, t, 1 );
+        sarray[s].pts[2] = tetranet_getVertex( tn, t, 2 );
+        sarray[s].tetra = t;
+        sarray[s].sideIndex = s % 4;
+        ++s;
     }
 
     // printarray( s );
 
-// rendezes
+    // rendezes
     qsort(( void * ) sarray, nrOfElements, sizeof( element ),
           ( compfn ) compareElement );
 
-// printarray();
+    // printarray();
 
-// visszaolvasas, feltoltes
+    // visszaolvasas, feltoltes
     tTetraRef t0, t1;
-    unsigned s0, s1;
+    tSideIndex s0, s1;
     s = 0;
     const unsigned ptsSize = sizeof( sarray[0].pts );
     while( s < nrOfElements - 1 ) {
@@ -138,8 +129,8 @@ void neighbours_update( tTetranet tn ) {
                     ( tetranet_getSideNext( tn, t1, s1 ) != NULL_TETRA ) ) {
                 exitText( "Inconsistent neighbourhood data." );
             }
-            tn->sideNext[t0][s0] = t1;
-            tn->sideNext[t1][s1] = t0;
+            tetranet_setSideNext( tn, t0, s0, t1 );
+            tetranet_setSideNext( tn, t1, s1, t0 );
             // ha szomszed, akkor s+1 s+2 mar nem lehet az, atlephetjük a vizsgalatot
             ++s;
         }
@@ -198,8 +189,8 @@ void findSideNeighbours( tTetranet tn, tTetraRef tr, tSideIndex si ) {
                 v0 = tetranet_getVertex( tn, t0, i );
                 if(( v0 == a ) || ( v0 == b ) || ( v0 == c ) ) {
                     vSet -= setP; // talalat: a pontot eltavolitjuk a set-bol
-                    setP *= 2;    // a set kovetkezo eleme
                 }
+                setP *= 2;    // a set kovetkezo eleme
             }
             switch( vSet ) {
             case 1:
@@ -220,18 +211,40 @@ void findSideNeighbours( tTetranet tn, tTetraRef tr, tSideIndex si ) {
         }
     }
     if( s0 < 0 ) {
-        tn->sideNext[tr][si] = NULL_TETRA;
+        tetranet_setSideNext( tn, tr, si, NULL_TETRA );
     } else {
-        tn->sideNext[tr][si] = t0;
-        tn->sideNext[t0][s0] = tr;
+        if(( tetranet_getSideNext( tn, t0, s0 ) != NULL_TETRA ) ||
+                ( tetranet_getSideNext( tn, tr, si ) != NULL_TETRA ) ) {
+            printNet( tn );
+            exitText( "Inconsistent neighbourhood data." );
+        }
+        tetranet_setSideNext( tn, tr, si, t0 );
+        tetranet_setSideNext( tn, t0, s0, tr );
     }
 }
 
-void neighbours_findNeighbours( tTetranet tn, tTetraRef tr ) {
+void neighbours_insert( tTetranet tn, tTetraRef tr ) {
     int k;
     for( k = 0; k <= 3; k++ ) {
         findSideNeighbours( tn, tr, k );
     }
 }
+
+void neighbours_delete( tTetranet tn, tTetraRef tr ) {
+    tSideIndex k;
+    tSideIndex j;
+    tTetraRef nb;
+    for( k = 0; k <= 3; k++ ) {
+        if(( nb = tetranet_getSideNext( tn, tr, k ) ) != NULL_TETRA ) {
+            for( j = 0; tetranet_getSideNext( tn, nb, j ) != tr; ++j ) {
+                if( j > 3 )
+                    exitText( "neighbours_delete error: asymmetric neighourhood." );
+            }
+            tetranet_setSideNext( tn, nb, j, NULL_TETRA );
+            tetranet_setSideNext( tn, tr, k, NULL_TETRA );
+        }
+    }
+}
+
 
 

@@ -69,6 +69,8 @@ void selfTest() {
 }
 */
 
+
+
 void selfTest( tTetranet tn ) {
     tTetraRef tet, tetSNx;
 
@@ -110,28 +112,27 @@ void selfTest( tTetranet tn ) {
         printf( "%ld\n", tet );
     }
 
+    printNet( tn );
+
     // location test
     tPoint p;
     tPointRef pr;
-    p = tetranet_getTetraMassPoint( tn, 2 );
+    p = tetranet_getTetraMassPoint( tn, 1 );
     tet = tetranet_getPointLocation( tn, p );
     printf( "location: %ld\n", tet );
 
     // insert test
-    p.x = -100;
-    p.y = 0;
-    p.z = 0;
-
     pr = tetranet_insertPoint( tn, p );
+    tetranet_delTetra( tn, 1 );
+    printNet( tn );
     tet = tetranet_insertTetra( tn, 4, 3, 1, pr );
+    tet = tetranet_insertTetra( tn, 4, 3, 2, pr );
+    tet = tetranet_insertTetra( tn, 4, 2, 1, pr );
+    tet = tetranet_insertTetra( tn, 2, 3, 1, pr );
+    printNet( tn );
+    tetranet_delTetra( tn, 2 );
+    printNet( tn );
 
-    printf("nb: %ld %ld %ld %ld ",
-           tetranet_getSideNext(tn,tet,0),
-           tetranet_getSideNext(tn,tet,1),
-           tetranet_getSideNext(tn,tet,2),
-           tetranet_getSideNext(tn,tet,3));
-    printf("vol: %lf ",tetranet_getTetraVolume(tn,tet));
-    printf("\n");
 }
 
 int main() {

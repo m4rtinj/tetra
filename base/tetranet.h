@@ -30,7 +30,7 @@ typedef unsigned int tSideIndex; /* 0..3 */
 #define NULL_TETRA 0
 
 // tipusok a dinamikus tombok atlathatobb definialasahoz
-// todo lehetne egyszerübben   double (*sideArea)[4]
+// todo lehetne egyszerübben, pl: double (*sideArea)[4]
 typedef tTetraRef tSideNext[4];
 typedef tPointRef tVertices[4];
 typedef double    tSideArea[4];
@@ -55,13 +55,14 @@ typedef struct {
     tPoint        *massPoint;
 
     // szamossagtarolas
-    tPointRef      maxPointRef;
-    tTetraRef      maxTetraRef;
-    tPointRef      lastPointRef;
-    tTetraRef      lastTetraRef;
+    tPointRef      maxPointRef;    // a tomb utolso cimezheto helye
+    tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
+    tPointRef      lastPointRef;   // az utolso hasznalt elem indexe
+    tTetraRef      lastTetraRef;   // az utolso hasznalt elem indexe
+    tTetraRef      numberOfTetras; // a tetraederek szama;
 
-    // az aktualisan kezelt tetraeder indexe TODO: hasznaljuk ezt???
-    tTetraRef      actTetraRef;
+    // az elso szabad elem indexe
+    tTetraRef      firstFreeTetraRef;
 
     // a bejaro aktualis helyzete
     tTetraRef      iteratorPos;
@@ -139,11 +140,14 @@ vector    tetranet_getSideNormalVector( tTetranet tn, tTetraRef tr, tSideIndex s
 /// megkeresi, hogy az adott pont melyik teraederben van
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p );
 
-/// tetraederek szama
-unsigned long tetranet_getNrOfTetras( tTetranet tn );
+/// utolso hasznalt tetraeder ref
+tTetraRef tetranet_getLastTetraRef( tTetranet tn );
 
-/// pontok szama
-unsigned long tetranet_getNrOfPoints( tTetranet tn );
+/// utolso hasznalt pont ref
+tTetraRef tetranet_getLastPointRef( tTetranet tn );
+
+/// a tetraederek szama
+unsigned long tetranet_getNumberOfTetras( tTetranet tn );
 
 /*
  *  setterek: adatmodositas a halozatban
@@ -151,6 +155,16 @@ unsigned long tetranet_getNrOfPoints( tTetranet tn );
 
 /// az allapotvektor sti-edik elemenek beallitasa
 void      tetranet_setState( tTetranet tn, tTetraRef tr, unsigned int sti, double value );
+
+/// az szomszedossag beallitasa
+/**
+ ez a setter itt nem elegans, mert nem szabad user altal hivni.
+ szukseges megis, hogy a neighbours modul adatszerkezettol fuggetlenul irni tudja a szomszedossagi viszonyokat.
+ tombos megoldas eseten a teljes tomb kikerulhetne a neighboursba, es akkor nem kellene,
+ de listas esetben a szomszedossag a tetraeder strukrura egy eleme, igy nem.
+*/
+void      tetranet_setSideNext( tTetranet tn, tTetraRef tr, tSideIndex si, tTetraRef neighbour );
+
 
 /*
  *  iteratorok: tetrraederek sorozatat adjak vissza
@@ -167,5 +181,9 @@ bool ( *tetranet_atVertexInit )( tTetranet tn, tPointRef pr );
 
 /// csak az init utan: adott ponthoz tartozo tetraederek kozul a kovetkezo
 tTetraRef( *tetranet_atVertexNext )( tTetranet tn );
+
+
+// csak teszteleshez
+void printNet( tTetranet tn );
 
 #endif /* TETRANET_H_ */
