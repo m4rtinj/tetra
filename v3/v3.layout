@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../base/atvertex.c" open="1" top="0" tabpos="2">
-		<Cursor position="929" topLine="124" />
+	<File name="../base/atvertex.c" open="1" top="1" tabpos="1">
+		<Cursor position="2497" topLine="128" />
 	</File>
-	<File name="../base/atvertex.h" open="1" top="0" tabpos="3">
-		<Cursor position="895" topLine="23" />
+	<File name="../base/atvertex.h" open="1" top="0" tabpos="2">
+		<Cursor position="208" topLine="2" />
 	</File>
-	<File name="../base/neighbour.c" open="1" top="1" tabpos="7">
-		<Cursor position="4074" topLine="121" />
+	<File name="../base/neighbour.c" open="1" top="0" tabpos="6">
+		<Cursor position="6015" topLine="174" />
 	</File>
-	<File name="../base/neighbour.h" open="1" top="0" tabpos="5">
+	<File name="../base/neighbour.h" open="1" top="0" tabpos="4">
 		<Cursor position="291" topLine="0" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="../base/tetranet.h" open="1" top="0" tabpos="7">
+		<Cursor position="5903" topLine="167" />
 	</File>
-	<File name="tetranet.c" open="1" top="0" tabpos="6">
-		<Cursor position="12337" topLine="389" />
+	<File name="main.c" open="1" top="0" tabpos="3">
+		<Cursor position="1817" topLine="66" />
 	</File>
-	<File name="tetranet.h" open="1" top="0" tabpos="1">
-		<Cursor position="4574" topLine="139" />
+	<File name="tetranet.c" open="1" top="0" tabpos="5">
+		<Cursor position="10861" topLine="343" />
 	</File>
 </CodeBlocks_layout_file>

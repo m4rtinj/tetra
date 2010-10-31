@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add directory="../base" />
 				</Compiler>
@@ -51,6 +52,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/neighbour.h" />
+		<Unit filename="../base/tetranet.h" />
 		<Unit filename="../base/vector.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -61,7 +63,6 @@
 		<Unit filename="tetranet.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="tetranet.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
