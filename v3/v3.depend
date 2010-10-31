@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1288479851 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1288483410 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -41,7 +41,7 @@
 	"common.h"
 	<stdio.h>
 
-1288482205 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+1288554130 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -53,7 +53,7 @@
 	"vector.h"
 	<math.h>
 
-1288481220 source:/home/martinj/sze/szakdolg/valtozatok/v3/main.c
+1288556711 source:/home/martinj/sze/szakdolg/valtozatok/v3/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -65,7 +65,7 @@
 	"common.h"
 	"vector.h"
 
-1288481556 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
+1288558054 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

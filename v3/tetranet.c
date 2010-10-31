@@ -132,10 +132,17 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
 
     // Terfogat = az oldalvektorok vegyes szorzatanak hatodresze
     // CSAK az oldalbeallitasok utan hivhato, mert az abcd vektorok utolso allapotat hasznalja
-    tn->volume[tr] = abs( tripleProduct(
+    double volume = tripleProduct(
                               vector_diff( b, a ),
                               vector_diff( c, a ),
-                              vector_diff( d, a ) ) ) / 6.0;
+                              vector_diff( d, a )) / 6.0;
+    if(volume < 0) {
+        tn->volume[tr] = -volume;
+    } else{
+        tn->volume[tr] = volume;
+    }
+
+
     // TODO tomegkozeppont
     tn->massPoint[tr] = massPoint( a, b, c, d );
 
@@ -296,24 +303,26 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
     newTetra[2] = pr2;
     newTetra[3] = pr3;
 
-    addTetra( tn, tn->firstFreeTetraRef, newTetra );
+    tTetraRef newRef = tn->firstFreeTetraRef;
+
+    addTetra( tn, newRef, newTetra );
 
     // elobb atvertex, csak utana neighbours, mert utobbi elobbit hasznalja !!!
-    atVertex_insert( tn, tn->firstFreeTetraRef );
-    neighbours_insert( tn, tn->firstFreeTetraRef );
+    atVertex_insert( tn, newRef );
+    neighbours_insert( tn, newRef );
 
     // hol lesz az uj utolso elem?
-    if( tn->lastTetraRef < tn->firstFreeTetraRef ) {
-        tn->lastTetraRef = tn->firstFreeTetraRef;
+    if( tn->lastTetraRef < newRef ) {
+        tn->lastTetraRef = newRef;
     }
 
     //hol lesz a kovetkezo szabad hely?
     while(( tn->firstFreeTetraRef <= tn->lastTetraRef ) &&
-            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) ) ) {
+            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0) ) {
         ++( tn->firstFreeTetraRef );
     }
 
-    return tn->lastTetraRef;
+    return newRef;
 }
 
 void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {

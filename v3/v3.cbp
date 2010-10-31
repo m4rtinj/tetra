@@ -13,9 +13,13 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-Wall" />
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../base" />
 				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/v3" prefix_auto="1" extension_auto="1" />

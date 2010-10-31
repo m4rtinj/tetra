@@ -141,19 +141,14 @@ void neighbours_update( tTetranet tn ) {
     free( sarray );
 }
 
-
-
 /*  Megkeresi es beallitja adott tetraeder adott oldalahoz tartozo szomszedot.
  *  Beallitja a szomszednal is a kapcsolatot.
  *  Az atVertex-bol dolgozik, feltetel, hogy oda mar helyesen fel legyenek vive a pontok.
  */
 void findSideNeighbours( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    tPointRef a, b, c, v0;
-    unsigned vSet = 0; // p0 = 1; p1 = 2; p2 = 4; p3 = 8;
-    unsigned setP = 0; // kijeloli a set vmely elemet
+    tPointRef a, b, c;
     tTetraRef t0 = NULL_TETRA;
     int s0 = -1;    // amig negativ, nincs talalat. amugy a passzolo oldal indexe
-    unsigned i;
 
     switch( si ) {
     case 0:
@@ -183,39 +178,33 @@ void findSideNeighbours( tTetranet tn, tTetraRef tr, tSideIndex si ) {
     atVertex_init( tn, a );
     while(( s0 < 0 ) && (( t0 = atVertex_next( tn ) ) != NULL_TETRA ) ) {
         if( t0 != tr ) {
-            vSet = 15; // mind a 4 pont
-            setP = 1;  // a set elso eleme
-            for( i = 0; i <= 3; i++ ) {
-                v0 = tetranet_getVertex( tn, t0, i );
-                if(( v0 == a ) || ( v0 == b ) || ( v0 == c ) ) {
-                    vSet -= setP; // talalat: a pontot eltavolitjuk a set-bol
+            if( a == tetranet_getVertex( tn, t0, 0 ) ) {
+                if( b == tetranet_getVertex( tn, t0, 1 ) ) {
+                    if( c == tetranet_getVertex( tn, t0, 2 ) ) {
+                        s0 = 3;
+                    } else if( c == tetranet_getVertex( tn, t0, 3 ) ) {
+                        s0 = 2;
+                    }
+                } else if( b == tetranet_getVertex( tn, t0, 2 ) ) {
+                    if( c == tetranet_getVertex( tn, t0, 3 ) ) {
+                        s0 = 1;
+                    }
                 }
-                setP *= 2;    // a set kovetkezo eleme
-            }
-            switch( vSet ) {
-            case 1:
-                s0 = 0;
-                break;
-            case 2:
-                s0 = 1;
-                break;
-            case 4:
-                s0 = 2;
-                break;
-            case 8:
-                s0 = 3;
-                break;
-            default:
-                s0 = -1;
+            } else if( a == tetranet_getVertex( tn, t0, 1 ) ) {
+                if( b == tetranet_getVertex( tn, t0, 2 ) ) {
+                    if( c == tetranet_getVertex( tn, t0, 3 ) ) {
+                        s0 = 0;
+                    }
+                }
             }
         }
     }
+
     if( s0 < 0 ) {
         tetranet_setSideNext( tn, tr, si, NULL_TETRA );
     } else {
         if(( tetranet_getSideNext( tn, t0, s0 ) != NULL_TETRA ) ||
                 ( tetranet_getSideNext( tn, tr, si ) != NULL_TETRA ) ) {
-            printNet( tn );
             exitText( "Inconsistent neighbourhood data." );
         }
         tetranet_setSideNext( tn, tr, si, t0 );
@@ -238,13 +227,16 @@ void neighbours_delete( tTetranet tn, tTetraRef tr ) {
         if(( nb = tetranet_getSideNext( tn, tr, k ) ) != NULL_TETRA ) {
             for( j = 0; tetranet_getSideNext( tn, nb, j ) != tr; ++j ) {
                 if( j > 3 )
-                    exitText( "neighbours_delete error: asymmetric neighourhood." );
+                    exitText( "neighbours_delete error: asymmetric neighbourhood." );
             }
             tetranet_setSideNext( tn, nb, j, NULL_TETRA );
             tetranet_setSideNext( tn, tr, k, NULL_TETRA );
         }
     }
 }
+
+
+
 
 
 
