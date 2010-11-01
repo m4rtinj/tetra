@@ -41,7 +41,10 @@ void atVertex_update( tTetranet tn ) {
     // elokeszites
     atVertex_freeMem( tn );
     atv = malloc( sizeof( tAtVertexDesc ) );
+    /* csak mert nem akarok referenciat szamossagkent hasznalni, kiszedtem:
     atv->maxPr = tetranet_getLastPointRef( tn );
+    */
+    atv->maxPr = tetranet_getNumberOfPoints( tn );
     len = ( atv->maxPr + 1 ) * sizeof( dummyPointer );
     atv->idxArr = malloc( len );
     memset( atv->idxArr, '\0', len );
@@ -101,7 +104,8 @@ void atVertex_insert( tTetranet tn, tTetraRef tr ) {
     for( i = 0; i <= 3; i++ ) {
         pr = tetranet_getVertex( tn, tr, i );
         if( pr > atv->maxPr ) {
-            atv->idxArr = realloc( atv->idxArr, ( pr + 1 ) * sizeof( elem ) );
+            // boviteni kell az indextombot. legyen 110%-os az uj meret
+            atv->idxArr = realloc( atv->idxArr, ( pr + pr / 10 + 1 ) * sizeof( elem ) );
             for( k = atv->maxPr + 1; k <= pr; ++k ) {
                 atv->idxArr[k] = NULL;
             }

@@ -59,7 +59,8 @@ typedef struct {
     tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
     tPointRef      lastPointRef;   // az utolso hasznalt elem indexe
     tTetraRef      lastTetraRef;   // az utolso hasznalt elem indexe
-    tTetraRef      numberOfTetras; // a tetraederek szama;
+    unsigned long  numberOfPoints;
+    unsigned long  numberOfTetras; // a tetraederek szama;
 
     // az elso szabad elem indexe
     tTetraRef      firstFreeTetraRef;
@@ -145,6 +146,9 @@ tTetraRef tetranet_getLastTetraRef( tTetranet tn );
 
 /// utolso hasznalt pont ref
 tTetraRef tetranet_getLastPointRef( tTetranet tn );
+
+/// a pontok szama
+unsigned long tetranet_getNumberOfPoints( tTetranet tn );
 
 /// a tetraederek szama
 unsigned long tetranet_getNumberOfTetras( tTetranet tn );

@@ -189,6 +189,7 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tn->maxPointRef = nasreader_getPointNr( iniFile );
     tn->maxTetraRef = nasreader_getTetraNr( iniFile );
 
+    tn->numberOfPoints = 0;
     tn->numberOfTetras = 0;
 
     // TODO: eleve több helyet foglani, a finomitasokhoz, pl.: +10%
@@ -214,6 +215,7 @@ void tetranet_init( tTetranet tn, char *filename ) {
         tn->points[i] = tempPoint;
     } while( nasreader_readNextPoint( iniFile, &tempPoint ) );
     tn->lastPointRef = i;
+    tn->numberOfPoints = i;
 
     // tetraederek olvasasa fajlbol
     i = 0;
@@ -244,6 +246,7 @@ tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
         }
     }
     ++( tn->lastPointRef );
+    ++( tn->numberOfPoints );
     tn->points[tn->lastPointRef] = p;
     return tn->lastPointRef;
 }
