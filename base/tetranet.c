@@ -132,12 +132,22 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
 
     // Terfogat = az oldalvektorok vegyes szorzatanak hatodresze
     // CSAK az oldalbeallitasok utan hivhato, mert az abcd vektorok utolso allapotat hasznalja
-    tn->volume[tr] = abs( tripleProduct(
-                              vector_diff( b, a ),
-                              vector_diff( c, a ),
-                              vector_diff( d, a ) ) ) / 6.0;
+    double volume = tripleProduct(
+                        vector_diff( b, a ),
+                        vector_diff( c, a ),
+                        vector_diff( d, a ) ) / 6.0;
+    if( volume < 0 ) {
+        tn->volume[tr] = -volume;
+    } else {
+        tn->volume[tr] = volume;
+    }
+
+
     // TODO tomegkozeppont
     tn->massPoint[tr] = massPoint( a, b, c, d );
+
+    // tetraederek szama
+    ++( tn->numberOfTetras );
 }
 
 bool isPointInTetra( tTetranet tn, tTetraRef tr, tPoint p ) {
@@ -179,6 +189,8 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tn->maxPointRef = nasreader_getPointNr( iniFile );
     tn->maxTetraRef = nasreader_getTetraNr( iniFile );
 
+    tn->numberOfTetras = 0;
+
     // TODO: eleve több helyet foglani, a finomitasokhoz, pl.: +10%
     unsigned long num = tn->maxPointRef + 1;
     tn->points       = malloc( num * sizeof( tPoint ) );
@@ -211,7 +223,6 @@ void tetranet_init( tTetranet tn, char *filename ) {
         addTetra( tn, i, tempTetra );
     } while( nasreader_readNextTetra( iniFile, tempTetra ) );
     tn->lastTetraRef = i;
-
     // nem kell mar tobbet a file
     fclose( iniFile );
 
@@ -227,7 +238,7 @@ tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
     // TODO: ha mar letezik, akkor csak az indexet kerem
     if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
-        tn->points = realloc( tn->points, (tn->maxPointRef + 1) * sizeof( tPoint ));
+        tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
         if( tn->points == NULL ) {
             exitText( "Realloc points : error." );
         }
@@ -242,24 +253,34 @@ void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
 }
 
 tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPointRef pr2, tPointRef pr3 ) {
-
-    unsigned long num;
     if( tn->lastTetraRef >= tn->maxTetraRef ) {
-        // TODO atgondolni, hogy a duplazas nem eros-e egy kicsit
-        tn->maxTetraRef = tn->maxTetraRef * 2;
+        unsigned long num;
+        tn->maxTetraRef = tn->maxTetraRef * 2;  // TODO atgondolni, hogy a duplazas nem eros-e egy kicsit
         num = tn->maxTetraRef + 1;
         tn->vertices     = realloc( tn->vertices,     num * sizeof( tVertices ) );
+        if( tn->vertices == NULL )
+            exitText( "Realloc vertices : error." );
         tn->sideArea     = realloc( tn->sideArea,     num * sizeof( tSideArea ) );
+        if( tn->sideArea == NULL )
+            exitText( "Realloc sideArea : error." );
         tn->sideNormVect = realloc( tn->sideNormVect, num * sizeof( tSideNormVect ) );
+        if( tn->sideNormVect == NULL )
+            exitText( "Realloc sideNormVect : error." );
         tn->sideType     = realloc( tn->sideType,     num * sizeof( tSideType ) );
+        if( tn->sideType == NULL )
+            exitText( "Realloc sideType : error." );
         tn->sideNext     = realloc( tn->sideNext,     num * sizeof( tSideNext ) );
+        if( tn->sideNext == NULL )
+            exitText( "Realloc sideNext : error." );
         tn->volume       = realloc( tn->volume,       num * sizeof( double ) );
+        if( tn->volume == NULL )
+            exitText( "Realloc volume : error." );
         tn->states       = realloc( tn->states,       num * sizeof( tStates ) );
+        if( tn->states == NULL )
+            exitText( "Realloc massPoint : error." );
         tn->massPoint    = realloc( tn->massPoint,    num * sizeof( tPoint ) );
-        // TODO: minden tombot ellenorizni
-        if( tn->massPoint == NULL ) {
+        if( tn->massPoint == NULL )
             exitText( "Realloc tetras : error." );
-        }
     }
 
     tPointRef newTetra[4];
@@ -272,7 +293,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
     addTetra( tn, tn->lastTetraRef, newTetra );
 
     atVertex_update( tn );
-    neighbours_findNeighbours( tn, tn->lastTetraRef );
+    neighbours_insert( tn, tn->lastTetraRef );
 
     return tn->lastTetraRef;
 }
@@ -282,7 +303,6 @@ void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
 }
 
 tPoint    tetranet_getPoint( tTetranet tn, tPointRef pr ) {
-
     return tn->points[pr];
 }
 
@@ -308,6 +328,10 @@ void      tetranet_setState( tTetranet tn, tTetraRef tr, unsigned int sti, doubl
 
 tTetraRef tetranet_getSideNext( tTetranet tn, tTetraRef tr, tSideIndex si ) {
     return tn->sideNext[tr][si];
+}
+
+void      tetranet_setSideNext( tTetranet tn, tTetraRef tr, tSideIndex si, tTetraRef nb ) {
+    tn->sideNext[tr][si] = nb;
 }
 
 double    tetranet_getSideArea( tTetranet tn, tTetraRef tr, tSideIndex si ) {
@@ -341,11 +365,15 @@ tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
     return NULL_TETRA;
 }
 
-unsigned long tetranet_getNrOfTetras( tTetranet tn ) {
+unsigned long tetranet_getLastTetraRef( tTetranet tn ) {
     return tn->lastTetraRef;
 }
 
-unsigned long tetranet_getNrOfPoints( tTetranet tn ) {
+unsigned long tetranet_getLastPointRef( tTetranet tn ) {
     return tn->lastPointRef;
+}
+
+unsigned long tetranet_getNumberOfTetras( tTetranet tn ) {
+    return tn->numberOfTetras;
 }
 
