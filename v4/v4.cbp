@@ -30,7 +30,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../base" />
+			<Add directory="." />
+			<Add directory="../base_c" />
+			<Add directory="../base_h" />
 		</Compiler>
 		<Unit filename="../base_c/atvertex.c">
 			<Option compilerVar="CC" />
