@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1288483410 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1288647149 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -11,7 +11,7 @@
 	"tetranet.h"
 	"common.h"
 
-1288481260 /home/martinj/sze/szakdolg/valtozatok/base/tetranet.h
+1288647326 /home/martinj/sze/szakdolg/valtozatok/base/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -65,7 +65,7 @@
 	"common.h"
 	"vector.h"
 
-1288558054 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
+1288731592 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -78,4 +78,61 @@
 
 1288443918 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
 	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/errors.h
+
+1288647326 /home/martinj/sze/szakdolg/valtozatok/base_h/tetranet.h
+	"common.h"
+	"vector.h"
+
+1286642920 /home/martinj/sze/szakdolg/valtozatok/base_h/common.h
+
+1288122528 /home/martinj/sze/szakdolg/valtozatok/base_h/vector.h
+
+1288443918 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
+	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
+	"tetranet.h"
+	"common.h"
+	<stdio.h>
+
+1288386116 /home/martinj/sze/szakdolg/valtozatok/base_h/atvertex.h
+	"tetranet.h"
+	"common.h"
+
+1288647149 source:/home/martinj/sze/szakdolg/valtozatok/base_c/atvertex.c
+	<stdlib.h>
+	<string.h>
+	"atvertex.h"
+	"tetranet.h"
+	"common.h"
+	"errors.h"
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base_c/errors.c
+	"errors.h"
+	<stdio.h>
+	<stdlib.h>
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base_c/nasreader.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"nasreader.h"
+	"common.h"
+	"errors.h"
+	"tetranet.h"
+
+1288554130 source:/home/martinj/sze/szakdolg/valtozatok/base_c/neighbour.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"tetranet.h"
+	"errors.h"
+	"atvertex.h"
+
+1288122528 source:/home/martinj/sze/szakdolg/valtozatok/base_c/vector.c
+	"vector.h"
+	<math.h>
 

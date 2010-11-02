@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../base/atvertex.c" open="1" top="0" tabpos="1">
-		<Cursor position="3397" topLine="119" />
+	<File name="main.c" open="0" top="0" tabpos="3">
+		<Cursor position="552" topLine="8" />
 	</File>
-	<File name="../base/atvertex.h" open="1" top="0" tabpos="2">
-		<Cursor position="208" topLine="2" />
-	</File>
-	<File name="../base/neighbour.c" open="1" top="1" tabpos="6">
-		<Cursor position="5810" topLine="178" />
-	</File>
-	<File name="../base/neighbour.h" open="1" top="0" tabpos="4">
-		<Cursor position="291" topLine="0" />
-	</File>
-	<File name="../base/tetranet.h" open="1" top="0" tabpos="7">
-		<Cursor position="5903" topLine="167" />
-	</File>
-	<File name="main.c" open="1" top="0" tabpos="3">
-		<Cursor position="686" topLine="9" />
-	</File>
-	<File name="tetranet.c" open="1" top="0" tabpos="5">
-		<Cursor position="10861" topLine="343" />
+	<File name="tetranet.c" open="1" top="1" tabpos="0">
+		<Cursor position="658" topLine="15" />
 	</File>
 </CodeBlocks_layout_file>

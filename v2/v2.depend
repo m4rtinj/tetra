@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base/errors.c
+	"errors.h"
+	<stdio.h>
+	<stdlib.h>
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base/errors.h
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base/nasreader.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"nasreader.h"
+	"common.h"
+	"errors.h"
+	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base/nasreader.h
+	"tetranet.h"
+	"common.h"
+	<stdio.h>
+
+1288481260 /home/martinj/sze/szakdolg/valtozatok/base/tetranet.h
+	"common.h"
+	"vector.h"
+
+1286642920 /home/martinj/sze/szakdolg/valtozatok/base/common.h
+
+1288122528 /home/martinj/sze/szakdolg/valtozatok/base/vector.h
+
+1288569045 source:/home/martinj/sze/szakdolg/valtozatok/base/tetranet.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"tetranet.h"
+	"neighbour.h"
+	"errors.h"
+	"common.h"
+	"nasreader.h"
+	"atvertex.h"
+
+1288443918 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
+	"tetranet.h"
+
+1288386116 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+	"tetranet.h"
+	"common.h"
+
+1288122528 source:/home/martinj/sze/szakdolg/valtozatok/base/vector.c
+	"vector.h"
+	<math.h>
+
+1288302686 source:/home/martinj/sze/szakdolg/valtozatok/v2/main.c
+	<stdio.h>
+	<time.h>
+	<stdlib.h>
+	"errors.h"
+	"tetranet.h"
+	"vector.h"
+
+1288483410 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+	<stdlib.h>
+	<string.h>
+	"atvertex.h"
+	"tetranet.h"
+	"common.h"
+	"errors.h"
+
+1288554130 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"tetranet.h"
+	"errors.h"
+	"atvertex.h"
+

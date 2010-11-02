@@ -1,0 +1,67 @@
+# depslib dependency file v1.0
+1288647149 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+	<stdlib.h>
+	<string.h>
+	"atvertex.h"
+	"tetranet.h"
+	"common.h"
+	"errors.h"
+
+1288386116 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+	"tetranet.h"
+	"common.h"
+
+1288647326 /home/martinj/sze/szakdolg/valtozatok/base/tetranet.h
+	"common.h"
+	"vector.h"
+
+1286642920 /home/martinj/sze/szakdolg/valtozatok/base/common.h
+
+1288122528 /home/martinj/sze/szakdolg/valtozatok/base/vector.h
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base/errors.h
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base/errors.c
+	"errors.h"
+	<stdio.h>
+	<stdlib.h>
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base/nasreader.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"nasreader.h"
+	"common.h"
+	"errors.h"
+	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base/nasreader.h
+	"tetranet.h"
+	"common.h"
+	<stdio.h>
+
+1288554130 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"tetranet.h"
+	"errors.h"
+	"atvertex.h"
+
+1288122528 source:/home/martinj/sze/szakdolg/valtozatok/base/vector.c
+	"vector.h"
+	<math.h>
+
+1288207708 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
+	<stdio.h>
+	<time.h>
+	<stdlib.h>
+	"errors.h"
+	"tetranet.h"
+	"vector.h"
+
+1288652805 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+	"common.h"
+	"vector.h"
+
