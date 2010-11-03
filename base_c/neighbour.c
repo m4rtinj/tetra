@@ -48,7 +48,7 @@ void printarray( long lastIndex ) {
     long i;
     long j;
     for( i = 0; i < lastIndex; i++ ) {
-        printf( "%ld: ", sarray[i].tetra );
+        printf( "%ld: ", (unsigned long)(sarray[i].tetra) );
         for( j = 0; j < 3; j++ )
             printf( "%ld ", sarray[i].pts[j] );
         printf( "\n" );

@@ -32,7 +32,7 @@ typedef unsigned int tSideIndex; /* 0..3 */
 typedef struct tTetra tTetra;
 typedef struct tSide tSide;
 
-typedef tTetra* tTetraRef;
+typedef tTetra *tTetraRef;
 
 struct tSide {
     double area;
@@ -45,7 +45,7 @@ struct tTetra {
     long vertices[4];
     tSide sides[4]; // a szemkozti pont indexe az oldalindex
     double volume;
-    tPointRef massPoint;
+    tPoint massPoint;
     double states[N_STATE];
     tTetraRef next;
     tTetraRef prev;
@@ -68,7 +68,7 @@ typedef struct {
 
     // szamossagtarolas
     tPointRef      maxPointRef;    // a tomb utolso cimezheto helye
- // tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
+// tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
     tPointRef      lastPointRef;   // az utolso hasznalt elem indexe
     tTetraRef      lastTetraRef;   // a lanc utolso elemenek cime
     unsigned long  numberOfPoints;
@@ -147,7 +147,7 @@ tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p );
 tTetraRef tetranet_getLastTetraRef( tTetranet tn );
 
 /// utolso hasznalt pont ref
-tTetraRef tetranet_getLastPointRef( tTetranet tn );
+tPointRef tetranet_getLastPointRef( tTetranet tn );
 
 /// a tetraederek szama
 unsigned long tetranet_getNumberOfTetras( tTetranet tn );
@@ -186,6 +186,7 @@ bool ( *tetranet_atVertexInit )( tTetranet tn, tPointRef pr );
 tTetraRef( *tetranet_atVertexNext )( tTetranet tn );
 
 // csak teszteleshez
+void printTetra( tTetranet tn, tTetraRef tr );
 void printNet( tTetranet tn );
 
 #endif /* TETRANET_H_ */

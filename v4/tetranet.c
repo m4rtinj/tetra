@@ -48,7 +48,7 @@ void sortVertices( tPointRef p[4] ) {
     }
 }
 
-tTetraRef addTetra( tTetranet tn, tPointRef vertx[4] ) {
+void addTetra( tTetranet tn, tPointRef vertx[4] ) {
     int k = 0;
     double len = 0;
     double dotP = 0;
@@ -164,8 +164,6 @@ tTetraRef addTetra( tTetranet tn, tPointRef vertx[4] ) {
 
     // tetraederek szama
     ++( tn->numberOfTetras );
-
-    return prevTetra;
 }
 
 bool isPointInTetra( tTetranet tn, tTetraRef tr, tPoint p ) {
@@ -186,7 +184,7 @@ bool isPointInTetra( tTetranet tn, tTetraRef tr, tPoint p ) {
 
 tTetranet tetranet_new( ) {
     tTetranet t = malloc( sizeof( tTetranetDescriptor ) );
-    memset( t, '\0', sizeof( t ) );
+    memset( t, '\0', sizeof( tTetranetDescriptor ) );
     return t;
 }
 
@@ -220,10 +218,9 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tn->numberOfPoints = i;
 
     // tetraederek olvasasa fajlbol
-    tTetraRef prev = NULL_TETRA;
     nasreader_readFirstTetra( iniFile, tempTetra );
     do {
-        prev = addTetra( tn, prev, tempTetra );
+        addTetra( tn, tempTetra );
     } while( nasreader_readNextTetra( iniFile, tempTetra ) );
 
     // nem kell mar tobbet a file
@@ -263,7 +260,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
     vertx[2] = pr2;
     vertx[3] = pr3;
 
-    addTetra( tn, tn->lastTetraRef, newTetra );
+    addTetra( tn, vertx );
 
     atVertex_update( tn );
     neighbours_insert( tn, tn->lastTetraRef );
@@ -272,21 +269,26 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 }
 
 void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
-    // ervenytelenitjuk, azaz megjeloljuk ures helykent
-    tn->volume[tr] = -1;
-    // feljegyezzuk, ha o lett az elso szabad hely;
-    if( tr < tn->firstFreeTetraRef ) {
-        tn->firstFreeTetraRef = tr;
-    }
-    // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
-    if( tr == tn->lastTetraRef ) {
-        do {
-            --( tn->lastTetraRef );
-        } while( tn->volume[tn->lastTetraRef] < 0 );
-    }
     // toroljuk a szomszednyilvantartasbol es az atvertex-bol
     neighbours_delete( tn, tr );
     atVertex_delete( tn, tr );
+    // atlancolas
+    if( tr->next != NULL_TETRA ) {
+        tr->next->prev = tr->prev;
+    }
+    if( tr->prev != NULL_TETRA ) {
+        tr->prev->next = tr->next;
+    }
+    // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
+    if( tr == tn->lastTetraRef ) {
+        tn->lastTetraRef = tn->lastTetraRef->prev;
+    }
+    // ha ez volt az elso, akkor valtozik a belepesi pont is
+    if( tr == tn->tetras ) {
+        tn->tetras = tn->tetras->next;
+    }
+
+    free( tr );
     // tetraederek szama
     --( tn->numberOfTetras );
 }
@@ -296,69 +298,69 @@ tPoint    tetranet_getPoint( tTetranet tn, tPointRef pr ) {
 }
 
 tPointRef tetranet_getVertex( tTetranet tn, tTetraRef tr, unsigned vi ) {
-    return tn->vertices[tr][vi];
+    return tr->vertices[vi];
 }
 
 double    tetranet_getTetraVolume( tTetranet tn, tTetraRef tr ) {
-    return tn->volume[tr];
+    return tr->volume;
 }
 
 tPoint    tetranet_getTetraMassPoint( tTetranet tn, tTetraRef tr ) {
-    return tn->massPoint[tr];
+    return tr->massPoint;
 }
 
 double    tetranet_getState( tTetranet tn, tTetraRef tr, unsigned int sti ) {
-    return tn->states[tr][sti];
+    return tr->states[sti];
 }
 
 void      tetranet_setState( tTetranet tn, tTetraRef tr, unsigned int sti, double value ) {
-    tn->states[tr][sti] = value;
+    tr->states[sti] = value;
 }
 
 tTetraRef tetranet_getSideNext( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tn->sideNext[tr][si];
+    return tr->sides[si].next;
 }
 
 void      tetranet_setSideNext( tTetranet tn, tTetraRef tr, tSideIndex si, tTetraRef nb ) {
-    tn->sideNext[tr][si] = nb;
+    tr->sides[si].next = nb;
 }
 
 double    tetranet_getSideArea( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tn->sideArea[tr][si];
+    return tr->sides[si].area;
 }
 
 vector    tetranet_getSideNormalVector( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tn->sideNormVect[tr][si];
+    return tr->sides[si].normVect;
 }
 
 void      tetranet_iteratorInit( tTetranet tn ) {
-    tn->iteratorPos = 0;
+    tn->iteratorPos = tn->tetras;
 }
 
 tTetraRef tetranet_iteratorNext( tTetranet tn ) {
-    if( tn->iteratorPos >= tn->lastTetraRef ) {
-        return NULL_TETRA;
-    } else {
-        ++( tn->iteratorPos );
-        return( tn->iteratorPos );
+    tTetraRef tr = tn->iteratorPos;
+    if( tr != NULL_TETRA ) {
+        tn->iteratorPos = tr->next;
     }
+    return tr;
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
-    tTetraRef tr;
-    for( tr = tn->lastTetraRef; tr != 0; --tr ) {
+    tTetraRef tr = tn->tetras;
+    while( tr != NULL_TETRA ) {
         if( isPointInTetra( tn, tr, p ) ) {
             return tr;
         }
+        tr = tr->next;
     }
     return NULL_TETRA;
 }
 
-unsigned long tetranet_getLastTetraRef( tTetranet tn ) {
+tTetraRef tetranet_getLastTetraRef( tTetranet tn ) {
     return tn->lastTetraRef;
 }
 
-unsigned long tetranet_getLastPointRef( tTetranet tn ) {
+tPointRef tetranet_getLastPointRef( tTetranet tn ) {
     return tn->lastPointRef;
 }
 
@@ -370,23 +372,28 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
 }
 
+void printTetra( tTetranet tn, tTetraRef tr ) {
+    printf( "[%ld] ve: %ld %ld %ld %ld ",
+            ( unsigned long )tr ,
+            tetranet_getVertex( tn, tr, 0 ),
+            tetranet_getVertex( tn, tr, 1 ),
+            tetranet_getVertex( tn, tr, 2 ),
+            tetranet_getVertex( tn, tr, 3 ) );
+    printf( "nb: %ld %ld %ld %ld ",
+            ( unsigned long )( tetranet_getSideNext( tn, tr, 0 ) ),
+            ( unsigned long )( tetranet_getSideNext( tn, tr, 1 ) ),
+            ( unsigned long )( tetranet_getSideNext( tn, tr, 2 ) ),
+            ( unsigned long )( tetranet_getSideNext( tn, tr, 3 ) ) );
+    printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
+    printf( "\n" );
+}
+
 void printNet( tTetranet tn ) {
-    tTetraRef tr;
-    printf( "Printout tetranet.\n" );
-    tetranet_iteratorInit( tn );
-    while((( tr = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
-        printf( "[%ld] ve: %ld %ld %ld %ld ",
-                tr,
-                tetranet_getVertex( tn, tr, 0 ),
-                tetranet_getVertex( tn, tr, 1 ),
-                tetranet_getVertex( tn, tr, 2 ),
-                tetranet_getVertex( tn, tr, 3 ) );
-        printf( "nb: %ld %ld %ld %ld ",
-                tetranet_getSideNext( tn, tr, 0 ),
-                tetranet_getSideNext( tn, tr, 1 ),
-                tetranet_getSideNext( tn, tr, 2 ),
-                tetranet_getSideNext( tn, tr, 3 ) );
-        printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
-        printf( "\n" );
+    tTetraRef tr = tn->tetras;
+    while( tr != NULL_TETRA ) {
+        printTetra( tn, tr );
+        tr = tr->next;
     }
 }
+
+

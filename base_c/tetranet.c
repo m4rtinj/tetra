@@ -368,11 +368,11 @@ tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
     return NULL_TETRA;
 }
 
-unsigned long tetranet_getLastTetraRef( tTetranet tn ) {
+tTetraRef tetranet_getLastTetraRef( tTetranet tn ) {
     return tn->lastTetraRef;
 }
 
-unsigned long tetranet_getLastPointRef( tTetranet tn ) {
+tPointRef tetranet_getLastPointRef( tTetranet tn ) {
     return tn->lastPointRef;
 }
 

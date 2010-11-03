@@ -91,8 +91,22 @@ tTetraRef atVertex_next( tTetranet tn ) {
 }
 
 void atVertex_freeMem( tTetranet tn ) {
-    // TODO felszabaditani mindent!
-    tn->atVertex = NULL;
+    tAtVertexDesc *atv = tn->atVertex;
+    tElement *tmp;
+
+    if( atv != NULL ) {
+        unsigned long i = 0;
+        for(i=0;i<=atv->maxPr;++i){
+            while(atv->idxArr[i]!=NULL){
+                tmp = atv->idxArr[i]->next;
+                free(atv->idxArr[i]);
+                atv->idxArr[i] = tmp;
+            }
+        }
+        free(atv->idxArr);
+        free(tn->atVertex);
+        tn->atVertex = NULL;
+    }
 }
 
 void atVertex_insert( tTetranet tn, tTetraRef tr ) {
@@ -100,6 +114,8 @@ void atVertex_insert( tTetranet tn, tTetraRef tr ) {
     unsigned i;
     tElement *elem;
     tPointRef pr, k;
+
+    tSide s;
 
     for( i = 0; i <= 3; i++ ) {
         pr = tetranet_getVertex( tn, tr, i );

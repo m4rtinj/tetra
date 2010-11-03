@@ -145,7 +145,7 @@ tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p );
 tTetraRef tetranet_getLastTetraRef( tTetranet tn );
 
 /// utolso hasznalt pont ref
-tTetraRef tetranet_getLastPointRef( tTetranet tn );
+tPointRef tetranet_getLastPointRef( tTetranet tn );
 
 /// a pontok szama
 unsigned long tetranet_getNumberOfPoints( tTetranet tn );

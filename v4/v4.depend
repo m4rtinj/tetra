@@ -53,7 +53,7 @@
 	"vector.h"
 	<math.h>
 
-1288207708 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
+1288821252 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -61,7 +61,75 @@
 	"tetranet.h"
 	"vector.h"
 
-1288652805 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+1288821228 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
 	"vector.h"
+
+1288822129 source:/home/martinj/sze/szakdolg/valtozatok/base_c/atvertex.c
+	<stdlib.h>
+	<string.h>
+	"atvertex.h"
+	"tetranet.h"
+	"common.h"
+	"errors.h"
+
+1288386116 /home/martinj/sze/szakdolg/valtozatok/base_h/atvertex.h
+	"tetranet.h"
+	"common.h"
+
+1288817998 /home/martinj/sze/szakdolg/valtozatok/base_h/tetranet.h
+	"common.h"
+	"vector.h"
+
+1286642920 /home/martinj/sze/szakdolg/valtozatok/base_h/common.h
+
+1288122528 /home/martinj/sze/szakdolg/valtozatok/base_h/vector.h
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/errors.h
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base_c/errors.c
+	"errors.h"
+	<stdio.h>
+	<stdlib.h>
+
+1286742418 source:/home/martinj/sze/szakdolg/valtozatok/base_c/nasreader.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"nasreader.h"
+	"common.h"
+	"errors.h"
+	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
+	"tetranet.h"
+	"common.h"
+	<stdio.h>
+
+1288818579 source:/home/martinj/sze/szakdolg/valtozatok/base_c/neighbour.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"tetranet.h"
+	"errors.h"
+	"atvertex.h"
+
+1288122528 source:/home/martinj/sze/szakdolg/valtozatok/base_c/vector.c
+	"vector.h"
+	<math.h>
+
+1288826470 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"tetranet.h"
+	"neighbour.h"
+	"errors.h"
+	"common.h"
+	"nasreader.h"
+	"atvertex.h"
+
+1288443918 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
+	"tetranet.h"
 
