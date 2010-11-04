@@ -152,6 +152,9 @@ tPointRef tetranet_getLastPointRef( tTetranet tn );
 /// a tetraederek szama
 unsigned long tetranet_getNumberOfTetras( tTetranet tn );
 
+/// a pontok szama
+unsigned long tetranet_getNumberOfPoints( tTetranet tn );
+
 /*
  *  setterek: adatmodositas a halozatban
  */

@@ -4,7 +4,7 @@
 #ifndef ATVERTEX_H_
 #define ATVERTEX_H_
 
-#include "tetranet.h"
+#include <tetranet.h>
 #include "common.h"
 
 /**

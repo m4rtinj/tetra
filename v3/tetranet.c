@@ -168,7 +168,7 @@ bool isPointInTetra( tTetranet tn, tTetraRef tr, tPoint p ) {
 
 tTetranet tetranet_new( ) {
     tTetranet t = malloc( sizeof( tTetranetDescriptor ) );
-    memset( t, '\0', sizeof( t ) );
+    memset( t, '\0', sizeof( tTetranetDescriptor ) );
     return t;
 }
 

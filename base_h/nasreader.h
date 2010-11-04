@@ -8,7 +8,7 @@
 #ifndef NASREADER_H_
 #define NASREADER_H_
 
-#include "tetranet.h"
+#include <tetranet.h>
 #include "common.h"
 #include <stdio.h>
 

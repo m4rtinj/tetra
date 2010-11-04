@@ -92,8 +92,8 @@
 1288443918 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
 	"tetranet.h"
 
-1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
-	"tetranet.h"
+1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
+	<tetranet.h>
 	"common.h"
 	<stdio.h>
 

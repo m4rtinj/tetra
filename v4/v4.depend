@@ -61,11 +61,11 @@
 	"tetranet.h"
 	"vector.h"
 
-1288821228 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+1288828419 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
 	"vector.h"
 
-1288822129 source:/home/martinj/sze/szakdolg/valtozatok/base_c/atvertex.c
+1288828447 source:/home/martinj/sze/szakdolg/valtozatok/base_c/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -73,8 +73,8 @@
 	"common.h"
 	"errors.h"
 
-1288386116 /home/martinj/sze/szakdolg/valtozatok/base_h/atvertex.h
-	"tetranet.h"
+1288828351 /home/martinj/sze/szakdolg/valtozatok/base_h/atvertex.h
+	<tetranet.h>
 	"common.h"
 
 1288817998 /home/martinj/sze/szakdolg/valtozatok/base_h/tetranet.h
@@ -102,8 +102,8 @@
 	"errors.h"
 	"tetranet.h"
 
-1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
-	"tetranet.h"
+1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/nasreader.h
+	<tetranet.h>
 	"common.h"
 	<stdio.h>
 
@@ -130,6 +130,6 @@
 	"nasreader.h"
 	"atvertex.h"
 
-1288443918 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
-	"tetranet.h"
+1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
+	<tetranet.h>
 

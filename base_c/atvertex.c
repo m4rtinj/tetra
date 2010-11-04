@@ -115,8 +115,6 @@ void atVertex_insert( tTetranet tn, tTetraRef tr ) {
     tElement *elem;
     tPointRef pr, k;
 
-    tSide s;
-
     for( i = 0; i <= 3; i++ ) {
         pr = tetranet_getVertex( tn, tr, i );
         if( pr > atv->maxPr ) {
