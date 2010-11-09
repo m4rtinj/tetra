@@ -53,7 +53,7 @@
 	"vector.h"
 	<math.h>
 
-1288821252 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
+1288986724 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -61,7 +61,7 @@
 	"tetranet.h"
 	"vector.h"
 
-1288828419 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+1288987633 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -119,7 +119,7 @@
 	"vector.h"
 	<math.h>
 
-1288826470 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+1288988259 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

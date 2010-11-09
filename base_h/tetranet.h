@@ -147,11 +147,11 @@ tTetraRef tetranet_getLastTetraRef( tTetranet tn );
 /// utolso hasznalt pont ref
 tPointRef tetranet_getLastPointRef( tTetranet tn );
 
-/// a pontok szama
-unsigned long tetranet_getNumberOfPoints( tTetranet tn );
-
 /// a tetraederek szama
 unsigned long tetranet_getNumberOfTetras( tTetranet tn );
+
+/// a pontok szama
+unsigned long tetranet_getNumberOfPoints( tTetranet tn );
 
 /*
  *  setterek: adatmodositas a halozatban
@@ -186,8 +186,8 @@ bool ( *tetranet_atVertexInit )( tTetranet tn, tPointRef pr );
 /// csak az init utan: adott ponthoz tartozo tetraederek kozul a kovetkezo
 tTetraRef( *tetranet_atVertexNext )( tTetranet tn );
 
-
 // csak teszteleshez
+void printTetra( tTetranet tn, tTetraRef tr );
 void printNet( tTetranet tn );
 
 #endif /* TETRANET_H_ */

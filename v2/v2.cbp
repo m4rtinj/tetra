@@ -12,8 +12,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
-					<Add directory="../base" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add directory="/home/martinj/sze/szakdolg/valtozatok/v2" />
+					<Add directory="/home/martinj/sze/szakdolg/valtozatok/base_c" />
+					<Add directory="/home/martinj/sze/szakdolg/valtozatok/base_h" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -34,31 +39,31 @@
 			<Add option="-Wall" />
 			<Add directory="../base" />
 		</Compiler>
-		<Unit filename="../base/atvertex.c">
+		<Unit filename="../base_c/atvertex.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/atvertex.h" />
-		<Unit filename="../base/common.h" />
-		<Unit filename="../base/errors.c">
+		<Unit filename="../base_c/errors.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/errors.h" />
-		<Unit filename="../base/nasreader.c">
+		<Unit filename="../base_c/nasreader.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/nasreader.h" />
-		<Unit filename="../base/neighbour.c">
+		<Unit filename="../base_c/neighbour.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/neighbour.h" />
-		<Unit filename="../base/tetranet.c">
+		<Unit filename="../base_c/tetranet.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/tetranet.h" />
-		<Unit filename="../base/vector.c">
+		<Unit filename="../base_c/vector.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base/vector.h" />
+		<Unit filename="../base_h/atvertex.h" />
+		<Unit filename="../base_h/common.h" />
+		<Unit filename="../base_h/errors.h" />
+		<Unit filename="../base_h/nasreader.h" />
+		<Unit filename="../base_h/neighbour.h" />
+		<Unit filename="../base_h/tetranet.h" />
+		<Unit filename="../base_h/vector.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

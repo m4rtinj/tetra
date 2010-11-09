@@ -44,7 +44,7 @@ void selfTest( tTetranet tn ) {
     }
 
     printf( "%ld\n", i );
-    for( j = 1; j < 9; ++j ) {  // to 99
+    for( j = 1; j < 599; ++j ) {  // to 99
         sti = j % 9;
         tetranet_iteratorInit( tn );
         while((( tet = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
@@ -70,13 +70,14 @@ void selfTest( tTetranet tn ) {
     // printNet( tn );
 
     // location test
+    /*
     tPoint p;
     p = tetranet_getTetraMassPoint( tn, tetranet_getLastTetraRef(tn) );
     tet = tetranet_getPointLocation( tn, p );
     printTetra(tn,tet);
 
-    explode(tn,tn->tetras);
-}
+    explode(tn,tetranet_getLastTetraRef(tn));
+*/}
 
 int main() {
     tTetranet myTNet;

@@ -255,6 +255,19 @@ void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
     // semmi, nem eri meg a macerat. igy viszont memoriazabalas. TODO
 }
 
+
+/*
+F: first free ref
+M: max ref (arraysize-1)
+L: last used ref
+
+F == M ?
+    bovites
+    M az utolso uj elem
+F-re beirjuk az uj elemet
+amig F<=L es F nem ures
+    F++
+ */
 tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPointRef pr2, tPointRef pr3 ) {
     if( tn->lastTetraRef >= tn->maxTetraRef ) {
         unsigned long num;
@@ -295,14 +308,32 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
     ++( tn->lastTetraRef );
     addTetra( tn, tn->lastTetraRef, newTetra );
 
-    atVertex_update( tn );
+    // elobb atvertex, csak utana neighbours, mert utobbi elobbit hasznalja !!!
+    atVertex_insert( tn, tn->lastTetraRef );
     neighbours_insert( tn, tn->lastTetraRef );
 
     return tn->lastTetraRef;
 }
 
 void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
-    // semmi
+    // toroljuk a szomszednyilvantartasbol es az atvertex-bol
+    neighbours_delete( tn, tr );
+    atVertex_delete( tn, tr );
+
+    if( tr != tn->lastTetraRef ) {
+        // az üres helyre masoljuk az utolsot
+        tTetraRef tl = tn->lastTetraRef;
+
+        neighbours_delete( tn, tl );
+        atVertex_delete( tn, tl );
+
+        addTetra( tn, tr, tn->vertices[tl] );
+
+        atVertex_insert( tn, tr );
+        neighbours_insert( tn, tr );
+    }
+    --( tn->lastTetraRef );
+    --( tn->numberOfTetras );
 }
 
 tPoint    tetranet_getPoint( tTetranet tn, tPointRef pr ) {
@@ -384,26 +415,24 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
 }
 
-void printTetra( tTetranet tn, tTetraRef tr ) {
-    printf( "[%ld] ve: %ld %ld %ld %ld ",
-            ( unsigned long )tr ,
-            tetranet_getVertex( tn, tr, 0 ),
-            tetranet_getVertex( tn, tr, 1 ),
-            tetranet_getVertex( tn, tr, 2 ),
-            tetranet_getVertex( tn, tr, 3 ) );
-    printf( "nb: %ld %ld %ld %ld ",
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 0 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 1 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 2 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 3 ) ) );
-    printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
-    printf( "\n" );
-}
-
 void printNet( tTetranet tn ) {
     tTetraRef tr;
-    for( tr = 1; tr <= tn->lastTetraRef; ++tr ) {
-        printTetra( tn, tr );
+    printf( "Printout tetranet.\n" );
+    tetranet_iteratorInit( tn );
+    while((( tr = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
+        printf( "[%ld] ve: %ld %ld %ld %ld ",
+                tr,
+                tetranet_getVertex( tn, tr, 0 ),
+                tetranet_getVertex( tn, tr, 1 ),
+                tetranet_getVertex( tn, tr, 2 ),
+                tetranet_getVertex( tn, tr, 3 ) );
+        printf( "nb: %ld %ld %ld %ld ",
+                tetranet_getSideNext( tn, tr, 0 ),
+                tetranet_getSideNext( tn, tr, 1 ),
+                tetranet_getSideNext( tn, tr, 2 ),
+                tetranet_getSideNext( tn, tr, 3 ) );
+        printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
+        printf( "\n" );
     }
 }
 

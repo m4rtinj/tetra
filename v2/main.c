@@ -6,68 +6,25 @@
 #include "tetranet.h"
 #include "vector.h"
 
-#define TEST_FILE_NAME "../data/teszt2.nas"
-//#define TEST_FILE_NAME "teszt2.nas"
+//#define TEST_FILE_NAME "../data/teszt2.nas"
+#define TEST_FILE_NAME "../data/szivocso_vol_tetra_hm.nas"
 
-/*
- *  Egy gyors teszt, sebessegmeresere es TODO: helyesseg/teljesseg ellenorzesere
+void explode(tTetranet tn,tTetraRef tr){
+    tPointRef p0,p1,p2,p3,pm;
 
-void selfTest( tTetranet tn ) {
-    tTetraRef tet, tetSNx;
+    p0 = tetranet_getVertex(tn,tr,0);
+    p1 = tetranet_getVertex(tn,tr,1);
+    p2 = tetranet_getVertex(tn,tr,2);
+    p3 = tetranet_getVertex(tn,tr,3);
+    pm = tetranet_insertPoint(tn,tetranet_getTetraMassPoint(tn,tr));
 
-    unsigned long i = 1;
-    unsigned j = 1;
-    unsigned k = 0;
-    double sumVolume = 0;
-    double sumValue = 0;
-    double v1 = 0;
+    tetranet_delTetra(tn,tr);
 
-    tetranet_iteratorInit( tn );
-    while(( tet = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
-        tetranet_setState( tn, tet, 0, i );
-        ++i;
-    }
-
-    printf("%ld\n",i);
-    for( j = 1; j < 99; ++j ) {  // to 99
-        tetranet_iteratorInit( tn );
-        while((( tet = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
-            for( k = 0; k <= 3; ++k ) {
-                if(( tetSNx = tetranet_getSideNext( tn, tet, k ) ) != NULL_TETRA ) {
-                    v1 = tetranet_getTetraVolume( tn, tetSNx );
-                    sumVolume += v1;
-                    sumValue += v1 * tetranet_getState( tn, tetSNx, j - 1 );
-                }
-            }
-            tetranet_setState( tn, tet, j, sumValue / sumVolume );
-        }
-    }
-    printf( "SumValue=%lf\n", sumValue );
+    tetranet_insertTetra(tn,p0,p1,p2,pm);
+    tetranet_insertTetra(tn,p0,p1,pm,p3);
+    tetranet_insertTetra(tn,p0,pm,p2,p3);
+    tetranet_insertTetra(tn,pm,p1,p2,p3);
 }
-*/
-/*
-void selfTest() {
-    double volume = 0;
-    double area = 0;
-    tIndex idx = 0;
-    int i;
-
-
-    for( idx = 1; idx <= numberOfTetraeders; ++idx ) {
-        volume += tetranet_getVolume( idx );
-    }
-    printf( "volume = %lf\n", volume );
-
-    for( idx = 1; idx <= numberOfTetraeders; ++idx ) {
-        for( i = 0; i <= 3; ++i ) {
-            if( tetranet_getSideNext( idx, i ) == NULL_TETRA ) {
-                area += tetranet_getSideArea( idx, i );
-            }
-        }
-    }
-    printf( "area = %lf\n", area );
-}
-*/
 
 void selfTest( tTetranet tn ) {
     tTetraRef tet, tetSNx;
@@ -87,7 +44,7 @@ void selfTest( tTetranet tn ) {
     }
 
     printf( "%ld\n", i );
-    for( j = 1; j < 99; ++j ) {  // to 99
+    for( j = 1; j < 599; ++j ) {  // to 99
         sti = j % 9;
         tetranet_iteratorInit( tn );
         while((( tet = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
@@ -105,33 +62,22 @@ void selfTest( tTetranet tn ) {
     printf( "SumValue=%lf\n", sumValue );
 
     // atvertex test
-    tetranet_atVertexInit( tn, 2 );
+    tetranet_atVertexInit( tn, 2000 );
     while(( tet = tetranet_atVertexNext( tn ) ) != NULL_TETRA ) {
-        printf( "%ld\n", tet );
+        printf( "%ld\n", (unsigned long) tet );
     }
 
+    // printNet( tn );
+
     // location test
+/*
     tPoint p;
-    tPointRef pr;
-    p = tetranet_getTetraMassPoint( tn, 2 );
+    p = tetranet_getTetraMassPoint( tn, tetranet_getLastTetraRef(tn) );
     tet = tetranet_getPointLocation( tn, p );
-    printf( "location: %ld\n", tet );
+    printTetra(tn,tet);
 
-    // insert test
-    p.x = -100;
-    p.y = 0;
-    p.z = 0;
-
-    pr = tetranet_insertPoint( tn, p );
-    tet = tetranet_insertTetra( tn, 4, 3, 1, pr );
-
-    printf("nb: %ld %ld %ld %ld ",
-           tetranet_getSideNext(tn,tet,0),
-           tetranet_getSideNext(tn,tet,1),
-           tetranet_getSideNext(tn,tet,2),
-           tetranet_getSideNext(tn,tet,3));
-    printf("vol: %lf ",tetranet_getTetraVolume(tn,tet));
-    printf("\n");
+    explode(tn,tetranet_getLastTetraRef(tn));
+*/
 }
 
 int main() {

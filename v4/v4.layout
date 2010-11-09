@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../base_c/atvertex.c" open="0" top="0" tabpos="0">
-		<Cursor position="263" topLine="4" />
+	<File name="../base_c/atvertex.c" open="0" top="0" tabpos="3">
+		<Cursor position="3560" topLine="122" />
 	</File>
-	<File name="tetranet.c" open="1" top="1" tabpos="1">
-		<Cursor position="4412" topLine="149" />
+	<File name="../base_c/neighbour.c" open="0" top="0" tabpos="2">
+		<Cursor position="2202" topLine="142" />
 	</File>
-	<File name="tetranet.h" open="1" top="0" tabpos="2">
-		<Cursor position="1909" topLine="60" />
+	<File name="../base_c/vector.c" open="0" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../base_h/atvertex.h" open="0" top="0" tabpos="6">
+		<Cursor position="108" topLine="0" />
+	</File>
+	<File name="../base_h/common.h" open="0" top="0" tabpos="4">
+		<Cursor position="247" topLine="0" />
+	</File>
+	<File name="../base_h/errors.h" open="0" top="0" tabpos="10">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../base_h/nasreader.h" open="0" top="0" tabpos="8">
+		<Cursor position="149" topLine="0" />
+	</File>
+	<File name="../base_h/neighbour.h" open="0" top="0" tabpos="7">
+		<Cursor position="142" topLine="0" />
+	</File>
+	<File name="../base_h/vector.h" open="0" top="0" tabpos="9">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1">
+		<Cursor position="1099" topLine="35" />
+	</File>
+	<File name="tetranet.c" open="0" top="0" tabpos="2">
+		<Cursor position="8556" topLine="298" />
+	</File>
+	<File name="tetranet.h" open="0" top="0" tabpos="4">
+		<Cursor position="3633" topLine="122" />
 	</File>
 </CodeBlocks_layout_file>

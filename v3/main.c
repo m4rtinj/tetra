@@ -26,6 +26,17 @@ void explode(tTetranet tn,tTetraRef tr){
     tetranet_insertTetra(tn,pm,p1,p2,p3);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 void selfTest( tTetranet tn ) {
     tTetraRef tet, tetSNx;
 
@@ -44,7 +55,7 @@ void selfTest( tTetranet tn ) {
     }
 
     printf( "%ld\n", i );
-    for( j = 1; j < 9; ++j ) {  // to 99
+    for( j = 1; j < 99; ++j ) {  // to 99
         sti = j % 9;
         tetranet_iteratorInit( tn );
         while((( tet = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
@@ -64,24 +75,20 @@ void selfTest( tTetranet tn ) {
     // atvertex test
     tetranet_atVertexInit( tn, 2000 );
     while(( tet = tetranet_atVertexNext( tn ) ) != NULL_TETRA ) {
-        printf( "%ld\n", tet );
+        printf( "%ld\n", (unsigned long) tet );
     }
 
     // printNet( tn );
 
     // location test
+/*
     tPoint p;
-    p = tetranet_getTetraMassPoint( tn, 12345 );
+    p = tetranet_getTetraMassPoint( tn, tetranet_getLastTetraRef(tn) );
     tet = tetranet_getPointLocation( tn, p );
-    printf( "location: %ld\n", tet );
+    printTetra(tn,tet);
 
-    explode(tn,2398);
-
-
-    for(k=2000;k<3000;++k){
-        printf("%d ",k);
-        explode(tn,k);
-    }
+    explode(tn,tetranet_getLastTetraRef(tn));
+*/
 }
 
 int main() {
