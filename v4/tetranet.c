@@ -262,7 +262,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 
     addTetra( tn, vertx );
 
-    atVertex_update( tn );
+    atVertex_insert(tn, tn->lastTetraRef );
     neighbours_insert( tn, tn->lastTetraRef );
 
     return tn->lastTetraRef;
