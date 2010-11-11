@@ -1,6 +1,7 @@
 #include "testcase.h"
-#include "tetranet.h"
+#include <tetranet.h>
 #include <time.h>
+#include <stdio.h>
 
 clock_t startTime;
 
@@ -9,12 +10,11 @@ void startClock() {
 }
 
 void stopClock() {
-    stopTime = clock;
     printf( "Used Time: %lf\n",
-            (( double )( stopTime - startTime ) / CLOCKS_PER_SEC ) );
+            (( double )( clock() - startTime ) / CLOCKS_PER_SEC ) );
 }
 
-void testcase_explode( tTetranet tn, tTetraRef tr ) {
+void explode( tTetranet tn, tTetraRef tr ) {
     tPointRef p0, p1, p2, p3, pm;
 
     p0 = tetranet_getVertex( tn, tr, 0 );
@@ -31,17 +31,31 @@ void testcase_explode( tTetranet tn, tTetraRef tr ) {
     tetranet_insertTetra( tn, pm, p1, p2, p3 );
 }
 
-void testcase_explode( tTetranet tn, tTetraRef tr ) {
+void test_explode( tTetranet tn ) {
+    const unsigned count= 30000;
+    unsigned i;
+    tTetraRef tr;
 
+    printf("Test_explode... \n");
+    startClock();
+    tetranet_iteratorInit( tn );
+    for(i=0; i<count; ++i ){
+        tr = tetranet_iteratorNext( tn );
+        explode(tn,tr);
+    }
+    stopClock();
+}
 
-void testcase_alfa( tTetranet tn ) {
-    const double a = 0.2;
-    const unsigned nr = 99;
+void test_alfa( tTetranet tn ) {
+    const double a = 0.987;
+    const unsigned count = 10;
     double temp = 0;
     tTetraRef tr;
+    tTetraRef tr0;
     tSideIndex k;
     unsigned i = 0;
 
+    printf("Test_alfa... \n");
     startClock();
     // nullazas
     tetranet_iteratorInit( tn );
@@ -53,13 +67,16 @@ void testcase_alfa( tTetranet tn ) {
     tr = tetranet_iteratorNext( tn );
     tetranet_setState( tn, tr, 1, 200.0 );
 
-    for( i = 0; i <= nr; ++i ) {
+    for( i = 0; i < count; ++i ) {
         tetranet_iteratorInit( tn );
         // beallitjuk az uj ertekeket states[2]-be
         while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
             temp = 0;
             for( k = 0; k <= 3; ++k ) {
-                temp += tetranet_getState( tn, tetranet_getSideNext( tn, tr, k ), 1 );
+                tr0 = tetranet_getSideNext( tn, tr, k );
+                if(tr0 != NULL_TETRA){
+                temp += tetranet_getState( tn, tr0, 1 );
+                }
             }
             temp = ( 1 - a ) * temp + a * tetranet_getState( tn, tr, 1 );
             tetranet_setState( tn, tr, 2, temp );
@@ -71,5 +88,8 @@ void testcase_alfa( tTetranet tn ) {
         }
     }
     stopClock();
+    tetranet_iteratorInit( tn );
+    tr = tetranet_iteratorNext( tn );
+    printf("Check value = %lf\n", tetranet_getState(tn,tr,1));
 }
 

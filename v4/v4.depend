@@ -53,13 +53,14 @@
 	"vector.h"
 	<math.h>
 
-1288986724 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
+1289429244 source:/home/martinj/sze/szakdolg/valtozatok/v4/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
 	"errors.h"
 	"tetranet.h"
 	"vector.h"
+	"testcase.h"
 
 1288987633 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
@@ -77,7 +78,7 @@
 	<tetranet.h>
 	"common.h"
 
-1288817998 /home/martinj/sze/szakdolg/valtozatok/base_h/tetranet.h
+1289056379 /home/martinj/sze/szakdolg/valtozatok/base_h/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -119,7 +120,7 @@
 	"vector.h"
 	<math.h>
 
-1288988259 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+1289056567 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -131,5 +132,14 @@
 	"atvertex.h"
 
 1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
+	<tetranet.h>
+
+1289433170 source:/home/martinj/sze/szakdolg/valtozatok/base_c/testcase.c
+	"testcase.h"
+	<tetranet.h>
+	<time.h>
+	<stdio.h>
+
+1289433361 /home/martinj/sze/szakdolg/valtozatok/base_h/testcase.h
 	<tetranet.h>
 

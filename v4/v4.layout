@@ -28,11 +28,11 @@
 	<File name="../base_h/vector.h" open="0" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1">
-		<Cursor position="1099" topLine="35" />
+	<File name="main.c" open="0" top="0" tabpos="1">
+		<Cursor position="610" topLine="15" />
 	</File>
 	<File name="tetranet.c" open="0" top="0" tabpos="2">
-		<Cursor position="8556" topLine="298" />
+		<Cursor position="7762" topLine="255" />
 	</File>
 	<File name="tetranet.h" open="0" top="0" tabpos="4">
 		<Cursor position="3633" topLine="122" />

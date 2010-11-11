@@ -53,13 +53,14 @@
 	"vector.h"
 	<math.h>
 
-1289000529 source:/home/martinj/sze/szakdolg/valtozatok/v3a/main.c
+1289428995 source:/home/martinj/sze/szakdolg/valtozatok/v3a/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
 	"errors.h"
 	"tetranet.h"
 	"vector.h"
+	"testcase.h"
 
 1289088829 source:/home/martinj/sze/szakdolg/valtozatok/v3a/tetranet.c
 	<stdlib.h>
@@ -74,4 +75,7 @@
 
 1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
 	<tetranet.h>
+
+1289428943 /home/martinj/sze/szakdolg/valtozatok/base_h/testcase.h
+	"tetranet.h"
 

@@ -10,11 +10,9 @@
 //#define TEST_FILE_NAME "../data/teszt2.nas"
 #define TEST_FILE_NAME "../data/szivocso_vol_tetra_hm.nas"
 
-
-
 void selfTest( tTetranet tn ) {
-
-    testcase_alfa(tn);
+    test_alfa(tn);
+    test_explode(tn);
 }
 
 int main() {
