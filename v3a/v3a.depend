@@ -62,7 +62,7 @@
 	"vector.h"
 	"testcase.h"
 
-1289088829 source:/home/martinj/sze/szakdolg/valtozatok/v3a/tetranet.c
+1289606472 source:/home/martinj/sze/szakdolg/valtozatok/v3a/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -76,6 +76,12 @@
 1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
 	<tetranet.h>
 
-1289428943 /home/martinj/sze/szakdolg/valtozatok/base_h/testcase.h
-	"tetranet.h"
+1289433361 /home/martinj/sze/szakdolg/valtozatok/base_h/testcase.h
+	<tetranet.h>
+
+1289433721 source:/home/martinj/sze/szakdolg/valtozatok/base_c/testcase.c
+	"testcase.h"
+	<tetranet.h>
+	<time.h>
+	<stdio.h>
 

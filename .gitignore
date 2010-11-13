@@ -2,6 +2,8 @@
 *.html
 *.txt
 *.bak
+*.out
+*.png
 
 html/*
 latex/*

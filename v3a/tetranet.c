@@ -142,7 +142,6 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
         tn->volume[tr] = volume;
     }
 
-
     // TODO tomegkozeppont
     tn->massPoint[tr] = massPoint( a, b, c, d );
 
@@ -236,8 +235,20 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tetranet_atVertexNext = &atVertex_next;
 }
 
+inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
+    return (( p2.x - p1.x ) * ( p2.x - p1.x ) +
+            ( p2.y - p1.y ) * ( p2.y - p1.y ) +
+            ( p2.z - p1.z ) * ( p2.z - p1.z ) ) < EPS;
+}
+
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
-    // TODO: ha mar letezik, akkor csak az indexet kerem
+    tPointRef k;
+    for( k = 1; k<=tn->lastPointRef;k++){
+        if(isTheSamePoint(p,tn->points[k])){
+            return k;
+            }
+     }
+
     if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
         tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
