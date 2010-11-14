@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1289433637 source:/home/martinj/sze/szakdolg/valtozatok/v5/tetranet.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"tetranet.h"
+	"neighbour.h"
+	"errors.h"
+	"common.h"
+	"nasreader.h"
+	"atvertex.h"
+
+1288987633 /home/martinj/sze/szakdolg/valtozatok/v5/tetranet.h
+	"common.h"
+	"vector.h"
+
+1286642920 /home/martinj/sze/szakdolg/valtozatok/base/common.h
+
+1288122528 /home/martinj/sze/szakdolg/valtozatok/base/vector.h
+
+1289685730 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
+	"tetranet.h"
+
+1286742418 /home/martinj/sze/szakdolg/valtozatok/base/errors.h
+
+1289685732 /home/martinj/sze/szakdolg/valtozatok/base/nasreader.h
+	"tetranet.h"
+	"common.h"
+	<stdio.h>
+
+1289685732 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+	"tetranet.h"
+	"common.h"
+
