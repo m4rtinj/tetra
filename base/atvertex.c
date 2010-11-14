@@ -96,15 +96,15 @@ void atVertex_freeMem( tTetranet tn ) {
 
     if( atv != NULL ) {
         unsigned long i = 0;
-        for(i=0;i<=atv->maxPr;++i){
-            while(atv->idxArr[i]!=NULL){
+        for( i = 0; i <= atv->maxPr; ++i ) {
+            while( atv->idxArr[i] != NULL ) {
                 tmp = atv->idxArr[i]->next;
-                free(atv->idxArr[i]);
+                free( atv->idxArr[i] );
                 atv->idxArr[i] = tmp;
             }
         }
-        free(atv->idxArr);
-        free(tn->atVertex);
+        free( atv->idxArr );
+        free( tn->atVertex );
         tn->atVertex = NULL;
     }
 }

@@ -11,7 +11,7 @@
 #define TEST_FILE_NAME "../data/szivocso_vol_tetra_hm.nas"
 
 void selfTest( tTetranet tn ) {
-    test_alfa(tn);
+   // test_alfa(tn);
     test_explode(tn);
 }
 

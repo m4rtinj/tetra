@@ -16,8 +16,6 @@
 					<Add option="-Wall" />
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add directory="/home/martinj/sze/szakdolg/valtozatok/v4" />
-					<Add directory="/home/martinj/sze/szakdolg/valtozatok/base_h" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
@@ -38,35 +36,34 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../v4" />
-			<Add directory="../base_c" />
-			<Add directory="../base_h" />
+			<Add directory="." />
+			<Add directory="../base" />
 		</Compiler>
-		<Unit filename="../base_c/atvertex.c">
+		<Unit filename="../base/atvertex.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_c/errors.c">
+		<Unit filename="../base/atvertex.h" />
+		<Unit filename="../base/common.h" />
+		<Unit filename="../base/errors.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_c/nasreader.c">
+		<Unit filename="../base/errors.h" />
+		<Unit filename="../base/nasreader.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_c/neighbour.c">
+		<Unit filename="../base/nasreader.h" />
+		<Unit filename="../base/neighbour.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_c/testcase.c">
+		<Unit filename="../base/neighbour.h" />
+		<Unit filename="../base/testcase.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_c/vector.c">
+		<Unit filename="../base/testcase.h" />
+		<Unit filename="../base/vector.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../base_h/atvertex.h" />
-		<Unit filename="../base_h/common.h" />
-		<Unit filename="../base_h/errors.h" />
-		<Unit filename="../base_h/nasreader.h" />
-		<Unit filename="../base_h/neighbour.h" />
-		<Unit filename="../base_h/testcase.h" />
-		<Unit filename="../base_h/vector.h" />
+		<Unit filename="../base/vector.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

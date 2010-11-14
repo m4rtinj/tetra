@@ -1,5 +1,5 @@
 #include "testcase.h"
-#include <tetranet.h>
+#include "tetranet.h"
 #include <time.h>
 #include <stdio.h>
 
@@ -32,16 +32,16 @@ void explode( tTetranet tn, tTetraRef tr ) {
 }
 
 void test_explode( tTetranet tn ) {
-    const unsigned count= 30000;
+    const unsigned count = 30000;
     unsigned i;
     tTetraRef tr;
 
-    printf("Test_explode... \n");
+    printf( "Test_explode... \n" );
     startClock();
     tetranet_iteratorInit( tn );
-    for(i=0; i<count; ++i ){
+    for( i = 0; i < count; ++i ) {
         tr = tetranet_iteratorNext( tn );
-        explode(tn,tr);
+        explode( tn, tr );
     }
     stopClock();
 }
@@ -55,7 +55,7 @@ void test_alfa( tTetranet tn ) {
     tSideIndex k;
     unsigned i = 0;
 
-    printf("Test_alfa... \n");
+    printf( "Test_alfa... \n" );
     startClock();
     // nullazas
     tetranet_iteratorInit( tn );
@@ -74,8 +74,8 @@ void test_alfa( tTetranet tn ) {
             temp = 0;
             for( k = 0; k <= 3; ++k ) {
                 tr0 = tetranet_getSideNext( tn, tr, k );
-                if(tr0 != NULL_TETRA){
-                temp += tetranet_getState( tn, tr0, 1 );
+                if( tr0 != NULL_TETRA ) {
+                    temp += tetranet_getState( tn, tr0, 1 );
                 }
             }
             temp = ( 1 - a ) * temp + a * tetranet_getState( tn, tr, 1 );
@@ -90,6 +90,6 @@ void test_alfa( tTetranet tn ) {
     stopClock();
     tetranet_iteratorInit( tn );
     tr = tetranet_iteratorNext( tn );
-    printf("Check value = %lf\n", tetranet_getState(tn,tr,1));
+    printf( "Check value = %lf\n", tetranet_getState( tn, tr, 1 ) );
 }
 

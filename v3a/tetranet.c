@@ -131,7 +131,7 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
     }
 
     // Terfogat = az oldalvektorok vegyes szorzatanak hatodresze
-    // CSAK az oldalbeallitasok utan hivhato, mert az abcd vektorok utolso allapotat hasznalja
+    // CSAK az oldalbeallitasok utan allhat, mert az abcd vektorok utolso allapotat hasznalja
     double volume = tripleProduct(
                         vector_diff( b, a ),
                         vector_diff( c, a ),
@@ -159,7 +159,6 @@ bool isPointInTetra( tTetranet tn, tTetraRef tr, tPoint p ) {
                  tetranet_getSideNormalVector( tn, tr, 0 ) )
              < 0 );
 }
-
 
 /* **********************************
  *   Interface fuggvenyek
