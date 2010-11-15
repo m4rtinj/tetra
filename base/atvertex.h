@@ -23,7 +23,7 @@ bool atVertex_init( tTetranet tn, tPointRef p );
 /**
  *  Az adott ponthoz tartozo kovetkezo tatraeder indexet adja vissza.
  *  Parametere nincs, a atVertex_getFirst-ben megadott ponthoz keres.
- *  @return a ponthoz tartozo kovetkezo tetraeder indexe, ha nincs tobb, akkor NULL_POINT
+ *  @return a ponthoz tartozo kovetkezo tetraeder indexe, ha nincs tobb, akkor NULL_TETRA
  */
 tTetraRef atVertex_next( tTetranet tn );
 

@@ -23,10 +23,10 @@ typedef unsigned int tSideIndex; /* 0..3 */
 #define N_STATE 10
 
 /// konstans az ervenytelen / nem letezo pont jelzesere
-#define NULL_POINT NULL
+#define NULL_POINT 0
 
 /// konstans az ervenytelen / nem letezo tetraeder jelzesere
-#define NULL_TETRA NULL
+#define NULL_TETRA 0
 
 // a tetraeder struktura definicioja
 typedef struct tTetra tTetra;
@@ -43,7 +43,7 @@ typedef struct {
 } tSide;
 
 struct tTetra {
-    long vertices[4];
+    unsigned long vertices[4];
     tSide sides[4]; // a szemkozti pont indexe az oldalindex
     double volume;
     tPoint massPoint;
@@ -60,7 +60,7 @@ typedef struct {
 
     // szamossagtarolas
     tPointRef      maxPointRef;    // a tomb utolso cimezheto helye
-//  tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
+    tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
     tPointRef      lastPointRef;   // az utolso hasznalt elem indexe
     tTetraRef      lastTetraRef;   // a lanc utolso elemenek cime
     unsigned long  numberOfPoints;

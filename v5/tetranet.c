@@ -21,12 +21,12 @@
  */
 void sortVertices( tPointRef p[4] ) {
     tPointRef temp;
-    #define CHECK(i, j) {if( p[0] > p[3] ){temp = p[0]; p[0] = p[3]; p[3] = temp;}}
-    CHECK(0, 3)
-    CHECK(1, 2)
-    CHECK(0, 1)
-    CHECK(2, 3)
-    CHECK(1, 2)
+#define CHECK(i, j) {if( p[i] > p[j] ){temp = p[i]; p[i] = p[j]; p[j] = temp;}}
+    CHECK( 0, 3 )
+    CHECK( 1, 2 )
+    CHECK( 0, 1 )
+    CHECK( 2, 3 )
+    CHECK( 1, 2 )
 }
 
 void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
@@ -126,7 +126,7 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
     // tomegkozeppont
     tn->tetras[tr].massPoint = massPoint( a, b, c, d );
 
- //   tn->lastTetraRef = newTetra; TODO javitani ezt, mert itt nincs jo helyen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//   tn->lastTetraRef = newTetra; TODO javitani ezt, mert itt nincs jo helyen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // tetraederek szama
     ++( tn->numberOfTetras );
@@ -176,10 +176,10 @@ void tetranet_init( tTetranet tn, char *filename ) {
 
     // TODO: eleve több helyet foglani, a finomitasokhoz, pl.: +10%
     unsigned long num = tn->maxPointRef + 1;
-  //  tn->points       = malloc( num * sizeof( tPoint ) );
-// TODO
+    tn->points       = malloc( num * sizeof( tPoint ) );
+
     num = tn->maxTetraRef + 1;
-    tn->vertices     = malloc( num * sizeof( tVertices ) );
+    tn->tetras = malloc( num * sizeof( tTetra ) );
 
     // pontok olvasasa fajlbol
     i = 0;
@@ -218,11 +218,11 @@ inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
 
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
     tPointRef k;
-    for( k = 1; k<=tn->lastPointRef;k++){
-        if(isTheSamePoint(p,tn->points[k])){
+    for( k = 1; k <= tn->lastPointRef; k++ ) {
+        if( isTheSamePoint( p, tn->points[k] ) ) {
             return k;
-            }
-     }
+        }
+    }
 
     if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
@@ -242,13 +242,22 @@ void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
 }
 
 tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPointRef pr2, tPointRef pr3 ) {
+    if( tn->lastTetraRef >= tn->maxTetraRef ) {
+        unsigned long num;
+        tn->maxTetraRef = tn->maxTetraRef * 2;  // TODO atgondolni, hogy a duplazas nem eros-e egy kicsit
+        num = tn->maxTetraRef + 1;
+        tn->tetras     = realloc( tn->tetras,     num * sizeof( tTetra ) );
+        if( tn->tetras == NULL )
+            exitText( "Realloc tetras : error." );
+    }
     tPointRef vertx[4];
     vertx[0] = pr0;
     vertx[1] = pr1;
     vertx[2] = pr2;
     vertx[3] = pr3;
 
-    addTetra( tn, vertx );
+    ++( tn->lastTetraRef );
+    addTetra( tn, tn->lastTetraRef, vertx );
 
     atVertex_insert( tn, tn->lastTetraRef );
     neighbours_insert( tn, tn->lastTetraRef );
@@ -260,7 +269,7 @@ void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
     // toroljuk a szomszednyilvantartasbol es az atvertex-bol
     neighbours_delete( tn, tr );
     atVertex_delete( tn, tr );
-  
+
     if( tr != tn->lastTetraRef ) {
         // az üres helyre masoljuk az utolsot
         tTetraRef tl = tn->lastTetraRef;
@@ -268,7 +277,7 @@ void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
         neighbours_delete( tn, tl );
         atVertex_delete( tn, tl );
 
-        addTetra( tn, tr, tn->vertices[tl] );
+        addTetra( tn, tr, tn->tetras[tl].vertices );
 
         atVertex_insert( tn, tr );
         neighbours_insert( tn, tr );
@@ -282,43 +291,43 @@ tPoint    tetranet_getPoint( tTetranet tn, tPointRef pr ) {
 }
 
 tPointRef tetranet_getVertex( tTetranet tn, tTetraRef tr, unsigned vi ) {
-    return tr->vertices[vi];
+    return tn->tetras[tr].vertices[vi];
 }
 
 double    tetranet_getTetraVolume( tTetranet tn, tTetraRef tr ) {
-    return tr->volume;
+    return tn->tetras[tr].volume;
 }
 
 tPoint    tetranet_getTetraMassPoint( tTetranet tn, tTetraRef tr ) {
-    return tr->massPoint;
+    return tn->tetras[tr].massPoint;
 }
 
 double    tetranet_getState( tTetranet tn, tTetraRef tr, unsigned int sti ) {
-    return tr->states[sti];
+    return tn->tetras[tr].states[sti];
 }
 
 void      tetranet_setState( tTetranet tn, tTetraRef tr, unsigned int sti, double value ) {
-    tr->states[sti] = value;
+    tn->tetras[tr].states[sti] = value;
 }
 
 tTetraRef tetranet_getSideNext( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tr->sides[si].next;
+    return tn->tetras[tr].sides[si].next;
 }
 
 void      tetranet_setSideNext( tTetranet tn, tTetraRef tr, tSideIndex si, tTetraRef nb ) {
-    tr->sides[si].next = nb;
+    tn->tetras[tr].sides[si].next = nb;
 }
 
 double    tetranet_getSideArea( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tr->sides[si].area;
+    return tn->tetras[tr].sides[si].area;
 }
 
 vector    tetranet_getSideNormalVector( tTetranet tn, tTetraRef tr, tSideIndex si ) {
-    return tr->sides[si].normVect;
+    return tn->tetras[tr].sides[si].normVect;
 }
 
 void      tetranet_iteratorInit( tTetranet tn ) {
-    tn->iteratorPos = tn->tetras;
+    tn->iteratorPos = 0;
 }
 
 tTetraRef tetranet_iteratorNext( tTetranet tn ) {
@@ -373,10 +382,9 @@ void printTetra( tTetranet tn, tTetraRef tr ) {
 }
 
 void printNet( tTetranet tn ) {
-    tTetraRef tr = tn->tetras;
-    while( tr != NULL_TETRA ) {
+    tTetraRef tr;
+    for( tr = 1; tr <= tn->lastTetraRef; ++tr ) {
         printTetra( tn, tr );
-        tr = tr->next;
     }
 }
 

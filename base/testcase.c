@@ -10,7 +10,7 @@ void startClock() {
 }
 
 void stopClock() {
-    printf( "Used Time: %lf\n",
+    printf( "used time: %5.2lf sec.\n",
             (( double )( clock() - startTime ) / CLOCKS_PER_SEC ) );
 }
 
@@ -36,7 +36,7 @@ void test_explode( tTetranet tn ) {
     unsigned i;
     tTetraRef tr;
 
-    printf( "Test_explode... \n" );
+    printf( "test_explode... " );
     startClock();
     tetranet_iteratorInit( tn );
     for( i = 0; i < count; ++i ) {
@@ -47,8 +47,8 @@ void test_explode( tTetranet tn ) {
 }
 
 void test_alfa( tTetranet tn ) {
-    const double a = 0.987;
-    const unsigned count = 10;
+    const double a = 0.9987;
+    const unsigned count = 200;
     double temp = 0;
     tTetraRef tr;
     tTetraRef tr0;
