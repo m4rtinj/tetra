@@ -32,7 +32,7 @@ void explode( tTetranet tn, tTetraRef tr ) {
 }
 
 void test_explode( tTetranet tn ) {
-    const unsigned count = 30000;
+    const unsigned count = 80000;
     unsigned i;
     tTetraRef tr;
 
@@ -48,24 +48,31 @@ void test_explode( tTetranet tn ) {
 
 void test_alfa( tTetranet tn ) {
     const double a = 0.9987;
-    const unsigned count = 200;
+    const unsigned count = 800;
     double temp = 0;
     tTetraRef tr;
     tTetraRef tr0;
+    tTetraRef trMaxVol;
     tSideIndex k;
     unsigned i = 0;
 
+
     printf( "Test_alfa... \n" );
     startClock();
-    // nullazas
+    // nullazas + legnagyobb terfogat keresese
+    temp = 0;
+    trMaxVol = NULL_TETRA;
     tetranet_iteratorInit( tn );
     while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
         tetranet_setState( tn, tr, 1, 0.0 );
+        if (tetranet_getTetraVolume(tn,tr) > temp){
+            trMaxVol = tr;
+            temp = tetranet_getTetraVolume(tn,tr);
+        }
     }
 
-    tetranet_iteratorInit( tn );
-    tr = tetranet_iteratorNext( tn );
-    tetranet_setState( tn, tr, 1, 200.0 );
+    // ertek a legnagyobb terfogatuba
+    tetranet_setState( tn, trMaxVol, 1, 200.0 );
 
     for( i = 0; i < count; ++i ) {
         tetranet_iteratorInit( tn );
@@ -88,8 +95,6 @@ void test_alfa( tTetranet tn ) {
         }
     }
     stopClock();
-    tetranet_iteratorInit( tn );
-    tr = tetranet_iteratorNext( tn );
-    printf( "Check value = %lf\n", tetranet_getState( tn, tr, 1 ) );
+    printf( "Check value = %lf\n", tetranet_getState( tn, trMaxVol, 1 ) );
 }
 

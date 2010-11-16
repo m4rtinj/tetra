@@ -4,6 +4,7 @@
 *.bak
 *.out
 *.png
+*.layout
 
 html/*
 latex/*

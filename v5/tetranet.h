@@ -48,8 +48,6 @@ struct tTetra {
     double volume;
     tPoint massPoint;
     double states[N_STATE];
-    tTetraRef next;
-    tTetraRef prev;
 };
 
 typedef struct {

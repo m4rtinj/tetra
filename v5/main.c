@@ -19,9 +19,9 @@ void printAll( tTetranet tn ) {
 }
 
 void selfTest( tTetranet tn ) {
-    test_explode(tn);
-    test_alfa(tn);
-    printAll( tn );
+    test_explode( tn );
+    test_alfa( tn );
+//    printAll( tn );
 }
 
 int main() {

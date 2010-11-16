@@ -10,11 +10,18 @@
 //#define TEST_FILE_NAME "../data/teszt2.nas"
 #define TEST_FILE_NAME "../data/szivocso_vol_tetra_hm.nas"
 
-
+void printAll( tTetranet tn ) {
+    tTetraRef tr;
+    tetranet_iteratorInit( tn );
+    while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+        printTetra( tn, tr );
+    }
+}
 
 void selfTest( tTetranet tn ) {
-    test_alfa(tn);
-    test_explode(tn);
+    test_explode( tn );
+    test_alfa( tn );
+//    printAll( tn );
 }
 
 int main() {

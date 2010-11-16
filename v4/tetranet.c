@@ -262,7 +262,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 
     addTetra( tn, vertx );
 
-    atVertex_insert(tn, tn->lastTetraRef );
+    atVertex_insert( tn, tn->lastTetraRef );
     neighbours_insert( tn, tn->lastTetraRef );
 
     return tn->lastTetraRef;
@@ -373,18 +373,19 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
 }
 
 void printTetra( tTetranet tn, tTetraRef tr ) {
-    printf( "[%ld] ve: %ld %ld %ld %ld ",
-            ( unsigned long )tr ,
+    printf( "[%7ld] ve: %6ld %6ld %6ld %6ld ",
+            ( unsigned long )tr,
             tetranet_getVertex( tn, tr, 0 ),
             tetranet_getVertex( tn, tr, 1 ),
             tetranet_getVertex( tn, tr, 2 ),
             tetranet_getVertex( tn, tr, 3 ) );
-    printf( "nb: %ld %ld %ld %ld ",
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 0 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 1 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 2 ) ),
-            ( unsigned long )( tetranet_getSideNext( tn, tr, 3 ) ) );
-    printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
+    printf( "nb: %7ld %7ld %7ld %7ld ",
+            ( unsigned long ) tetranet_getSideNext( tn, tr, 0 ) ,
+            ( unsigned long ) tetranet_getSideNext( tn, tr, 1 ) ,
+            ( unsigned long ) tetranet_getSideNext( tn, tr, 2 ) ,
+            ( unsigned long ) tetranet_getSideNext( tn, tr, 3 ) );
+    printf( "vol: %5.2lf ", tetranet_getTetraVolume( tn, tr ) );
+    printf( "sta: %8.4lf ", tetranet_getState( tn, tr, 1 ) );
     printf( "\n" );
 }
 
