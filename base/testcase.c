@@ -1,17 +1,28 @@
 #include "testcase.h"
 #include "tetranet.h"
-#include <time.h>
+#include "common.h"
+#include <sys/time.h>
 #include <stdio.h>
+#include <sys/resource.h>
 
-clock_t startTime;
+unsigned long startTime; // ms
 
 void startClock() {
-    startTime = clock();
+    struct rusage rus;
+    getrusage( RUSAGE_SELF, &rus );
+    startTime = rus.ru_utime.tv_sec * 1000 + rus.ru_utime.tv_usec / 1000;
 }
 
-void stopClock() {
-    printf( "used time: %5.2lf sec.\n",
-            (( double )( clock() - startTime ) / CLOCKS_PER_SEC ) );
+void stopClock( char *name ) {
+    struct rusage rus;
+    unsigned long stopTime;
+    getrusage( RUSAGE_SELF, &rus );
+    stopTime = rus.ru_utime.tv_sec * 1000 + rus.ru_utime.tv_usec / 1000;
+
+    printf( "Ver: %8s | ", version );
+    printf( "Name: %8s | ", name );
+    printf( "Time: %5.2lf s | ", (double)(stopTime - startTime)/1000.0 );
+    printf( "Mem: %8ld kB\n", rus.ru_maxrss );
 }
 
 void explode( tTetranet tn, tTetraRef tr ) {
@@ -32,23 +43,22 @@ void explode( tTetranet tn, tTetraRef tr ) {
 }
 
 void test_explode( tTetranet tn ) {
-    const unsigned count = 80000;
+    const unsigned count = 200;
     unsigned i;
     tTetraRef tr;
 
-    printf( "test_explode... " );
     startClock();
     tetranet_iteratorInit( tn );
     for( i = 0; i < count; ++i ) {
         tr = tetranet_iteratorNext( tn );
         explode( tn, tr );
     }
-    stopClock();
+    stopClock( "explode" );
 }
 
 void test_alfa( tTetranet tn ) {
     const double a = 0.9987;
-    const unsigned count = 800;
+    const unsigned count = 200;
     double temp = 0;
     tTetraRef tr;
     tTetraRef tr0;
@@ -56,8 +66,6 @@ void test_alfa( tTetranet tn ) {
     tSideIndex k;
     unsigned i = 0;
 
-
-    printf( "Test_alfa... \n" );
     startClock();
     // nullazas + legnagyobb terfogat keresese
     temp = 0;
@@ -65,9 +73,9 @@ void test_alfa( tTetranet tn ) {
     tetranet_iteratorInit( tn );
     while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
         tetranet_setState( tn, tr, 1, 0.0 );
-        if (tetranet_getTetraVolume(tn,tr) > temp){
+        if( tetranet_getTetraVolume( tn, tr ) > temp ) {
             trMaxVol = tr;
-            temp = tetranet_getTetraVolume(tn,tr);
+            temp = tetranet_getTetraVolume( tn, tr );
         }
     }
 
@@ -94,7 +102,7 @@ void test_alfa( tTetranet tn ) {
             tetranet_setState( tn, tr, 1, tetranet_getState( tn, tr, 2 ) );
         }
     }
-    stopClock();
+    stopClock( "alfa" );
     printf( "Check value = %lf\n", tetranet_getState( tn, trMaxVol, 1 ) );
 }
 

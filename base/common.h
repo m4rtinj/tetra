@@ -11,4 +11,6 @@ typedef int bool;
 /// nagyon kicsi szam, long tipusu nulla
 #define EPS 0.0000000001
 
+/// a programvaltozat esetleg verzio jelzesere, ertekadas a main.c-ben, max 8 karakter
+char version[9];
 #endif
