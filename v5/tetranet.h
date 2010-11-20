@@ -57,12 +57,13 @@ typedef struct {
     tTetra        *tetras;
 
     // szamossagtarolas
-    tPointRef      maxPointRef;    // a tomb utolso cimezheto helye
-    tTetraRef      maxTetraRef;    // a tomb utolso cimezheto helye
-    tPointRef      lastPointRef;   // az utolso hasznalt elem indexe
-    tTetraRef      lastTetraRef;   // a lanc utolso elemenek cime
-    unsigned long  numberOfPoints;
-    unsigned long  numberOfTetras; // a tetraederek szama;
+    tPointRef      maxPointRef;       // a tomb utolso cimezheto helye
+    tTetraRef      maxTetraRef;       // a tomb utolso cimezheto helye
+    tPointRef      lastPointRef;      // az utolso hasznalt elem indexe
+    tTetraRef      lastTetraRef;      // a lanc utolso elemenek cime
+    tTetraRef      firstFreeTetraRef; // az elso szabad elem indexe
+    unsigned long  numberOfPoints;    // a pontok szama
+    unsigned long  numberOfTetras;    // a tetraederek szama;
 
     // a bejaro aktualis helyzete
     tTetraRef      iteratorPos;

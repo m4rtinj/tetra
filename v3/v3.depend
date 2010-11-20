@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1288647149 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1289687914 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -7,7 +7,7 @@
 	"common.h"
 	"errors.h"
 
-1288386116 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+1289768613 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
 	"tetranet.h"
 	"common.h"
 
@@ -15,7 +15,7 @@
 	"common.h"
 	"vector.h"
 
-1286642920 /home/martinj/sze/szakdolg/valtozatok/base/common.h
+1290036693 /home/martinj/sze/szakdolg/valtozatok/base/common.h
 
 1288122528 /home/martinj/sze/szakdolg/valtozatok/base/vector.h
 
@@ -36,12 +36,12 @@
 	"errors.h"
 	"tetranet.h"
 
-1286742418 /home/martinj/sze/szakdolg/valtozatok/base/nasreader.h
+1289685732 /home/martinj/sze/szakdolg/valtozatok/base/nasreader.h
 	"tetranet.h"
 	"common.h"
 	<stdio.h>
 
-1288554130 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+1289774149 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -53,19 +53,20 @@
 	"vector.h"
 	<math.h>
 
-1288829336 source:/home/martinj/sze/szakdolg/valtozatok/v3/main.c
+1289771731 source:/home/martinj/sze/szakdolg/valtozatok/v3/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
 	"errors.h"
 	"tetranet.h"
 	"vector.h"
+	"testcase.h"
 
-1288468484 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
+1289056379 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
 	"common.h"
 	"vector.h"
 
-1288828724 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
+1290212196 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -76,7 +77,7 @@
 	"nasreader.h"
 	"atvertex.h"
 
-1288443918 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
+1289685730 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
 	"tetranet.h"
 
 1286742418 /home/martinj/sze/szakdolg/valtozatok/base_h/errors.h
@@ -135,4 +136,15 @@
 1288122528 source:/home/martinj/sze/szakdolg/valtozatok/base_c/vector.c
 	"vector.h"
 	<math.h>
+
+1290038221 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+	"testcase.h"
+	"tetranet.h"
+	"common.h"
+	<sys/time.h>
+	<stdio.h>
+	<sys/resource.h>
+
+1290037440 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
+	"tetranet.h"
 

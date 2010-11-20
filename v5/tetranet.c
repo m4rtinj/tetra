@@ -178,6 +178,7 @@ void tetranet_init( tTetranet tn, char *filename ) {
     unsigned long num = tn->maxPointRef + 1;
     tn->points       = malloc( num * sizeof( tPoint ) );
 
+    // TODO: eleve több helyet foglani, a finomitasokhoz, pl.: +10%
     num = tn->maxTetraRef + 1;
     tn->tetras = malloc( num * sizeof( tTetra ) );
 
@@ -199,6 +200,7 @@ void tetranet_init( tTetranet tn, char *filename ) {
         addTetra( tn, i, tempTetra );
     } while( nasreader_readNextTetra( iniFile, tempTetra ) );
     tn->lastTetraRef = i;
+    tn->firstFreeTetraRef = i + 1;
     // nem kell mar tobbet a file
     fclose( iniFile );
 
@@ -242,7 +244,7 @@ void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
 }
 
 tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPointRef pr2, tPointRef pr3 ) {
-    if( tn->lastTetraRef >= tn->maxTetraRef ) {
+    if( tn->firstFreeTetraRef >= tn->maxTetraRef ) {
         unsigned long num;
         tn->maxTetraRef = tn->maxTetraRef * 2;  // TODO atgondolni, hogy a duplazas nem eros-e egy kicsit
         num = tn->maxTetraRef + 1;
@@ -256,33 +258,45 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
     vertx[2] = pr2;
     vertx[3] = pr3;
 
-    ++( tn->lastTetraRef );
-    addTetra( tn, tn->lastTetraRef, vertx );
+    tTetraRef newRef = tn->firstFreeTetraRef;
 
-    atVertex_insert( tn, tn->lastTetraRef );
-    neighbours_insert( tn, tn->lastTetraRef );
+    addTetra( tn, newRef, vertx);
 
-    return tn->lastTetraRef;
+    // elobb atvertex, csak utana neighbours, mert utobbi elobbit hasznalja !!!
+    atVertex_insert( tn, newRef );
+    neighbours_insert( tn, newRef );
+
+    // hol lesz az uj utolso elem?
+    if( tn->lastTetraRef < newRef ) {
+        tn->lastTetraRef = newRef;
+    }
+
+    //hol lesz a kovetkezo szabad hely?
+    while(( tn->firstFreeTetraRef <= tn->lastTetraRef ) &&
+            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0) ) {
+        ++( tn->firstFreeTetraRef );
+    }
+
+    return newRef;
 }
 
 void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
+    // ervenytelenitjuk, azaz megjeloljuk ures helykent
+    tn->tetras[tr].volume = -1;
+    // feljegyezzuk, ha o lett az elso szabad hely;
+    if( tr < tn->firstFreeTetraRef ) {
+        tn->firstFreeTetraRef = tr;
+    }
+    // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
+    if( tr == tn->lastTetraRef ) {
+        do {
+            --( tn->lastTetraRef );
+        } while( tn->tetras[tn->lastTetraRef].volume < 0 );
+    }
     // toroljuk a szomszednyilvantartasbol es az atvertex-bol
     neighbours_delete( tn, tr );
     atVertex_delete( tn, tr );
-
-    if( tr != tn->lastTetraRef ) {
-        // az üres helyre masoljuk az utolsot
-        tTetraRef tl = tn->lastTetraRef;
-
-        neighbours_delete( tn, tl );
-        atVertex_delete( tn, tl );
-
-        tn->tetras[tr] = tn->tetras[tl];
-
-        atVertex_insert( tn, tr );
-        neighbours_insert( tn, tr );
-    }
-    --( tn->lastTetraRef );
+    // tetraederek szama
     --( tn->numberOfTetras );
 }
 
@@ -334,7 +348,9 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
     if( tn->iteratorPos >= tn->lastTetraRef ) {
         return NULL_TETRA;
     } else {
+        do {
         ++( tn->iteratorPos );
+        } while( tetranet_getTetraVolume( tn, tn->iteratorPos ) < 0 );
         return( tn->iteratorPos );
     }
 }

@@ -42,6 +42,7 @@ struct tSide {
 };
 
 struct tTetra {
+    unsigned long index;
     unsigned long vertices[4];
     tSide sides[4]; // a szemkozti pont indexe az oldalindex
     double volume;

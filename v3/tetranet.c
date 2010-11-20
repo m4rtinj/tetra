@@ -21,31 +21,12 @@
  */
 void sortVertices( tPointRef p[4] ) {
     tPointRef temp;
-    if( p[0] > p[3] ) {
-        temp = p[0];
-        p[0] = p[3];
-        p[3] = temp;
-    }
-    if( p[1] > p[2] ) {
-        temp = p[1];
-        p[1] = p[2];
-        p[2] = temp;
-    }
-    if( p[0] > p[1] ) {
-        temp = p[0];
-        p[0] = p[1];
-        p[1] = temp;
-    }
-    if( p[2] > p[3] ) {
-        temp = p[2];
-        p[2] = p[3];
-        p[3] = temp;
-    }
-    if( p[1] > p[2] ) {
-        temp = p[1];
-        p[1] = p[2];
-        p[2] = temp;
-    }
+#define CHECK(i, j) {if( p[i] > p[j] ){temp = p[i]; p[i] = p[j]; p[j] = temp;}}
+    CHECK( 0, 3 )
+    CHECK( 1, 2 )
+    CHECK( 0, 1 )
+    CHECK( 2, 3 )
+    CHECK( 1, 2 )
 }
 
 void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
@@ -143,7 +124,7 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
     }
 
 
-    // TODO tomegkozeppont
+    // tomegkozeppont
     tn->massPoint[tr] = massPoint( a, b, c, d );
 
     // tetraederek szama
@@ -237,8 +218,20 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tetranet_atVertexNext = &atVertex_next;
 }
 
+inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
+    return (( p2.x - p1.x ) * ( p2.x - p1.x ) +
+            ( p2.y - p1.y ) * ( p2.y - p1.y ) +
+            ( p2.z - p1.z ) * ( p2.z - p1.z ) ) < EPS;
+}
+
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
-    // TODO: ha mar letezik, akkor csak az indexet kerem
+    tPointRef k;
+    for( k = 1; k <= tn->lastPointRef; k++ ) {
+        if( isTheSamePoint( p, tn->points[k] ) ) {
+            return k;
+        }
+    }
+
     if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
         tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
@@ -299,16 +292,15 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
         if( tn->massPoint == NULL )
             exitText( "Realloc tetras : error." );
     }
-
-    tPointRef newTetra[4];
-    newTetra[0] = pr0;
-    newTetra[1] = pr1;
-    newTetra[2] = pr2;
-    newTetra[3] = pr3;
+    tPointRef vertx[4];
+    vertx[0] = pr0;
+    vertx[1] = pr1;
+    vertx[2] = pr2;
+    vertx[3] = pr3;
 
     tTetraRef newRef = tn->firstFreeTetraRef;
 
-    addTetra( tn, newRef, newTetra );
+    addTetra( tn, newRef, vertx );
 
     // elobb atvertex, csak utana neighbours, mert utobbi elobbit hasznalja !!!
     atVertex_insert( tn, newRef );
@@ -429,23 +421,26 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
 }
 
+void printTetra( tTetranet tn, tTetraRef tr ) {
+    printf( "[%7ld] ve: %6ld %6ld %6ld %6ld ",
+            tr,
+            tetranet_getVertex( tn, tr, 0 ),
+            tetranet_getVertex( tn, tr, 1 ),
+            tetranet_getVertex( tn, tr, 2 ),
+            tetranet_getVertex( tn, tr, 3 ) );
+    printf( "nb: %7ld %7ld %7ld %7ld ",
+            tetranet_getSideNext( tn, tr, 0 ),
+            tetranet_getSideNext( tn, tr, 1 ),
+            tetranet_getSideNext( tn, tr, 2 ),
+            tetranet_getSideNext( tn, tr, 3 ) );
+    printf( "vol: %5.2lf ", tetranet_getTetraVolume( tn, tr ) );
+    printf( "sta: %8.4lf ", tetranet_getState( tn, tr, 1 ) );
+    printf( "\n" );
+}
+
 void printNet( tTetranet tn ) {
     tTetraRef tr;
-    printf( "Printout tetranet.\n" );
-    tetranet_iteratorInit( tn );
-    while((( tr = tetranet_iteratorNext( tn ) ) ) != NULL_TETRA ) {
-        printf( "[%ld] ve: %ld %ld %ld %ld ",
-                tr,
-                tetranet_getVertex( tn, tr, 0 ),
-                tetranet_getVertex( tn, tr, 1 ),
-                tetranet_getVertex( tn, tr, 2 ),
-                tetranet_getVertex( tn, tr, 3 ) );
-        printf( "nb: %ld %ld %ld %ld ",
-                tetranet_getSideNext( tn, tr, 0 ),
-                tetranet_getSideNext( tn, tr, 1 ),
-                tetranet_getSideNext( tn, tr, 2 ),
-                tetranet_getSideNext( tn, tr, 3 ) );
-        printf( "vol: %lf ", tetranet_getTetraVolume( tn, tr ) );
-        printf( "\n" );
+    for( tr = 1; tr <= tn->lastTetraRef; ++tr ) {
+        printTetra( tn, tr );
     }
 }

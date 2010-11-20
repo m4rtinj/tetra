@@ -43,7 +43,7 @@ void explode( tTetranet tn, tTetraRef tr ) {
 }
 
 void test_explode( tTetranet tn ) {
-    const unsigned count = 200;
+    const unsigned count = 50000;
     unsigned i;
     tTetraRef tr;
 

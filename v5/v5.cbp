@@ -20,8 +20,10 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-march=core2" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -29,7 +31,6 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
 			<Add directory="." />
 			<Add directory="../base" />
 		</Compiler>
@@ -42,6 +43,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/errors.h" />
+		<Unit filename="../base/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../base/nasreader.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -58,9 +62,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/vector.h" />
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="tetranet.c">
 			<Option compilerVar="CC" />
 		</Unit>
