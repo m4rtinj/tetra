@@ -43,6 +43,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/atvertex.h" />
+		<Unit filename="../base/common.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../base/common.h" />
 		<Unit filename="../base/errors.c">
 			<Option compilerVar="CC" />

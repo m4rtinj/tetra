@@ -26,15 +26,26 @@ void selfTest( tTetranet tn ) {
 //    printAll( tn );
 }
 
-int main() {
-    strncpy( version, "v5-nov18", 8 );
+void help() {
+    printf( "Test software to check large tetrahedron networks.\n" );
+    printf( "2010 - Martin Jozsef\n\n" );
+    printf( "Usage: %s nas_file_name\n", glob_swName );
+    exit( EXIT_FAILURE );
+}
+
+int main( int argc, char *argv[] ) {
+    common_setGlobSwName( argv[0] );
+    if( argc < 2 ) help();
+    common_setGlobSwDate();
+    common_setGlobInputFile( argv[1] );
+
     startClock();
     stopClock( "start" );
 
     startClock();
     tTetranet myTNet;
     myTNet = tetranet_new();
-    tetranet_init( myTNet, TEST_FILE_NAME );
+    tetranet_init( myTNet, argv[1] );
     stopClock( "init" );
 
     selfTest( myTNet );

@@ -19,9 +19,9 @@ void stopClock( char *name ) {
     getrusage( RUSAGE_SELF, &rus );
     stopTime = rus.ru_utime.tv_sec * 1000 + rus.ru_utime.tv_usec / 1000;
 
-    printf( "Ver: %8s | ", version );
-    printf( "Name: %8s | ", name );
-    printf( "Time: %5.2lf s | ", (double)(stopTime - startTime)/1000.0 );
+    printf( "%2s - %11s (%10.10s..) | ", glob_swName, glob_swDate, glob_inputFile );
+    printf( "Test: %8s | ", name );
+    printf( "Time: %5.2lf s | ", ( double )( stopTime - startTime ) / 1000.0 );
     printf( "Mem: %8ld kB\n", rus.ru_maxrss );
 }
 

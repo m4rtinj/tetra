@@ -12,5 +12,14 @@ typedef int bool;
 #define EPS 0.0000000001
 
 /// a programvaltozat esetleg verzio jelzesere, ertekadas a main.c-ben, max 8 karakter
-char version[9];
+char glob_swName[9];
+/// a parameterkent megadott fajlnev
+char glob_inputFile[64];
+/// a buildeles datuma, a preprocesszor szerinti formatumban
+char glob_swDate[12];
+
+void common_setGlobSwName( const char *in );
+void common_setGlobSwDate( );
+void common_setGlobInputFile( const char *in );
+
 #endif

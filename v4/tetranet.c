@@ -14,6 +14,7 @@
 #include "common.h"
 #include "nasreader.h"
 #include "atvertex.h"
+#include "nearestp.h"
 
 /**
  * novekvo sorrendbe rakja a csucsok indexeit
@@ -232,6 +233,8 @@ void tetranet_init( tTetranet tn, char *filename ) {
     atVertex_update( tn );
     tetranet_atVertexInit = &atVertex_init;
     tetranet_atVertexNext = &atVertex_next;
+
+    nearestp_update(tn);
 }
 
 inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {

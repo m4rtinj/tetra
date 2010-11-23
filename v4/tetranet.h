@@ -23,7 +23,7 @@ typedef unsigned int tSideIndex; /* 0..3 */
 #define N_STATE 10
 
 /// konstans az ervenytelen / nem letezo pont jelzesere
-#define NULL_POINT NULL
+#define NULL_POINT 0
 
 /// konstans az ervenytelen / nem letezo tetraeder jelzesere
 #define NULL_TETRA NULL
