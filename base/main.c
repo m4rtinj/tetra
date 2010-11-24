@@ -21,8 +21,9 @@ void printAll( tTetranet tn ) {
 }
 
 void selfTest( tTetranet tn ) {
-    test_explode( tn );
-    test_alfa( tn );
+    test_nearestp(tn);
+//    test_explode( tn );
+//    test_alfa( tn );
 //    printAll( tn );
 }
 

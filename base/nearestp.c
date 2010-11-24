@@ -53,13 +53,13 @@ node *buildKdTree( tPointRef first, tPointRef last, unsigned int depth ) {
         // sort by axis
         switch( depth % 3 ) {
         case 0:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tPoint ), ( compfn ) compareByX );
+            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByX );
             break;
         case 1:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tPoint ), ( compfn ) compareByY );
+            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByY );
             break;
         case 2:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tPoint ), ( compfn ) compareByZ );
+            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByZ );
             break;
         }
         // Sort point list and choose median as pivot element
@@ -73,13 +73,13 @@ node *buildKdTree( tPointRef first, tPointRef last, unsigned int depth ) {
     }
 }
 
-void nearestp_update(tTetranet tn) {
+void nearestp_update( tTetranet tn ) {
     tPointRef i = 1;
     tPoint p;
-    unsigned long nbp = tetranet_getNumberOfPoints(tn);
-    tmpArray = malloc(  nbp * sizeof( tmpElement ) );
+    unsigned long nbp = tetranet_getNumberOfPoints( tn );
+    tmpArray = malloc(( nbp + 1 ) * sizeof( tmpElement ) );
     for( i = nbp; i != 0; --i ) {
-        p = tetranet_getPoint(tn,i);
+        p = tetranet_getPoint( tn, i );
         tmpArray[i].idx = i;
         tmpArray[i].x = p.x;
         tmpArray[i].y = p.y;
@@ -96,17 +96,17 @@ inline double distance( tPoint a, tPoint b ) {
 }
 
 tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsigned int depth ) {
-    tPoint phere = tetranet_getPoint(tn,here->value);
-    tPoint pbest = tetranet_getPoint(tn, best);
     if( here == NULL ) {
         return best;
     }
-
+    tPoint phere = tetranet_getPoint( tn, here->value );
     if( best == NULL_POINT ) {
         best = here->value;
-    } else if( distance(phere, point ) < distance( pbest, point ) ) {
+    }
+    tPoint pbest = tetranet_getPoint( tn, best );
+    if( distance( phere, point ) < distance( pbest, point ) ) {
         best = here->value;
-        pbest = tetranet_getPoint(tn, best);
+        pbest = tetranet_getPoint( tn, best );
     }
 
     double d;
@@ -137,7 +137,13 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
     return best;
 }
 
-void nearestp_addPoint( tPointRef p ) {
+tPointRef nearestp_search( tTetranet tn, tPoint p ) {
+    tPointRef pr;
+    pr = kdsearch( tn, rootNode, p, NULL_POINT , 0 );
+    return pr;
+}
+
+void nearestp_addPoint( tTetranet tn, tPointRef p ) {
 
 }
 

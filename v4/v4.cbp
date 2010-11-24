@@ -58,6 +58,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/nasreader.h" />
+		<Unit filename="../base/nearestp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/nearestp.h" />
 		<Unit filename="../base/neighbour.c">
 			<Option compilerVar="CC" />
 		</Unit>

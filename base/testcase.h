@@ -14,7 +14,13 @@ Megallitja a stoppert es kiirja a mert idot, hasznalt memoriat, egyebet.
 @param name a mert teszteset neve
 */
 void stopClock( char *name );
+
+
 void test_explode( tTetranet tn );
+
+
 void test_alfa( tTetranet tn );
+
+void test_nearestp( tTetranet tn );
 
 #endif

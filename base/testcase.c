@@ -1,6 +1,7 @@
 #include "testcase.h"
 #include "tetranet.h"
 #include "common.h"
+#include "nearestp.h"
 #include <sys/time.h>
 #include <stdio.h>
 #include <sys/resource.h>
@@ -106,3 +107,14 @@ void test_alfa( tTetranet tn ) {
     printf( "Check value = %lf\n", tetranet_getState( tn, trMaxVol, 1 ) );
 }
 
+void test_nearestp( tTetranet tn ) {
+#define epsylon 0.05
+    tPointRef np;
+    tPoint p = tetranet_getPoint( tn, 100 );
+    p.x += epsylon;
+    p.y += epsylon;
+    p.z += epsylon;
+
+    np = nearestp_search( tn, p );
+    printf( "Nearest = %ld", np );
+}

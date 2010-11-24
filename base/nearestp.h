@@ -13,19 +13,19 @@
 /**
  *  A keresest segito kd-tree elokeszitese
  */
-void nearestp_update();
+void nearestp_update(tTetranet tn);
 
 /**
  *  A legkozelebbi pont megkeresese
  *  @param p a kerdeses uj pont (koordinatakkal megadva)
  *  @return a ponthalmaz legkozelebbi pontjanak indexe
  */
-tPointRef nearestp_search( tPoint p );
+tPointRef nearestp_search( tTetranet tn, tPoint p );
 
 /**
  *  Uj pont beszurasa a keresofaba
  *  @param p a beszurando pont indexe
  */
-void nearestp_addPoint( tPointRef p );
+void nearestp_addPoint( tTetranet tn, tPointRef p );
 
 #endif /* NEARESTP_H_ */
