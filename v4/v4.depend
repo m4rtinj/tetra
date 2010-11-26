@@ -150,7 +150,7 @@
 1289685730 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
 	"tetranet.h"
 
-1290555326 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+1290725283 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
 	"testcase.h"
 	"tetranet.h"
 	"common.h"
@@ -173,7 +173,7 @@
 	"vector.h"
 	"testcase.h"
 
-1290557528 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
+1290729959 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
 	"nearestp.h"
 	"tetranet.h"
 	<stdio.h>

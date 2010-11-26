@@ -108,9 +108,9 @@ void test_alfa( tTetranet tn ) {
 }
 
 void test_nearestp( tTetranet tn ) {
-#define epsylon 0.05
+#define epsylon 0.005
     tPointRef np;
-    tPoint p = tetranet_getPoint( tn, 100 );
+    tPoint p = tetranet_getPoint( tn, 1 );
     p.x += epsylon;
     p.y += epsylon;
     p.z += epsylon;

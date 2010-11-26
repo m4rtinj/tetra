@@ -20,20 +20,6 @@ typedef struct sctNode {
 
 node *rootNode;
 
-// Osszehasonlito fuggveny def a qsorthoz
-typedef int ( *compfn )( const void*, const void* );
-
-// Osszehasonlito fuggveny kifejtesei a qsorthoz
-int compareByX( tPoint *a, tPoint *b ) {
-    return a->x > b->x;
-}
-int compareByY( tPoint *a, tPoint *b ) {
-    return a->y > b->y;
-}
-int compareByZ( tPoint *a, tPoint *b ) {
-    return a->z > b->z;
-}
-
 typedef struct {
     tPointRef idx;
     double x;
@@ -42,6 +28,36 @@ typedef struct {
 } tmpElement;
 
 tmpElement *tmpArray;
+
+void printNode( node *n ) {
+    if( n != NULL ) {
+        printf( "\n%5ld: ", n->value );
+        if (n->left != NULL) printf( "l= %5ld ",n->left->value );
+           if (n->right != NULL) printf( "r= %5ld ",n->right->value );
+        printNode( n->left );
+        printNode( n->right );
+    }
+}
+
+void printTree() {
+    printNode( rootNode );
+}
+
+// Osszehasonlito fuggveny def a qsorthoz
+typedef int ( *compfn )( const void*, const void* );
+
+// Osszehasonlito fuggveny kifejtesei a qsorthoz
+int compareByX( tmpElement *a, tmpElement *b ) {
+    return a->x - b->x;
+}
+
+int compareByY( tmpElement *a, tmpElement *b ) {
+    return a->y - b->y;
+}
+
+int compareByZ( tmpElement *a, tmpElement *b ) {
+    return a->z - b->z;
+}
 
 node *buildKdTree( tPointRef first, tPointRef last, unsigned int depth ) {
     node *tmpNode;
@@ -133,7 +149,6 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
             best =  kdsearch( tn, here->left, point, best, depth + 1 );
         }
     }
-
     return best;
 }
 
@@ -146,7 +161,6 @@ tPointRef nearestp_search( tTetranet tn, tPoint p ) {
 void nearestp_addPoint( tTetranet tn, tPointRef p ) {
 
 }
-
 
 
 
