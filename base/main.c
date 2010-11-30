@@ -8,10 +8,6 @@
 #include "vector.h"
 #include "testcase.h"
 
-//#define TEST_FILE_NAME "../data/teszt2.nas"
-// #define TEST_FILE_NAME "../data/szivocso_vol_tetra_hm.nas"
-#define TEST_FILE_NAME "../data/fuvoka_640000_mod.bdf"
-
 void printAll( tTetranet tn ) {
     tTetraRef tr;
     tetranet_iteratorInit( tn );
@@ -21,8 +17,9 @@ void printAll( tTetranet tn ) {
 }
 
 void selfTest( tTetranet tn ) {
-    test_nearestp(tn);
+    test_nearestp( tn );
 //    test_explode( tn );
+//    test_nearestp( tn );
 //    test_alfa( tn );
 //    printAll( tn );
 }

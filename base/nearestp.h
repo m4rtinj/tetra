@@ -13,7 +13,7 @@
 /**
  *  A keresest segito kd-tree elokeszitese
  */
-void nearestp_update(tTetranet tn);
+void nearestp_update( tTetranet tn );
 
 /**
  *  A legkozelebbi pont megkeresese

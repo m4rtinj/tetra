@@ -234,7 +234,7 @@ void tetranet_init( tTetranet tn, char *filename ) {
     tetranet_atVertexInit = &atVertex_init;
     tetranet_atVertexNext = &atVertex_next;
 
-    nearestp_update(tn);
+    nearestp_update( tn );
 }
 
 inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
@@ -244,24 +244,23 @@ inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
 }
 
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
-    tPointRef k;
-    for( k = 1; k<=tn->lastPointRef;k++){
-        if(isTheSamePoint(p,tn->points[k])){
-            return k;
+    tPointRef k = nearestp_search( tn, p );
+    if( isTheSamePoint( p, tn->points[k] ) ) {
+        return k;
+    } else {
+        if( tn->lastPointRef >= tn->maxPointRef ) {
+            tn->maxPointRef = tn->maxPointRef * 2;
+            tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
+            if( tn->points == NULL ) {
+                exitText( "Realloc points : error." );
             }
-     }
-
-    if( tn->lastPointRef >= tn->maxPointRef ) {
-        tn->maxPointRef = tn->maxPointRef * 2;
-        tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
-        if( tn->points == NULL ) {
-            exitText( "Realloc points : error." );
         }
+        ++( tn->lastPointRef );
+        ++( tn->numberOfPoints );
+        tn->points[tn->lastPointRef] = p;
+        nearestp_addPoint( tn, tn->lastPointRef );
+        return tn->lastPointRef;
     }
-    ++( tn->lastPointRef );
-    ++( tn->numberOfPoints );
-    tn->points[tn->lastPointRef] = p;
-    return tn->lastPointRef;
 }
 
 void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {

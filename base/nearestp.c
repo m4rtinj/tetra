@@ -18,8 +18,6 @@ typedef struct sctNode {
     struct sctNode *right;
 } node;
 
-node *rootNode;
-
 typedef struct {
     tPointRef idx;
     double x;
@@ -29,34 +27,47 @@ typedef struct {
 
 tmpElement *tmpArray;
 
-void printNode( node *n ) {
+void printNode( node *n, int depth ) {
+    int i;
     if( n != NULL ) {
-        printf( "\n%5ld: ", n->value );
-        if (n->left != NULL) printf( "l= %5ld ",n->left->value );
-           if (n->right != NULL) printf( "r= %5ld ",n->right->value );
-        printNode( n->left );
-        printNode( n->right );
+        if( n->left != NULL ) printf( "%d: %ld -> %ld\n", depth, n->value, n->left->value );
+        if( n->right != NULL ) printf( "%d: %ld -> %ld\n", depth, n->value, n->right->value );
+        if(( n->left == NULL ) && ( n->right == NULL ) ) printf( "%ld egy level.\n", n->value );
+        ++depth;
+        printNode( n->left, depth );
+        printNode( n->right, depth );
     }
 }
 
-void printTree() {
-    printNode( rootNode );
+void printTree( tTetranet tn ) {
+    printf( "\ndigraph G{" );
+    printNode(( node* )( tn->nearestp ), 0 );
+    printf( "}\n" );
 }
 
 // Osszehasonlito fuggveny def a qsorthoz
 typedef int ( *compfn )( const void*, const void* );
 
 // Osszehasonlito fuggveny kifejtesei a qsorthoz
-int compareByX( tmpElement *a, tmpElement *b ) {
-    return a->x - b->x;
+int compareByX( const tmpElement *a, const tmpElement *b ) {
+    double temp = ( a->x ) - ( b->x );
+    if( temp > 0.0 ) return 1;
+    else if( temp < 0.0 ) return -1;
+    else return 0;
 }
 
-int compareByY( tmpElement *a, tmpElement *b ) {
-    return a->y - b->y;
+int compareByY( const tmpElement *a, const tmpElement *b ) {
+    double temp = ( a->y ) - ( b->y );
+    if( temp > 0.0 ) return 1;
+    else if( temp < 0.0 ) return -1;
+    else return 0;
 }
 
-int compareByZ( tmpElement *a, tmpElement *b ) {
-    return a->z - b->z;
+int compareByZ( const tmpElement *a, const tmpElement *b ) {
+    double temp = ( a->z ) - ( b->z );
+    if( temp > 0.0 ) return 1;
+    else if( temp < 0.0 ) return -1;
+    else return 0;
 }
 
 node *buildKdTree( tPointRef first, tPointRef last, unsigned int depth ) {
@@ -101,8 +112,9 @@ void nearestp_update( tTetranet tn ) {
         tmpArray[i].y = p.y;
         tmpArray[i].z = p.z;
     }
-    rootNode = buildKdTree( 1, nbp, 0 );
+    tn->nearestp = buildKdTree( 1, nbp, 0 );
     free( tmpArray );
+//    printTree( tn );
 }
 
 inline double distance( tPoint a, tPoint b ) {
@@ -115,10 +127,11 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
     if( here == NULL ) {
         return best;
     }
-    tPoint phere = tetranet_getPoint( tn, here->value );
+
     if( best == NULL_POINT ) {
         best = here->value;
     }
+    tPoint phere = tetranet_getPoint( tn, here->value );
     tPoint pbest = tetranet_getPoint( tn, best );
     if( distance( phere, point ) < distance( pbest, point ) ) {
         best = here->value;
@@ -140,11 +153,13 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
 
     if( d < 0 ) {
         best = kdsearch( tn, here->left, point, best, depth + 1 );
+        pbest = tetranet_getPoint( tn, best );
         if(( d * d ) < distance( pbest, point ) ) {
             best =  kdsearch( tn, here->right, point, best, depth + 1 );
         }
     } else {
         best = kdsearch( tn, here->right, point, best, depth + 1 );
+        pbest = tetranet_getPoint( tn, best );
         if(( d * d ) < distance( pbest, point ) ) {
             best =  kdsearch( tn, here->left, point, best, depth + 1 );
         }
@@ -154,13 +169,64 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
 
 tPointRef nearestp_search( tTetranet tn, tPoint p ) {
     tPointRef pr;
-    pr = kdsearch( tn, rootNode, p, NULL_POINT , 0 );
+    pr = kdsearch( tn, tn->nearestp, p, NULL_POINT , 0 );
     return pr;
 }
 
-void nearestp_addPoint( tTetranet tn, tPointRef p ) {
+void nearestp_addPoint( tTetranet tn, tPointRef pr ) {
+    unsigned int depth = 0;
+    node *parent = tn->nearestp;
+    node *newNode =  malloc( sizeof( node ) );
+    bool found = FALSE;
+    tPoint p = tetranet_getPoint( tn, pr );
+    tPoint h;
+    double d;
 
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->value = pr;
+
+    while( !found ) {
+        h = tetranet_getPoint( tn, parent->value );
+        switch( depth % 3 ) {
+        case 0:
+            d = p.x - h.x;
+            break;
+        case 1:
+            d = p.y - h.y;
+            break;
+        case 2:
+            d = p.z - h.z;
+            break;
+        }
+        if( d < 0 ) {
+            if( parent->left == NULL ) {
+                parent->left = newNode;
+                found = TRUE;
+            } else {
+                parent = parent->left;
+            }
+        } else {
+            if( parent->right == NULL ) {
+                parent->right = newNode;
+                found = TRUE;
+            } else {
+                parent = parent->right;
+                ++depth;
+            }
+        }
+    }
 }
 
+void freeNode( node *n ) {
+    if( n != NULL ) {
+        freeNode( n->left );
+        freeNode( n->right );
+        free( n );
+    }
+}
 
-
+void nearestp_free( tTetranet tn ) {
+    freeNode( tn->nearestp );
+    tn->nearestp = NULL;
+}

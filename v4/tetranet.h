@@ -52,15 +52,6 @@ struct tTetra {
     tTetraRef prev;
 };
 
-// tipusok a dinamikus tombok atlathatobb definialasahoz
-// todo lehetne egyszerübben, pl: double (*sideArea)[4]
-typedef tTetraRef tSideNext[4];
-typedef tPointRef tVertices[4];
-typedef double    tSideArea[4];
-typedef vector    tSideNormVect[4];
-typedef int       tSideType[4];
-typedef double    tStates[N_STATE];
-
 typedef struct {
     // pontok koordinatai: dinamikus tömb
     tPoint        *points;
@@ -80,6 +71,7 @@ typedef struct {
 
     // adott ponthoz tartozo tetraederek keresesehez
     void          *atVertex;
+    void          *nearestp;
 } tTetranetDescriptor;
 
 typedef tTetranetDescriptor *tTetranet;

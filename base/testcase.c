@@ -109,12 +109,17 @@ void test_alfa( tTetranet tn ) {
 
 void test_nearestp( tTetranet tn ) {
 #define epsylon 0.005
+    unsigned long i;
     tPointRef np;
-    tPoint p = tetranet_getPoint( tn, 1 );
-    p.x += epsylon;
-    p.y += epsylon;
-    p.z += epsylon;
-
-    np = nearestp_search( tn, p );
-    printf( "Nearest = %ld", np );
+    tPoint p;
+    for( i = 1; i <= tn->lastPointRef; ++i ) {
+        p = tetranet_getPoint( tn, i );
+        p.x += epsylon;
+        p.y += epsylon;
+        p.z += epsylon;
+        np = nearestp_search( tn, p );
+        if( i != np ) {
+            printf( "Nearest to %ld : %ld\n", i, np );
+        }
+    }
 }
