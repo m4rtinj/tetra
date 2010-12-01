@@ -28,7 +28,6 @@ typedef struct {
 tmpElement *tmpArray;
 
 void printNode( node *n, int depth ) {
-    int i;
     if( n != NULL ) {
         if( n->left != NULL ) printf( "%d: %ld -> %ld\n", depth, n->value, n->left->value );
         if( n->right != NULL ) printf( "%d: %ld -> %ld\n", depth, n->value, n->right->value );
@@ -80,13 +79,13 @@ node *buildKdTree( tPointRef first, tPointRef last, unsigned int depth ) {
         // sort by axis
         switch( depth % 3 ) {
         case 0:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByX );
+            qsort(( void * ) &tmpArray[first], 1 + last - first, sizeof( tmpElement ), ( compfn ) compareByX );
             break;
         case 1:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByY );
+            qsort(( void * ) &tmpArray[first], 1 + last - first, sizeof( tmpElement ), ( compfn ) compareByY );
             break;
         case 2:
-            qsort(( void * ) &tmpArray[first], last - first, sizeof( tmpElement ), ( compfn ) compareByZ );
+            qsort(( void * ) &tmpArray[first], 1 + last - first, sizeof( tmpElement ), ( compfn ) compareByZ );
             break;
         }
         // Sort point list and choose median as pivot element
@@ -114,7 +113,7 @@ void nearestp_update( tTetranet tn ) {
     }
     tn->nearestp = buildKdTree( 1, nbp, 0 );
     free( tmpArray );
-//    printTree( tn );
+//   printTree( tn );
 }
 
 inline double distance( tPoint a, tPoint b ) {
@@ -168,9 +167,7 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
 }
 
 tPointRef nearestp_search( tTetranet tn, tPoint p ) {
-    tPointRef pr;
-    pr = kdsearch( tn, tn->nearestp, p, NULL_POINT , 0 );
-    return pr;
+    return kdsearch( tn, tn->nearestp, p, NULL_POINT , 0 );
 }
 
 void nearestp_addPoint( tTetranet tn, tPointRef pr ) {
@@ -230,3 +227,4 @@ void nearestp_free( tTetranet tn ) {
     freeNode( tn->nearestp );
     tn->nearestp = NULL;
 }
+
