@@ -17,9 +17,8 @@ void printAll( tTetranet tn ) {
 }
 
 void selfTest( tTetranet tn ) {
+    test_explode( tn );
     test_nearestp( tn );
-//    test_explode( tn );
-//    test_nearestp( tn );
 //    test_alfa( tn );
 //    printAll( tn );
 }
@@ -47,6 +46,10 @@ int main( int argc, char *argv[] ) {
     stopClock( "init" );
 
     selfTest( myTNet );
+
+    startClock();
+    tetranet_free(myTNet);
+    stopClock("free");
     return 0;
 }
 

@@ -30,7 +30,7 @@ tTetraRef atVertex_next( tTetranet tn );
 /**
  *  A lefoglalt területek felszabaditasa
  */
-void atVertex_freeMem( tTetranet tn );
+void atVertex_free( tTetranet tn );
 
 /**
  *  Uj tetraeder indexelese

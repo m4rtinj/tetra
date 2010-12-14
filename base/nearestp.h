@@ -28,4 +28,9 @@ tPointRef nearestp_search( tTetranet tn, tPoint p );
  */
 void nearestp_addPoint( tTetranet tn, tPointRef p );
 
+/**
+ *  A kd-tree altalt hasznalt memoria felszabaditasa
+ */
+void nearestp_free( tTetranet tn );
+
 #endif /* NEARESTP_H_ */

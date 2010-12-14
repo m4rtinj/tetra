@@ -386,6 +386,22 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
 }
 
+void freeTetra( tTetraRef tr ) {
+    if( tr->next != NULL_TETRA ) {
+        freeTetra( tr->next );
+    }
+    free( tr );
+}
+
+void tetranet_free( tTetranet tn ) {
+    atVertex_free( tn );
+    nearestp_free( tn );
+
+    free( tn->points );
+    freeTetra( tn->tetras );
+    free( tn );
+}
+
 void printTetra( tTetranet tn, tTetraRef tr ) {
     printf( "[%7ld] ve: %6ld %6ld %6ld %6ld ",
             ( unsigned long )tr,

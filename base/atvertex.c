@@ -39,7 +39,7 @@ void atVertex_update( tTetranet tn ) {
     tElement *dummyPointer;
 
     // elokeszites
-    atVertex_freeMem( tn );
+    atVertex_free( tn );
     atv = malloc( sizeof( tAtVertexDesc ) );
     /* csak mert nem akarok referenciat szamossagkent hasznalni, kiszedtem:
     atv->maxPr = tetranet_getLastPointRef( tn );
@@ -90,7 +90,7 @@ tTetraRef atVertex_next( tTetranet tn ) {
     }
 }
 
-void atVertex_freeMem( tTetranet tn ) {
+void atVertex_free( tTetranet tn ) {
     tAtVertexDesc *atv = tn->atVertex;
     tElement *tmp;
 
