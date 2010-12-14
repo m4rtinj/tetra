@@ -9,6 +9,7 @@
 
 #include "nearestp.h"
 #include "tetranet.h"
+#include "errors.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -148,6 +149,9 @@ tPointRef kdsearch( tTetranet tn, node *here, tPoint point, tPointRef best, unsi
     case 2:
         d = point.z - phere.z;
         break;
+    default:
+        d = 0.0;
+        exitText( "Switch failure in nearest.c." );
     }
 
     if( d < 0 ) {
@@ -170,6 +174,9 @@ tPointRef nearestp_search( tTetranet tn, tPoint p ) {
     return kdsearch( tn, tn->nearestp, p, NULL_POINT , 0 );
 }
 
+/* TODO: A beszurasokkal a fa lassan elveszti kiegyensulyozott jelleget,
+ * ezert egy idö utan ujra kellene rendezni.
+ */
 void nearestp_addPoint( tTetranet tn, tPointRef pr ) {
     unsigned int depth = 0;
     node *parent = tn->nearestp;
@@ -195,6 +202,9 @@ void nearestp_addPoint( tTetranet tn, tPointRef pr ) {
         case 2:
             d = p.z - h.z;
             break;
+        default:
+            d = 0.0;
+            exitText( "Switch failure in nearest.c." );
         }
         if( d < 0 ) {
             if( parent->left == NULL ) {
@@ -209,9 +219,9 @@ void nearestp_addPoint( tTetranet tn, tPointRef pr ) {
                 found = TRUE;
             } else {
                 parent = parent->right;
-                ++depth;
             }
         }
+        ++depth;
     }
 }
 
