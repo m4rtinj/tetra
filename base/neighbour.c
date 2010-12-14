@@ -172,6 +172,7 @@ void findSideNeighbours( tTetranet tn, tTetraRef tr, tSideIndex si ) {
         c = tetranet_getVertex( tn, tr, 2 );
         break;
     default:
+        a=b=c=NULL_POINT;
         exitText( "Index failed by findNeighbours" );
     }
     // az a ponthoz keresünk talalatot
