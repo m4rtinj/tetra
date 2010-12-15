@@ -360,6 +360,14 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
+    tTetraRef ntr;
+    tPointRef npr = nearestp_search( tn, p );
+    atVertex_init( tn, npr );
+    while(( ntr = atVertex_next( tn ) ) != NULL_TETRA ) {
+        if( isPointInTetra( tn, ntr, p ) ) {
+            return ntr;
+        }
+    }
     tTetraRef tr = tn->tetras;
     while( tr != NULL_TETRA ) {
         if( isPointInTetra( tn, tr, p ) ) {

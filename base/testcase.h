@@ -15,12 +15,12 @@ Megallitja a stoppert es kiirja a mert idot, hasznalt memoriat, egyebet.
 */
 void stopClock( char *name );
 
-
 void test_explode( tTetranet tn );
-
 
 void test_alfa( tTetranet tn );
 
 void test_nearestp( tTetranet tn );
+
+void test_pointLocation( tTetranet tn );
 
 #endif

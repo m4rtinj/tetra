@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1289687914 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1291507085 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -7,7 +7,7 @@
 	"common.h"
 	"errors.h"
 
-1289768613 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+1291505680 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
 	"tetranet.h"
 	"common.h"
 
@@ -41,7 +41,7 @@
 	"common.h"
 	<stdio.h>
 
-1289774149 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+1291508502 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -62,7 +62,7 @@
 	"vector.h"
 	"testcase.h"
 
-1290869747 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+1291508392 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -120,7 +120,7 @@
 	"vector.h"
 	<math.h>
 
-1290900621 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+1292452696 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -144,13 +144,13 @@
 1289433361 /home/martinj/sze/szakdolg/valtozatok/base_h/testcase.h
 	<tetranet.h>
 
-1290555432 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
+1292450802 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
 	"tetranet.h"
 
 1289685730 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
 	"tetranet.h"
 
-1290986107 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+1292452043 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
 	"testcase.h"
 	"tetranet.h"
 	"common.h"
@@ -163,7 +163,7 @@
 	<string.h>
 	"common.h"
 
-1290986058 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
+1292450843 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -173,12 +173,13 @@
 	"vector.h"
 	"testcase.h"
 
-1291074310 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
+1292364935 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
 	"nearestp.h"
 	"tetranet.h"
+	"errors.h"
 	<stdio.h>
 	<stdlib.h>
 
-1290900621 /home/martinj/sze/szakdolg/valtozatok/base/nearestp.h
+1291508076 /home/martinj/sze/szakdolg/valtozatok/base/nearestp.h
 	"tetranet.h"
 

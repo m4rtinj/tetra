@@ -108,7 +108,7 @@ void test_alfa( tTetranet tn ) {
 }
 
 void test_nearestp( tTetranet tn ) {
-#define epsylon 0.005
+#define epsylon 0.0005
     unsigned long i;
     tPointRef np;
     tPoint p;
@@ -117,9 +117,56 @@ void test_nearestp( tTetranet tn ) {
         p.x += epsylon;
         p.y += epsylon;
         p.z += epsylon;
+        // np = nearestp_findMe(tn,p);
         np = nearestp_search( tn, p );
         if( i != np ) {
             printf( "Nearest to %ld : %ld\n", i, np );
         }
     }
 }
+
+void test_pointLocation( tTetranet tn ) {
+    const double n = 10.0;
+    unsigned long found = 0;
+    tPointRef pr;
+    tPoint p;
+
+    p = tetranet_getPoint( tn, 1 );
+    double maxX = p.x;
+    double minX = p.x;
+    double maxY = p.y;
+    double minY = p.y;
+    double maxZ = p.z;
+    double minZ = p.z;
+
+    tPointRef last = tetranet_getLastPointRef( tn );
+    for( pr = 2; pr <= last; ++pr ) {
+        p = tetranet_getPoint( tn, pr );
+        if( p.x < minX ) minX = p.x;
+        if( p.x > maxX ) maxX = p.x;
+        if( p.y < minY ) minY = p.y;
+        if( p.y > maxY ) maxY = p.y;
+        if( p.z < minZ ) minZ = p.z;
+        if( p.z > maxZ ) maxZ = p.z;
+    }
+
+    double x, y, z;
+    double stepX = ( maxX - minX ) / n;
+    double stepY = ( maxY - minY ) / n;
+    double stepZ = ( maxZ - minZ ) / n;
+
+    startClock();
+    for( x = minX; x <= maxX; x += stepX ) {
+        for( y = minY; y <= maxY; y += stepY ) {
+            for( z = minZ; z <= maxZ; z += stepZ ) {
+                p.x = x;
+                p.y = y;
+                p.z = z;
+            //    printf( "%8lf %8lf %8lf -- %ld\n", x, y, z, found );
+                if( tetranet_getPointLocation( tn, p ) != NULL_TETRA ) ++found;
+            }
+        }
+    }
+    stopClock( "PointLoc" );
+}
+
