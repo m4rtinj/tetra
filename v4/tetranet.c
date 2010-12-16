@@ -22,31 +22,12 @@
  */
 void sortVertices( tPointRef p[4] ) {
     tPointRef temp;
-    if( p[0] > p[3] ) {
-        temp = p[0];
-        p[0] = p[3];
-        p[3] = temp;
-    }
-    if( p[1] > p[2] ) {
-        temp = p[1];
-        p[1] = p[2];
-        p[2] = temp;
-    }
-    if( p[0] > p[1] ) {
-        temp = p[0];
-        p[0] = p[1];
-        p[1] = temp;
-    }
-    if( p[2] > p[3] ) {
-        temp = p[2];
-        p[2] = p[3];
-        p[3] = temp;
-    }
-    if( p[1] > p[2] ) {
-        temp = p[1];
-        p[1] = p[2];
-        p[2] = temp;
-    }
+#define CHECK(i, j) {if( p[i] > p[j] ){temp = p[i]; p[i] = p[j]; p[j] = temp;}}
+    CHECK( 0, 3 )
+    CHECK( 1, 2 )
+    CHECK( 0, 1 )
+    CHECK( 2, 3 )
+    CHECK( 1, 2 )
 }
 
 void addTetra( tTetranet tn, tPointRef vertx[4] ) {
