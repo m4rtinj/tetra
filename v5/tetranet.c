@@ -14,6 +14,7 @@
 #include "common.h"
 #include "nasreader.h"
 #include "atvertex.h"
+#include "nearestp.h"
 
 /**
  * novekvo sorrendbe rakja a csucsok indexeit
@@ -210,6 +211,8 @@ void tetranet_init( tTetranet tn, char *filename ) {
     atVertex_update( tn );
     tetranet_atVertexInit = &atVertex_init;
     tetranet_atVertexNext = &atVertex_next;
+
+    nearestp_update( tn );
 }
 
 inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
@@ -219,13 +222,10 @@ inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
 }
 
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
-    tPointRef k;
-    for( k = 1; k <= tn->lastPointRef; k++ ) {
+    tPointRef k = nearestp_search( tn, p );
         if( isTheSamePoint( p, tn->points[k] ) ) {
             return k;
-        }
-    }
-
+    } else {
     if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
         tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
@@ -236,7 +236,9 @@ tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
     ++( tn->lastPointRef );
     ++( tn->numberOfPoints );
     tn->points[tn->lastPointRef] = p;
+        nearestp_addPoint( tn, tn->lastPointRef );
     return tn->lastPointRef;
+    }
 }
 
 void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
@@ -356,7 +358,15 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
-    tTetraRef tr;
+	tTetraRef ntr;
+    tPointRef npr = nearestp_search( tn, p );
+    atVertex_init( tn, npr );
+    while(( ntr = atVertex_next( tn ) ) != NULL_TETRA ) {
+        if( isPointInTetra( tn, ntr, p ) ) {
+            return ntr;
+        }
+    }    
+	tTetraRef tr;
     for( tr = tn->lastTetraRef; tr != 0; --tr ) {
         if( isPointInTetra( tn, tr, p ) ) {
             return tr;
@@ -379,6 +389,15 @@ unsigned long tetranet_getNumberOfTetras( tTetranet tn ) {
 
 unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
+}
+
+void tetranet_free( tTetranet tn ) {
+    atVertex_free( tn );
+    nearestp_free( tn );
+
+    free( tn->points );
+    free( tn->tetras );
+    free( tn );
 }
 
 void printTetra( tTetranet tn, tTetraRef tr ) {

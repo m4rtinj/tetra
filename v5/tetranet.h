@@ -70,6 +70,7 @@ typedef struct {
 
     // adott ponthoz tartozo tetraederek keresesehez
     void          *atVertex;
+    void          *nearestp;
 } tTetranetDescriptor;
 
 typedef tTetranetDescriptor *tTetranet;

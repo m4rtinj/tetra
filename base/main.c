@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common.h"
 #include "errors.h"
 #include "tetranet.h"
 #include "vector.h"
