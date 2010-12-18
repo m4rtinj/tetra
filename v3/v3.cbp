@@ -40,6 +40,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/atvertex.h" />
+		<Unit filename="../base/common.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../base/common.h" />
 		<Unit filename="../base/errors.c">
 			<Option compilerVar="CC" />
@@ -52,6 +55,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../base/nasreader.h" />
+		<Unit filename="../base/nearestp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../base/nearestp.h" />
 		<Unit filename="../base/neighbour.c">
 			<Option compilerVar="CC" />
 		</Unit>

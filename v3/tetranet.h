@@ -70,13 +70,7 @@ typedef struct {
 
     // adott ponthoz tartozo tetraederek keresesehez
     void          *atVertex;
-    tTetraRef     *atVertexMain;
-    unsigned long *atVertexIdx;
-    unsigned long  atVertexActIndex;
-    unsigned long  atVertexLastIndex;
-
-    // adott pont melyik tetraederben van? location.
-    // ...
+    void          *nearestp;
 } tTetranetDescriptor;
 
 typedef tTetranetDescriptor *tTetranet;
@@ -185,6 +179,9 @@ bool ( *tetranet_atVertexInit )( tTetranet tn, tPointRef pr );
 
 /// csak az init utan: adott ponthoz tartozo tetraederek kozul a kovetkezo
 tTetraRef( *tetranet_atVertexNext )( tTetranet tn );
+
+/// a teljes tetranet altal foglalt memoria felszabaditasa, a halozat törlese
+void tetranet_free( tTetranet tn );
 
 // csak teszteleshez
 void printTetra( tTetranet tn, tTetraRef tr );

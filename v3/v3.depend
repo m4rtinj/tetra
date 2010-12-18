@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1289687914 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1291507085 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -7,7 +7,7 @@
 	"common.h"
 	"errors.h"
 
-1289768613 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
+1291505680 /home/martinj/sze/szakdolg/valtozatok/base/atvertex.h
 	"tetranet.h"
 	"common.h"
 
@@ -15,7 +15,7 @@
 	"common.h"
 	"vector.h"
 
-1290036693 /home/martinj/sze/szakdolg/valtozatok/base/common.h
+1290295542 /home/martinj/sze/szakdolg/valtozatok/base/common.h
 
 1288122528 /home/martinj/sze/szakdolg/valtozatok/base/vector.h
 
@@ -41,7 +41,7 @@
 	"common.h"
 	<stdio.h>
 
-1289774149 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
+1291508502 source:/home/martinj/sze/szakdolg/valtozatok/base/neighbour.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -62,7 +62,7 @@
 	"vector.h"
 	"testcase.h"
 
-1289056379 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
+1292687328 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -137,14 +137,40 @@
 	"vector.h"
 	<math.h>
 
-1290038221 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+1292452043 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
 	"testcase.h"
 	"tetranet.h"
 	"common.h"
+	"nearestp.h"
 	<sys/time.h>
 	<stdio.h>
 	<sys/resource.h>
 
-1290037440 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
+1292450802 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
+	"tetranet.h"
+
+1290296062 source:/home/martinj/sze/szakdolg/valtozatok/base/common.c
+	<string.h>
+	"common.h"
+
+1292457174 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
+	<stdio.h>
+	<time.h>
+	<stdlib.h>
+	<string.h>
+	"common.h"
+	"errors.h"
+	"tetranet.h"
+	"vector.h"
+	"testcase.h"
+
+1292364935 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
+	"nearestp.h"
+	"tetranet.h"
+	"errors.h"
+	<stdio.h>
+	<stdlib.h>
+
+1291508076 /home/martinj/sze/szakdolg/valtozatok/base/nearestp.h
 	"tetranet.h"
 

@@ -77,7 +77,7 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
             d = tn->points[vertx[3]];
             break;
         default:
-            exitText( "Index failed by getting sidePoints." );
+            exitText( "Index failed by getSidePoints." );
         }
 
         // oldal normalvektora
@@ -223,10 +223,10 @@ inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
 
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
     tPointRef k = nearestp_search( tn, p );
-        if( isTheSamePoint( p, tn->points[k] ) ) {
-            return k;
+    if( isTheSamePoint( p, tn->points[k] ) ) {
+        return k;
     } else {
-    if( tn->lastPointRef >= tn->maxPointRef ) {
+        if( tn->lastPointRef >= tn->maxPointRef ) {
         tn->maxPointRef = tn->maxPointRef * 2;
         tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
         if( tn->points == NULL ) {

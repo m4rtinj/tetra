@@ -14,6 +14,7 @@
 #include "common.h"
 #include "nasreader.h"
 #include "atvertex.h"
+#include "nearestp.h"
 
 /**
  * novekvo sorrendbe rakja a csucsok indexeit
@@ -114,12 +115,12 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
     // Terfogat = az oldalvektorok vegyes szorzatanak hatodresze
     // CSAK az oldalbeallitasok utan hivhato, mert az abcd vektorok utolso allapotat hasznalja
     double volume = tripleProduct(
-                              vector_diff( b, a ),
-                              vector_diff( c, a ),
-                              vector_diff( d, a )) / 6.0;
-    if(volume < 0) {
+                        vector_diff( b, a ),
+                        vector_diff( c, a ),
+                        vector_diff( d, a ) ) / 6.0;
+    if( volume < 0 ) {
         tn->volume[tr] = -volume;
-    } else{
+    } else {
         tn->volume[tr] = volume;
     }
 
@@ -216,6 +217,8 @@ void tetranet_init( tTetranet tn, char *filename ) {
     atVertex_update( tn );
     tetranet_atVertexInit = &atVertex_init;
     tetranet_atVertexNext = &atVertex_next;
+
+    nearestp_update( tn );
 }
 
 inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
@@ -225,43 +228,29 @@ inline bool isTheSamePoint( tPoint p1, tPoint p2 ) {
 }
 
 tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
-    tPointRef k;
-    for( k = 1; k <= tn->lastPointRef; k++ ) {
-        if( isTheSamePoint( p, tn->points[k] ) ) {
-            return k;
+    tPointRef k = nearestp_search( tn, p );
+    if( isTheSamePoint( p, tn->points[k] ) ) {
+        return k;
+    } else {
+        if( tn->lastPointRef >= tn->maxPointRef ) {
+            tn->maxPointRef = tn->maxPointRef * 2;
+            tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
+            if( tn->points == NULL ) {
+                exitText( "Realloc points : error." );
+            }
         }
+        ++( tn->lastPointRef );
+        ++( tn->numberOfPoints );
+        tn->points[tn->lastPointRef] = p;
+        nearestp_addPoint( tn, tn->lastPointRef );
+        return tn->lastPointRef;
     }
-
-    if( tn->lastPointRef >= tn->maxPointRef ) {
-        tn->maxPointRef = tn->maxPointRef * 2;
-        tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
-        if( tn->points == NULL ) {
-            exitText( "Realloc points : error." );
-        }
-    }
-    ++( tn->lastPointRef );
-    ++( tn->numberOfPoints );
-    tn->points[tn->lastPointRef] = p;
-    return tn->lastPointRef;
 }
 
 void      tetranet_delPoint( tTetranet tn, tPointRef pr ) {
     // semmi, nem eri meg a macerat. igy viszont memoriazabalas. TODO
 }
 
-
-/*
-F: first free ref
-M: max ref (arraysize-1)
-L: last used ref
-
-F == M ?
-    bovites
-    M az utolso uj elem
-F-re beirjuk az uj elemet
-amig F<=L es F nem ures
-    F++
- */
 tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPointRef pr2, tPointRef pr3 ) {
     if( tn->firstFreeTetraRef >= tn->maxTetraRef ) {
         unsigned long num;
@@ -313,7 +302,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 
     //hol lesz a kovetkezo szabad hely?
     while(( tn->firstFreeTetraRef <= tn->lastTetraRef ) &&
-            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0) ) {
+            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0 ) ) {
         ++( tn->firstFreeTetraRef );
     }
 
@@ -396,6 +385,14 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
+    tTetraRef ntr;
+    tPointRef npr = nearestp_search( tn, p );
+    atVertex_init( tn, npr );
+    while(( ntr = atVertex_next( tn ) ) != NULL_TETRA ) {
+        if( isPointInTetra( tn, ntr, p ) ) {
+            return ntr;
+        }
+    }
     tTetraRef tr;
     for( tr = tn->lastTetraRef; tr != 0; --tr ) {
         if( isPointInTetra( tn, tr, p ) ) {
@@ -421,6 +418,23 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
     return tn->numberOfPoints;
 }
 
+void tetranet_free( tTetranet tn ) {
+    atVertex_free( tn );
+    nearestp_free( tn );
+
+    free( tn->points );
+    free( tn->vertices );
+    free( tn->sideArea );
+    free( tn->sideNormVect );
+    free( tn->sideType );
+    free( tn->sideNext );
+    free( tn->volume );
+    free( tn->states );
+    free( tn->massPoint );
+
+    free( tn );
+}
+
 void printTetra( tTetranet tn, tTetraRef tr ) {
     printf( "[%7ld] ve: %6ld %6ld %6ld %6ld ",
             tr,
@@ -444,3 +458,4 @@ void printNet( tTetranet tn ) {
         printTetra( tn, tr );
     }
 }
+
