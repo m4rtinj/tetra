@@ -50,6 +50,18 @@ struct tTetra {
     double states[N_STATE];
 };
 
+
+/**
+ *  tFreeTetra
+ *   ilyen elemekbol allo lancolt listaban taroljuk a szabad helyeket.
+ *   - A lancban a referenciak sorrendje kotelezoen novekvo!!!
+ *   - Mindig van legalabb egy eleme, ami az utolso (lastTetraRef) utani indexet tartalmazza.
+ */
+typedef struct _tFreeTetra{
+    tTetraRef ref;
+    struct _tFreeTetra *next;
+} tFreeTetra;
+
 typedef struct {
     // pontok koordinatai: dinamikus tömb
     tPoint        *points;
@@ -61,16 +73,19 @@ typedef struct {
     tTetraRef      maxTetraRef;       // a tomb utolso cimezheto helye
     tPointRef      lastPointRef;      // az utolso hasznalt elem indexe
     tTetraRef      lastTetraRef;      // a lanc utolso elemenek cime
-    tTetraRef      firstFreeTetraRef; // az elso szabad elem indexe
+//    tTetraRef      firstFreeTetraRef; // az elso szabad elem indexe
     unsigned long  numberOfPoints;    // a pontok szama
     unsigned long  numberOfTetras;    // a tetraederek szama;
 
     // a bejaro aktualis helyzete
     tTetraRef      iteratorPos;
+    void          *iterator;
 
     // adott ponthoz tartozo tetraederek keresesehez
     void          *atVertex;
     void          *nearestp;
+
+    tFreeTetra    *freeTetra;
 } tTetranetDescriptor;
 
 typedef tTetranetDescriptor *tTetranet;
@@ -179,6 +194,9 @@ bool ( *tetranet_atVertexInit )( tTetranet tn, tPointRef pr );
 
 /// csak az init utan: adott ponthoz tartozo tetraederek kozul a kovetkezo
 tTetraRef( *tetranet_atVertexNext )( tTetranet tn );
+
+/// a teljes tetranet altal foglalt memoria felszabaditasa, a halozat törlese
+void tetranet_free( tTetranet tn );
 
 // csak teszteleshez
 void printTetra( tTetranet tn, tTetraRef tr );

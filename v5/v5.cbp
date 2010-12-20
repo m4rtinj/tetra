@@ -13,8 +13,14 @@
 				<Option compiler="gcc" />
 				<Option parameters="../data/szivocso_vol_tetra_hm.nas" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/v5" prefix_auto="1" extension_auto="1" />

@@ -62,7 +62,7 @@
 	"vector.h"
 	"testcase.h"
 
-1291508392 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
+1292687326 /home/martinj/sze/szakdolg/valtozatok/v4/tetranet.h
 	"common.h"
 	"vector.h"
 
@@ -120,7 +120,7 @@
 	"vector.h"
 	<math.h>
 
-1292452696 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+1292456616 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

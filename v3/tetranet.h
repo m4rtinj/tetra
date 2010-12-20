@@ -38,6 +38,17 @@ typedef vector    tSideNormVect[4];
 typedef int       tSideType[4];
 typedef double    tStates[N_STATE];
 
+/**
+ *  tFreeTetra
+ *   ilyen elemekbol allo lancolt listaban taroljuk a szabad helyeket.
+ *   - A lancban a referenciak sorrendje kotelezoen novekvo!!!
+ *   - Mindig van legalabb egy eleme, ami az utolso (lastTetraRef) utani indexet tartalmazza.
+ */
+typedef struct _tFreeTetra{
+    tTetraRef ref;
+    struct _tFreeTetra *next;
+} tFreeTetra;
+
 typedef struct {
     // Dinamikus tombok a tetraederek adatainak kezelesere
     // pontok koordinatai
@@ -67,10 +78,13 @@ typedef struct {
 
     // a bejaro aktualis helyzete
     tTetraRef      iteratorPos;
+    void          *iterator;
 
     // adott ponthoz tartozo tetraederek keresesehez
     void          *atVertex;
     void          *nearestp;
+
+    tFreeTetra    *freeTetra;
 } tTetranetDescriptor;
 
 typedef tTetranetDescriptor *tTetranet;
