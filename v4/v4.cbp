@@ -11,10 +11,9 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="../data/szivocso_vol_tetra_hm.nas ../data/teszt.nas" />
+				<Option parameters="../data/fuvoka_640000_mod.bdf ../data/szivocso_vol_tetra_hm.nas ../data/teszt.nas" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-Wall" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
@@ -28,8 +27,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-march=core2" />
 					<Add option="-O3" />
+					<Add option="-march=native" />
+					<Add option="-fprefetch-loop-arrays" />
+					<Add option="-funroll-loops" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />

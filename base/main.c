@@ -51,6 +51,7 @@ int main( int argc, char *argv[] ) {
     startClock();
     tetranet_free(myTNet);
     stopClock("free");
+    printf("\n");
     return 0;
 }
 

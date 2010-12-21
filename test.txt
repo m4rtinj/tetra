@@ -1,0 +1,49 @@
+
+-march=native
+-fprefetch-loop-arrays
+-funroll-loops
+-s
+-O3
+
+v3 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v3 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.56 s | Mem:   234736 kB
+v3 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.02 s | Mem:   234736 kB
+v3 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 52.40 s | Mem:   280764 kB
+Check value = 175.805562
+v3 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   280768 kB
+
+v4 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v4 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.61 s | Mem:   294968 kB
+v4 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.14 s | Mem:   294968 kB
+v4 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 76.41 s | Mem:   294968 kB
+Check value = 175.805562
+v4 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  1.22 s | Mem:   294968 kB
+
+v5 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v5 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.56 s | Mem:   284928 kB
+v5 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.12 s | Mem:   284928 kB
+v5 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 67.86 s | Mem:   284928 kB
+Check value = 175.805562
+v5 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   284928 kB
+
+v3 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v3 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.04 s | Mem:    57556 kB
+v3 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.00 s | Mem:    85976 kB
+v3 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 19.97 s | Mem:   109828 kB
+Check value = 170.314250
+v3 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.34 s | Mem:   109832 kB
+
+v4 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v4 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.07 s | Mem:    72096 kB
+v4 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.06 s | Mem:   114260 kB
+v4 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 27.98 s | Mem:   114260 kB
+Check value = 170.314250
+v4 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.46 s | Mem:   114264 kB
+
+v5 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v5 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.07 s | Mem:    69672 kB
+v5 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.06 s | Mem:   109808 kB
+v5 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 25.06 s | Mem:   109808 kB
+Check value = 170.314250
+v5 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.33 s | Mem:   109812 kB
+
