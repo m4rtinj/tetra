@@ -376,16 +376,17 @@ unsigned long tetranet_getNumberOfPoints( tTetranet tn ) {
 }
 
 void freeTetra( tTetraRef tr ) {
-    if( tr->next != NULL_TETRA ) {
-        freeTetra( tr->next );
+    tTetraRef tmp;
+    while(tr!=NULL_TETRA){
+        tmp = tr->next;
+        free(tr);
+        tr = tmp;
     }
-    free( tr );
 }
 
 void tetranet_free( tTetranet tn ) {
     atVertex_free( tn );
     nearestp_free( tn );
-
     free( tn->points );
     freeTetra( tn->tetras );
     free( tn );
