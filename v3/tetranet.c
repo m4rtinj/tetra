@@ -114,6 +114,11 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
         // az oldal tipusa -- tovabbi informaciok hianyaban egyelore 0
         tn->sideType[tr][k] = 0;
 
+        /* hogy ezt a tömböt is inicializáljuk -
+         * különben csak az elso iraskor foglalodik tenyleges fizikai memoria
+         */
+        tn->states[tr][N_STATE - 1] = 0.0;
+
         // ki kell kinullaznunk a szomszedot.
         tn->sideNext[tr][k] = NULL_TETRA;
     }
