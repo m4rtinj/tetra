@@ -298,25 +298,37 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 }
 
 void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
+
     // ervenytelenitjuk, azaz megjeloljuk ures helykent
     tn->tetras[tr].volume = -1;
+
     // feljegyezzuk a szabad helyek listajaba
     tFreeTetra *tmp = tn->freeTetra;
-    while( tmp->ref < tr ) {
-        tmp = tmp->next;
-    }
-    if( tr < tn->lastTetraRef ) {
+    // ha ez lesz a lista elso eleme:
+    if( tr < tmp->ref ) {
         tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
         newFreeTetra->ref = tr;
-        newFreeTetra->next = tmp->next;
-        tmp->next = newFreeTetra;
+        newFreeTetra->next = tmp;
+        tn->freeTetra = newFreeTetra;
     } else {
-        // uj utolso elemünk van: az eddigi utolsot irjuk felul.
-        tmp->next->ref = tr;
-        // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
-        do {
-            --( tn->lastTetraRef );
-        } while( tn->tetras[tn->lastTetraRef].volume < 0 );
+        tFreeTetra *prev=tmp;
+        while( (tmp!=NULL) && (tmp->ref < tr) ) {
+            prev = tmp;
+            tmp = tmp->next;
+        }
+        if( tr < tn->lastTetraRef ) {
+            tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
+            newFreeTetra->ref = tr;
+            newFreeTetra->next = tmp;
+            prev->next = newFreeTetra;
+        } else {
+            // uj utolso elemünk van: az eddigi utolsot irjuk felul.
+            tmp->next->ref = tr;
+            // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
+            do {
+                --( tn->lastTetraRef );
+            } while( tn->tetras[tn->lastTetraRef].volume < 0 );
+        }
     }
     // toroljuk a szomszednyilvantartasbol es az atvertex-bol
     neighbours_delete( tn, tr );
