@@ -44,7 +44,7 @@ void explode( tTetranet tn, tTetraRef tr ) {
 }
 
 void test_explode( tTetranet tn ) {
-    const unsigned count = 50000;
+    const unsigned count = 90000;
     unsigned i;
     tTetraRef tr;
 
@@ -162,11 +162,66 @@ void test_pointLocation( tTetranet tn ) {
                 p.x = x;
                 p.y = y;
                 p.z = z;
-            //    printf( "%8lf %8lf %8lf -- %ld\n", x, y, z, found );
+                //    printf( "%8lf %8lf %8lf -- %ld\n", x, y, z, found );
                 if( tetranet_getPointLocation( tn, p ) != NULL_TETRA ) ++found;
             }
         }
     }
     stopClock( "PointLoc" );
 }
+
+
+unsigned long counter = 0;
+void recursive_delete( tTetranet tn, tTetraRef tr, int depth, int maxDepth ) {
+    if( depth > maxDepth ) return;
+
+    /*
+    Kisse kifacsart modon elobb kell letorolni a tr-t, mint a szomszedait,
+    mert különben a szomjedja törölne, mint a sajat szomszedjat :)
+    Ezert kellenek a segedvaltozok...
+    */
+
+    tTetraRef tr0 = tetranet_getSideNext( tn, tr, 0 );
+    tTetraRef tr1 = tetranet_getSideNext( tn, tr, 1 );
+    tTetraRef tr2 = tetranet_getSideNext( tn, tr, 2 );
+    tTetraRef tr3 = tetranet_getSideNext( tn, tr, 3 );
+    tetranet_delTetra( tn, tr );
+    if( tr0 != NULL_TETRA ) recursive_delete( tn, tr0, depth + 1, maxDepth );
+    if( tr1 != NULL_TETRA ) recursive_delete( tn, tr1, depth + 1, maxDepth );
+    if( tr2 != NULL_TETRA ) recursive_delete( tn, tr2, depth + 1, maxDepth );
+    if( tr3 != NULL_TETRA ) recursive_delete( tn, tr3, depth + 1, maxDepth );
+}
+
+void test_delete( tTetranet tn ) {
+    const unsigned long maxCount = 20000;
+    unsigned long counter = 0;
+    tetranet_iteratorInit( tn );
+    tTetraRef tr = tetranet_iteratorNext( tn );
+    tTetraRef trn;
+    tSideIndex k;
+
+    startClock();
+    while( counter < maxCount ) {
+        k = 0;
+        do {
+            trn = tetranet_getSideNext( tn, tr, k );
+            ++k;
+        } while(( k <= 3 ) && ( trn == NULL_TETRA ) );
+
+//      printf( "c = %ld tr= %ld\n", counter, tr );
+        tetranet_delTetra( tn, tr );
+
+        if( trn == NULL_TETRA ) {
+            tetranet_iteratorInit( tn );
+            trn = tetranet_iteratorNext( tn );
+        }
+
+        tr = trn;
+        ++counter;
+
+    }
+    stopClock( "delete" );
+}
+
+
 

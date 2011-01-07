@@ -23,4 +23,6 @@ void test_nearestp( tTetranet tn );
 
 void test_pointLocation( tTetranet tn );
 
+void test_delete( tTetranet tn );
+
 #endif

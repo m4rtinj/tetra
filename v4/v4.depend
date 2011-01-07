@@ -120,7 +120,7 @@
 	"vector.h"
 	<math.h>
 
-1292456616 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
+1294259838 source:/home/martinj/sze/szakdolg/valtozatok/v4/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -131,6 +131,7 @@
 	"nasreader.h"
 	"atvertex.h"
 	"nearestp.h"
+	"testcase.h"
 
 1288828504 /home/martinj/sze/szakdolg/valtozatok/base_h/neighbour.h
 	<tetranet.h>
@@ -150,7 +151,7 @@
 1289685730 /home/martinj/sze/szakdolg/valtozatok/base/neighbour.h
 	"tetranet.h"
 
-1292882960 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+1294270962 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
 	"testcase.h"
 	"tetranet.h"
 	"common.h"
@@ -163,7 +164,7 @@
 	<string.h>
 	"common.h"
 
-1292886078 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
+1292892226 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -174,7 +175,7 @@
 	"vector.h"
 	"testcase.h"
 
-1292364935 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
+1294007232 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
 	"nearestp.h"
 	"tetranet.h"
 	"errors.h"

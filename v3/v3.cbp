@@ -13,8 +13,6 @@
 				<Option compiler="gcc" />
 				<Option parameters="../data/szivocso_vol_tetra_hm.nas ../data/teszt.nas" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
@@ -27,6 +25,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="../data/fuvoka_640000_mod.bdf ../data/szivocso_vol_tetra_hm.nas ../data/teszt.nas" />
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-march=native" />
