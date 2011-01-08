@@ -219,10 +219,13 @@ void tetranet_init( tTetranet tn, char *filename ) {
         ++i;
         addTetra( tn, i, tempTetra );
     } while( nasreader_readNextTetra( iniFile, tempTetra ) );
+    // az utolso ervenyes index tarolasa
     tn->lastTetraRef = i;
+    // inicializalom a szabad elemek lancat:
+    // az egyetlen lancszeme az utolso elem utan mutat
     tFreeTetra *tmp = malloc( sizeof( tFreeTetra ) );
     tmp->next  = NULL;
-    tmp->ref = i;
+    tmp->ref = i + 1;
     tn->freeTetra = tmp;
     // nem kell mar tobbet a file
     fclose( iniFile );
@@ -335,33 +338,41 @@ void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
     tn->volume[tr] = -1;
 
     // feljegyezzuk a szabad helyek listajaba
+
+    // segedvaltozok:
     tFreeTetra *tmp = tn->freeTetra;
-    // ha ez lesz a lista elso eleme:
-    if( tr < tmp->ref ) {
-        tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
-        newFreeTetra->ref = tr;
-        newFreeTetra->next = tmp;
-        tn->freeTetra = newFreeTetra;
-    } else {
-        tFreeTetra *prev=tmp;
-        while( (tmp!=NULL) && (tmp->ref < tr) ) {
-            prev = tmp;
-        tmp = tmp->next;
-    }
-    if( tr < tn->lastTetraRef ) {
-        tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
-        newFreeTetra->ref = tr;
-            newFreeTetra->next = tmp;
-            prev->next = newFreeTetra;
-    } else {
-        // uj utolso elemünk van: az eddigi utolsot irjuk felul.
-        tmp->next->ref = tr;
-        // ha ez volt az utolso, akkor valtozik az utolsot jelzo is
+    tFreeTetra *prev = tmp;
+
+    // az utolso elemet töröltük?
+    if( tr == tn->lastTetraRef ) {
+        // keressük meg az utolso lancszemet
+        while( tmp->next != NULL ) {
+            tmp = tmp->next;
+        }
+        // es irjuk at az ujra:
+        tmp->ref = tr;
+        // valtozik a lastTetraRef is, az utolo ervenyes elemre:
         do {
             --( tn->lastTetraRef );
         } while( tn->volume[tn->lastTetraRef] < 0 );
+    } else if( tr < tmp->ref ) {
+        // ha ez lesz a lista elso eleme:
+        tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
+        newFreeTetra->ref = tr;
+        newFreeTetra->next = tmp;
+        // modositjuk a beugrasi pontot is!
+        tn->freeTetra = newFreeTetra;
+    } else {
+        // sem utolso sem elso? akkor keressük meg a helyet:
+        while(( tmp != NULL ) && ( tmp->ref < tr ) ) {
+            prev = tmp;
+            tmp = tmp->next;
+        }
+        tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
+        newFreeTetra->ref = tr;
+        newFreeTetra->next = tmp;
+        prev->next = newFreeTetra;
     }
-}
     // toroljuk a szomszednyilvantartasbol es az atvertex-bol
     neighbours_delete( tn, tr );
     atVertex_delete( tn, tr );
@@ -420,12 +431,16 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
     tIterator *iter = tn->iterator;
     if( !iter->active ) return NULL_TETRA;
     ++( iter->pos );
+    // atleptuk az utolso elemet? vege!
     if( iter->pos > tn->lastTetraRef ) {
         iter->active = FALSE;
         return NULL_TETRA;
     }
+    // üres elemen allunk eppen?
     while( iter->pos == iter->nextFree->ref ) {
+        // egy elemet elore lepek
         ++( iter->pos );
+        // most mar atleptem az utolso elemet? akkor vege!
         if( iter->pos > tn->lastTetraRef ) {
             iter->active = FALSE;
             return NULL_TETRA;
@@ -433,7 +448,6 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
         iter->nextFree = iter->nextFree->next;
     }
     return( iter->pos );
-
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
@@ -510,4 +524,8 @@ void printNet( tTetranet tn ) {
         printTetra( tn, tr );
     }
 }
+
+
+
+
 
