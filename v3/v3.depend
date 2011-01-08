@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1291507085 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
+1294431543 source:/home/martinj/sze/szakdolg/valtozatok/base/atvertex.c
 	<stdlib.h>
 	<string.h>
 	"atvertex.h"
@@ -62,11 +62,11 @@
 	"vector.h"
 	"testcase.h"
 
-1292803136 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
+1294361400 /home/martinj/sze/szakdolg/valtozatok/v3/tetranet.h
 	"common.h"
 	"vector.h"
 
-1292972371 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
+1294431530 source:/home/martinj/sze/szakdolg/valtozatok/v3/tetranet.c
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -138,7 +138,7 @@
 	"vector.h"
 	<math.h>
 
-1292968631 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
+1294428909 source:/home/martinj/sze/szakdolg/valtozatok/base/testcase.c
 	"testcase.h"
 	"tetranet.h"
 	"common.h"
@@ -147,14 +147,14 @@
 	<stdio.h>
 	<sys/resource.h>
 
-1292450802 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
+1294347877 /home/martinj/sze/szakdolg/valtozatok/base/testcase.h
 	"tetranet.h"
 
 1290296062 source:/home/martinj/sze/szakdolg/valtozatok/base/common.c
 	<string.h>
 	"common.h"
 
-1292892226 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
+1294348055 source:/home/martinj/sze/szakdolg/valtozatok/base/main.c
 	<stdio.h>
 	<time.h>
 	<stdlib.h>
@@ -165,7 +165,7 @@
 	"vector.h"
 	"testcase.h"
 
-1292364935 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
+1294007232 source:/home/martinj/sze/szakdolg/valtozatok/base/nearestp.c
 	"nearestp.h"
 	"tetranet.h"
 	"errors.h"
