@@ -185,7 +185,7 @@ void test_delete( tTetranet tn ) {
             ++k;
         } while(( k <= 3 ) && ( trn == NULL_TETRA ) );
 
-        // printf( "c = %ld tr= %ld\n", counter, tr );
+//      printf( "c = %ld tr= %ld\n", counter, tr );
         tetranet_delTetra( tn, tr );
 
         if( trn == NULL_TETRA ) {
@@ -198,6 +198,71 @@ void test_delete( tTetranet tn ) {
     stopClock( "delete" );
 }
 
+void test_flow( tTetranet tn ) {
+    const unsigned count = 200;
+    const double a = 1.0;
+    const double dt = 0.0001;
+
+    double temp = 0;
+    double uc, un, vc, vn, s;
+    tTetraRef tr;
+    tTetraRef tr0;
+    tTetraRef trMaxVol;
+    tSideIndex k;
+    unsigned i = 0;
+
+    startClock();
+
+    // homogen feltoltes + legnagyobb terfogat keresese
+    temp = 0;
+    trMaxVol = NULL_TETRA;
+    tetranet_iteratorInit( tn );
+    while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+        tetranet_setState( tn, tr, 1, 0.5 );
+        if( tetranet_getTetraVolume( tn, tr ) > temp ) {
+            trMaxVol = tr;
+            temp = tetranet_getTetraVolume( tn, tr );
+        }
+    }
+
+    // ertek a legnagyobb terfogatuba
+    tetranet_setState( tn, trMaxVol, 1, 0.999 );
+
+    // kezdodik a ciklus
+    for( i = 0; i < count; ++i ) {
+        tetranet_iteratorInit( tn );
+        // beallitjuk az uj ertekeket states[2]-be
+        while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+            temp = 0;
+            // sajat allapot
+            uc = tetranet_getState( tn, tr, 1 );
+            // sajat terfogat
+            vn = tetranet_getTetraVolume( tn, tr );
+            for( k = 0; k <= 3; ++k ) {
+                tr0 = tetranet_getSideNext( tn, tr, k );
+                if( tr0 != NULL_TETRA ) {
+                    // szomszed allapota
+                    un = tetranet_getState( tn, tr0, 1 );
+                    // kozos oldal tertulete
+                    s  = tetranet_getSideArea( tn, tr, k );
+                    // szomszed terfogata
+                    vn = tetranet_getTetraVolume( tn, tr0 );
+                    // the very secret formula
+                    temp += ( -1 * a * ( uc - un ) * s * s ) / ( vc + vn );
+                }
+            }
+            temp = dt * temp + uc;
+            tetranet_setState( tn, tr, 2, temp );
+        }
+        // visszamasoljuk az ertekeket 2-bol 1-be
+        tetranet_iteratorInit( tn );
+        while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+            tetranet_setState( tn, tr, 1, tetranet_getState( tn, tr, 2 ) );
+        }
+    }
+    stopClock( "flow" );
+    printf( "Check value = %lf\n", tetranet_getState( tn, trMaxVol, 1 ) );
+}
 
 
 

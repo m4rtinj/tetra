@@ -25,4 +25,6 @@ void test_pointLocation( tTetranet tn );
 
 void test_delete( tTetranet tn );
 
+void test_flow( tTetranet tn );
+
 #endif
