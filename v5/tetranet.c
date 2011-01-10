@@ -322,7 +322,7 @@ void      tetranet_delTetra( tTetranet tn, tTetraRef tr ) {
         // valtozik a lastTetraRef is, az utolo ervenyes elemre:
         do {
             --( tn->lastTetraRef );
-        } while( tn->volume[tn->lastTetraRef] < 0 );
+        } while( tn->tetras[tn->lastTetraRef].volume < 0 );
     } else if( tr < tmp->ref ) {
     // ha ez lesz a lista elso eleme:
         tFreeTetra *newFreeTetra = malloc( sizeof( tFreeTetra ) );
@@ -419,12 +419,20 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
-    tTetraRef ntr;
+    tTetraRef ntr, xtr;
+    tSideIndex k;
     tPointRef npr = nearestp_search( tn, p );
     atVertex_init( tn, npr );
     while(( ntr = atVertex_next( tn ) ) != NULL_TETRA ) {
         if( isPointInTetra( tn, ntr, p ) ) {
             return ntr;
+        } else {
+            for( k = 0; k <= 3; ++k ) {
+                xtr = tetranet_getSideNext( tn, ntr, k );
+                if( isPointInTetra( tn, xtr, p ) ) {
+                    return xtr;
+                }
+            }
         }
     }
     tTetraRef tr;

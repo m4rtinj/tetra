@@ -107,11 +107,6 @@ void addTetra( tTetranet tn, tTetraRef tr, tPointRef vertx[4] ) {
 
         // az oldal tipusa -- tovabbi informaciok hianyaban egyelore 0
         tn->tetras[tr].sides[k].type = 0;
-        
-        /* hogy ezt a tömböt is inicializáljuk -
-         * különben csak az elso iraskor foglalodik tenyleges fizikai memoria
-         */
-        tn->tetras[tr].states[N_STATE - 1] = 0.0;
 
         // ki kell nullaznunk a szomszedot.
         tn->tetras[tr].sides[k].next = NULL_TETRA;
@@ -233,17 +228,17 @@ tPointRef tetranet_insertPoint( tTetranet tn, tPoint p ) {
         return k;
     } else {
         if( tn->lastPointRef >= tn->maxPointRef ) {
-        tn->maxPointRef = tn->maxPointRef * 2;
-        tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
-        if( tn->points == NULL ) {
-            exitText( "Realloc points : error." );
+            tn->maxPointRef = tn->maxPointRef * 2;
+            tn->points = realloc( tn->points, ( tn->maxPointRef + 1 ) * sizeof( tPoint ) );
+            if( tn->points == NULL ) {
+                exitText( "Realloc points : error." );
+            }
         }
-    }
-    ++( tn->lastPointRef );
-    ++( tn->numberOfPoints );
-    tn->points[tn->lastPointRef] = p;
+        ++( tn->lastPointRef );
+        ++( tn->numberOfPoints );
+        tn->points[tn->lastPointRef] = p;
         nearestp_addPoint( tn, tn->lastPointRef );
-    return tn->lastPointRef;
+        return tn->lastPointRef;
     }
 }
 
@@ -268,7 +263,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 
     tTetraRef newRef = tn->firstFreeTetraRef;
 
-    addTetra( tn, newRef, vertx);
+    addTetra( tn, newRef, vertx );
 
     // elobb atvertex, csak utana neighbours, mert utobbi elobbit hasznalja !!!
     atVertex_insert( tn, newRef );
@@ -281,7 +276,7 @@ tTetraRef tetranet_insertTetra( tTetranet tn, tPointRef pr0, tPointRef pr1, tPoi
 
     //hol lesz a kovetkezo szabad hely?
     while(( tn->firstFreeTetraRef <= tn->lastTetraRef ) &&
-            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0) ) {
+            ( tetranet_getTetraVolume( tn, tn->firstFreeTetraRef ) > 0 ) ) {
         ++( tn->firstFreeTetraRef );
     }
 
@@ -358,22 +353,30 @@ tTetraRef tetranet_iteratorNext( tTetranet tn ) {
         return NULL_TETRA;
     } else {
         do {
-        ++( tn->iteratorPos );
+            ++( tn->iteratorPos );
         } while( tetranet_getTetraVolume( tn, tn->iteratorPos ) < 0 );
         return( tn->iteratorPos );
     }
 }
 
 tTetraRef tetranet_getPointLocation( tTetranet tn, tPoint p ) {
-	tTetraRef ntr;
+    tTetraRef ntr, xtr;
+    tSideIndex k;
     tPointRef npr = nearestp_search( tn, p );
     atVertex_init( tn, npr );
     while(( ntr = atVertex_next( tn ) ) != NULL_TETRA ) {
         if( isPointInTetra( tn, ntr, p ) ) {
             return ntr;
+        } else {
+            for( k = 0; k <= 3; ++k ) {
+                xtr = tetranet_getSideNext( tn, ntr, k );
+                if( isPointInTetra( tn, xtr, p ) ) {
+                    return xtr;
+                }
+            }
         }
-    }    
-	tTetraRef tr;
+    }
+    tTetraRef tr;
     for( tr = tn->lastTetraRef; tr != 0; --tr ) {
         if( isPointInTetra( tn, tr, p ) ) {
             return tr;
