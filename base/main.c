@@ -18,12 +18,14 @@ void printAll( tTetranet tn ) {
 }
 
 void selfTest( tTetranet tn ) {
-    test_delete( tn );
-    test_explode( tn );
-    test_delete( tn );
-    test_pointLocation(tn);
-    test_alfa( tn );
-//  printAll( tn );
+    test_massPointLocation( tn );
+//    test_flow( tn );
+//    test_delete( tn );
+//    test_explode( tn );
+//    test_delete( tn );
+//    test_pointLocation(tn);
+//    test_alfa( tn );
+//    printAll( tn );
 }
 
 void help() {
@@ -51,9 +53,9 @@ int main( int argc, char *argv[] ) {
     selfTest( myTNet );
 
     startClock();
-    tetranet_free(myTNet);
-    stopClock("free");
-    printf("\n");
+    tetranet_free( myTNet );
+    stopClock( "free" );
+    printf( "\n" );
     return 0;
 }
 
