@@ -18,17 +18,47 @@
 #define MAX_LINE 99
 
 char line[MAX_LINE + 1];
-char strTemp[9] = "01234567\0";
+char strTemp[9]   = "01234567\0";
+char strPoint[10] = "012345678\0";
+
+/*
+  csak mert a NAS a 3.17E-3 helyett a 3.17-3 format szereti. Juhuuuu.
+*/
+void expHack( char *str ) {
+#define SPC ' '
+#define MINUS '-'
+    unsigned short i = 8;
+    unsigned short k = 9;
+
+    do {
+        --i;
+        --k;
+        str[k] = str[i];
+        if(( str[i] == MINUS)  && ( i > 0 ) && ( str[i-1] != SPC )) {
+        --k;
+        str[k] = 'E';
+        }
+    } while( i != 0 );
+    if( k > 1 ) {
+        exitText( "point format error" );
+    }
+    if( k == 1 ) {
+        str[0] = SPC;
+    }
+}
 
 inline void line2point( tPoint *p ) {
     // a stringet csak a deklaracioban zartuk le,
     // ezert a terminatort nem szabad felulirni
-    strncpy( strTemp, &line[24], 8 );
-    p->x = atof( strTemp );
-    strncpy( strTemp, &line[32], 8 );
-    p->y = atof( strTemp );
-    strncpy( strTemp, &line[40], 8 );
-    p->z = atof( strTemp );
+    strncpy( strPoint, &line[24], 8 );
+    expHack( strPoint );
+    p->x = atof( strPoint );
+    strncpy( strPoint, &line[32], 8 );
+    expHack( strPoint );
+    p->y = atof( strPoint );
+    strncpy( strPoint, &line[40], 8 );
+    expHack( strPoint );
+    p->z = atof( strPoint );
     // TODO mi van, ha az atof hibaval ter vissza?
 }
 
@@ -141,3 +171,5 @@ bool nasreader_readNextTetra( FILE *f, tPointRef *p ) {
     line2tetra( p );
     return TRUE;
 }
+
+
