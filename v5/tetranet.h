@@ -20,7 +20,7 @@ typedef vector tPoint;
 typedef unsigned long int tPointRef;
 typedef unsigned int tSideIndex; /* 0..3 */
 
-#define N_STATE 10
+#define N_STATE 3
 
 /// konstans az ervenytelen / nem letezo pont jelzesere
 #define NULL_POINT 0
