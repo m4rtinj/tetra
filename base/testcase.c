@@ -170,6 +170,19 @@ void test_pointLocation( tTetranet tn ) {
     stopClock( "PointLoc" );
 }
 
+void test_massPointLocation( tTetranet tn ) {
+    tTetraRef tr;
+    tPoint p;
+    startClock;
+    tetranet_iteratorInit( tn );
+    while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+        if( tetranet_getPointLocation( tn, tetranet_getTetraMassPoint( tn, tr ) ) != tr ) {
+            printf( "getLocation fails by tr=%ld\n", tr );
+        }
+    }
+    stopClock( "massPLoc" );
+}
+
 void test_delete( tTetranet tn ) {
     const unsigned long maxCount = 50000;
     unsigned long counter = 0;
@@ -235,14 +248,14 @@ void test_flow( tTetranet tn ) {
         while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
             temp = 0;
             // sajat allapot
-            uc = tetranet_getState( tn, tr, 1 );
+            uc = tetranet_getState( tn, tr, 0 );
             // sajat terfogat
             vn = tetranet_getTetraVolume( tn, tr );
             for( k = 0; k <= 3; ++k ) {
                 tr0 = tetranet_getSideNext( tn, tr, k );
                 if( tr0 != NULL_TETRA ) {
                     // szomszed allapota
-                    un = tetranet_getState( tn, tr0, 1 );
+                    un = tetranet_getState( tn, tr0, 0 );
                     // kozos oldal tertulete
                     s  = tetranet_getSideArea( tn, tr, k );
                     // szomszed terfogata
@@ -252,12 +265,12 @@ void test_flow( tTetranet tn ) {
                 }
             }
             temp = dt * temp + uc;
-            tetranet_setState( tn, tr, 2, temp );
+            tetranet_setState( tn, tr, 1, temp );
         }
         // visszamasoljuk az ertekeket 2-bol 1-be
         tetranet_iteratorInit( tn );
         while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
-            tetranet_setState( tn, tr, 1, tetranet_getState( tn, tr, 2 ) );
+            tetranet_setState( tn, tr, 0, tetranet_getState( tn, tr, 1 ) );
         }
     }
     stopClock( "flow" );
