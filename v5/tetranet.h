@@ -63,9 +63,9 @@ typedef struct _tFreeTetra{
 } tFreeTetra;
 
 typedef struct {
-    // pontok koordinatai: dinamikus tömb
+    // pontok koordinatai: dinamikus tomb
     tPoint        *points;
-    // tetraederek lancolt listaja
+    // tetraederek dinamikus tombje
     tTetra        *tetras;
 
     // szamossagtarolas
