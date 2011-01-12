@@ -59,7 +59,8 @@ void atVertex_update( tTetranet tn ) {
 
 /**
  *  Elokeszuleti lepes adott ponthoz valo kereseshez.
- *  Eloszor mindig ezt kell meghivni, csak utana lehet az atVertex_getNext-et
+ *  Eloszor mindig ezt kell meghivni, 
+ *  csak utana lehet az atVertex_getNext-et
  *  @param p a kerdeses pont indexe
  *  @return FALSE, ha a pont nincs indexelve
  */
@@ -76,8 +77,9 @@ bool atVertex_init( tTetranet tn, tPointRef p ) {
 
 /**
  *  Az adott ponthoz tartozo kovetkezo tetraeder indexet adja vissza.
- *  Csak az init utan van ertelme meghivni, ott kell megadni, hogy melyik ponthoz keresunk.
- *  @return a ponthoz tartozo kovetkezo tetraeder indexe, ha hibas a pontindex, akkor NULL_TETRA
+ *  Csak az init utan van ertelme meghivni, 
+ *  ott kell megadni, hogy melyik ponthoz keresunk.
+ *  @return a ponthoz tartozo kovetkezo tetraeder indexe, ha nincs tobb akkor NULL_TETRA
  */
 tTetraRef atVertex_next( tTetranet tn ) {
     tAtVertexDesc *atv = tn->atVertex;
@@ -163,5 +165,4 @@ void atVertex_delete( tTetranet tn, tTetraRef tr ) {
         }
     }
 }
-
 

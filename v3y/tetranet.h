@@ -84,7 +84,7 @@ typedef struct {
     void          *atVertex;
     void          *nearestp;
 
-    // a szabad helyek listajanak kezdöcime
+    // a szabad helyek listajanak kezdocime
     tFreeTetra    *freeTetra;
     // a szabad helyek listajanak utolso elemenek cime
     tFreeTetra    *lastFreeTetra;
