@@ -31,6 +31,7 @@
 					<Add option="-march=native" />
 					<Add option="-fprefetch-loop-arrays" />
 					<Add option="-funroll-loops" />
+					<Add option="-ffast-math" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
