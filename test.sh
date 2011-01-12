@@ -24,6 +24,10 @@ cd v5x
 bin/Release/v5x ../data/fuvoka_640000_mod.bdf >> ../test.txt
 cd ..
 
+cd v5y
+bin/Release/v5y ../data/fuvoka_640000_mod.bdf >> ../test.txt
+cd ..
+
 
 cd v3
 bin/Release/v3 ../data/szivocso_vol_tetra_hm.nas >> ../test.txt
@@ -47,6 +51,10 @@ cd ..
 
 cd v5x
 bin/Release/v5x ../data/szivocso_vol_tetra_hm.nas >> ../test.txt
+cd ..
+
+cd v5y
+bin/Release/v5y ../data/szivocso_vol_tetra_hm.nas >> ../test.txt
 cd ..
 
 exit

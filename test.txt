@@ -1,66 +1,154 @@
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.68 s | Mem:   249800 kB
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time: 64.03 s | Mem:   249800 kB
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time:  2.06 s | Mem:   249800 kB
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time: 60.68 s | Mem:   249800 kB
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 39.71 s | Mem:   249800 kB
+Check value = 175.775584
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 66.46 s | Mem:   249800 kB
+Check value = 0.689805
+ v3 - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   249800 kB
 
-Bekapcsolt gcc opciok:
-    -march=native
-    -fprefetch-loop-arrays
-    -funroll-loops
-    -s
-    -O3
+v3x - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v3x - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.68 s | Mem:   249800 kB
+v3x - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249800 kB
+v3x - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time: 58.50 s | Mem:   249800 kB
+v3x - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249800 kB
+v3x - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 34.88 s | Mem:   249800 kB
+Check value = 175.775584
+v3x - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 59.26 s | Mem:   249800 kB
+Check value = 0.689805
+v3x - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   249800 kB
 
-Magyarazat:
------------    
+v3y - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v3y - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.62 s | Mem:   249800 kB
+v3y - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249800 kB
+v3y - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time:  2.12 s | Mem:   249800 kB
+v3y - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249800 kB
+v3y - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 35.69 s | Mem:   249800 kB
+Check value = 175.775584
+v3y - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 61.33 s | Mem:   249800 kB
+Check value = 0.689805
+v3y - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   249800 kB
 
-Szoftvervaltozatok:
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.68 s | Mem:   259824 kB
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.11 s | Mem:   259824 kB
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time:  2.22 s | Mem:   259824 kB
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.10 s | Mem:   259824 kB
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 67.50 s | Mem:   259824 kB
+Check value = 175.775584
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 93.65 s | Mem:   259824 kB
+Check value = 0.689805
+ v4 - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  1.21 s | Mem:   259824 kB
 
-    v3  szeparalt tobos megoldas: minden adatot kulon tombben tarolunk.
-        pl a "volume" tomb az osszes tetraeder terfogatadatait tartalmazza
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.70 s | Mem:   249784 kB
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time: 63.82 s | Mem:   249784 kB
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time:  2.19 s | Mem:   249784 kB
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time: 60.74 s | Mem:   249784 kB
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 63.08 s | Mem:   249784 kB
+Check value = 175.775584
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 90.94 s | Mem:   249784 kB
+Check value = 0.689805
+ v5 - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   249784 kB
 
-    v4  lancolt lista, ahol egy elem egy tetraeder minden adatat tartalmazza
+v5x - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v5x - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.76 s | Mem:   249780 kB
+v5x - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249780 kB
+v5x - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time: 421.09 s | Mem:   249780 kB
+v5x - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.09 s | Mem:   249780 kB
+v5x - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 63.30 s | Mem:   249780 kB
+Check value = 175.775584
+v5x - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 88.74 s | Mem:   249780 kB
+Check value = 0.689805
+v5x - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   249780 kB
 
-    v5  tetraederstrukturak tombje
+v5y - Jan 11 2011 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v5y - Jan 11 2011 (fuvoka_640..) | Test:     init | Time:  4.70 s | Mem:   249784 kB
+v5y - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.10 s | Mem:   249784 kB
+v5y - Jan 11 2011 (fuvoka_640..) | Test:  explode | Time:  2.26 s | Mem:   249784 kB
+v5y - Jan 11 2011 (fuvoka_640..) | Test:   delete | Time:  0.10 s | Mem:   249784 kB
+v5y - Jan 11 2011 (fuvoka_640..) | Test:     alfa | Time: 64.36 s | Mem:   249784 kB
+Check value = 175.775584
+v5y - Jan 11 2011 (fuvoka_640..) | Test:     flow | Time: 91.01 s | Mem:   249784 kB
+Check value = 0.689805
+v5y - Jan 11 2011 (fuvoka_640..) | Test:     free | Time:  0.36 s | Mem:   249784 kB
 
-Tesztesetek:
+ v3 - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+ v3 - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.04 s | Mem:    61196 kB
+ v3 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time: 58.20 s | Mem:    61196 kB
+ v3 - Jan 11 2011 (szivocso_v..) | Test:  explode | Time:  1.71 s | Mem:    78852 kB
+ v3 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time: 51.27 s | Mem:    78852 kB
+ v3 - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 11.33 s | Mem:    78852 kB
+Check value = 170.314236
+ v3 - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 14.77 s | Mem:    78852 kB
+Check value = 0.521529
+ v3 - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.26 s | Mem:    78852 kB
 
-    start   - helyzetjelentes a program indulasakor ( a foglalt memoria kezdoallapota miatt erdekes csak) 
-    init    - a tetraederstrura letrehozasa es feltoltese utani allapot.
-    exlode  - a halozat elso 50000 tetraederenek felbontasa ( 4 tetraederre a tomegkozeppont korul )
-    alfa    - 200 iteracio a teljes halon: minden egyes tetraederre: uj allapot = a * sajat_regi + (1-a) * szomszed_regiek_osszege
-    free    - a hasznalt memoria felszabaditasa
+v3x - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v3x - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.06 s | Mem:    61200 kB
+v3x - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    61200 kB
+v3x - Jan 11 2011 (szivocso_v..) | Test:  explode | Time: 12.38 s | Mem:    78688 kB
+v3x - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.07 s | Mem:    78692 kB
+v3x - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time:  8.98 s | Mem:    78692 kB
+Check value = 170.314236
+v3x - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 12.75 s | Mem:    78692 kB
+Check value = 0.521529
+v3x - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.25 s | Mem:    78692 kB
 
-Teszteredmenyek:
+v3y - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v3y - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.03 s | Mem:    61196 kB
+v3y - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    61196 kB
+v3y - Jan 11 2011 (szivocso_v..) | Test:  explode | Time:  1.92 s | Mem:    78848 kB
+v3y - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    78848 kB
+v3y - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 10.28 s | Mem:    78848 kB
+Check value = 164.881835
+v3y - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 15.27 s | Mem:    78852 kB
+Check value = 0.532165
+v3y - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.26 s | Mem:    78852 kB
 
-v3 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
-v3 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.56 s | Mem:   234736 kB
-v3 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.02 s | Mem:   234736 kB
-v3 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 52.40 s | Mem:   280764 kB
-v3 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   280768 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.05 s | Mem:    63600 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.10 s | Mem:    63600 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:  explode | Time:  1.96 s | Mem:    82412 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    82412 kB
+ v4 - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 18.46 s | Mem:    82412 kB
+Check value = 170.323391
+ v4 - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 21.63 s | Mem:    82416 kB
+Check value = 0.512692
+ v4 - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.37 s | Mem:    82416 kB
 
-v4 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      680 kB
-v4 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.61 s | Mem:   294968 kB
-v4 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.14 s | Mem:   294968 kB
-v4 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 76.41 s | Mem:   294968 kB
-v4 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  1.22 s | Mem:   294968 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.03 s | Mem:    61184 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time: 57.68 s | Mem:    61184 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:  explode | Time:  1.81 s | Mem:    78836 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:   delete | Time: 51.20 s | Mem:    78836 kB
+ v5 - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 17.99 s | Mem:    78836 kB
+Check value = 170.314236
+ v5 - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 22.16 s | Mem:    78836 kB
+Check value = 0.521529
+ v5 - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.27 s | Mem:    78836 kB
 
-v5 - Dec 21 2010 (fuvoka_640..) | Test:    start | Time:  0.00 s | Mem:      684 kB
-v5 - Dec 21 2010 (fuvoka_640..) | Test:     init | Time:  4.56 s | Mem:   284928 kB
-v5 - Dec 21 2010 (fuvoka_640..) | Test:  explode | Time:  2.12 s | Mem:   284928 kB
-v5 - Dec 21 2010 (fuvoka_640..) | Test:     alfa | Time: 67.86 s | Mem:   284928 kB
-v5 - Dec 21 2010 (fuvoka_640..) | Test:     free | Time:  0.35 s | Mem:   284928 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.08 s | Mem:    61180 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.07 s | Mem:    61180 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:  explode | Time: 115.81 s | Mem:    78668 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.07 s | Mem:    78672 kB
+v5x - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 17.47 s | Mem:    78672 kB
+Check value = 170.314236
+v5x - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 20.89 s | Mem:    78672 kB
+Check value = 0.521529
+v5x - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.25 s | Mem:    78672 kB
 
-v3 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
-v3 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.04 s | Mem:    57556 kB
-v3 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.00 s | Mem:    85976 kB
-v3 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 19.97 s | Mem:   109828 kB
-v3 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.34 s | Mem:   109832 kB
-
-v4 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      684 kB
-v4 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.07 s | Mem:    72096 kB
-v4 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.06 s | Mem:   114260 kB
-v4 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 27.98 s | Mem:   114260 kB
-v4 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.46 s | Mem:   114264 kB
-
-v5 - Dec 21 2010 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
-v5 - Dec 21 2010 (szivocso_v..) | Test:     init | Time:  1.07 s | Mem:    69672 kB
-v5 - Dec 21 2010 (szivocso_v..) | Test:  explode | Time:  2.06 s | Mem:   109808 kB
-v5 - Dec 21 2010 (szivocso_v..) | Test:     alfa | Time: 25.06 s | Mem:   109808 kB
-v5 - Dec 21 2010 (szivocso_v..) | Test:     free | Time:  0.33 s | Mem:   109812 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:    start | Time:  0.00 s | Mem:      680 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:     init | Time:  1.11 s | Mem:    61180 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    61180 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:  explode | Time:  2.02 s | Mem:    78828 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:   delete | Time:  0.08 s | Mem:    78828 kB
+v5y - Jan 11 2011 (szivocso_v..) | Test:     alfa | Time: 18.75 s | Mem:    78828 kB
+Check value = 164.881835
+v5y - Jan 11 2011 (szivocso_v..) | Test:     flow | Time: 23.56 s | Mem:    78832 kB
+Check value = 0.532165
+v5y - Jan 11 2011 (szivocso_v..) | Test:     free | Time:  0.26 s | Mem:    78832 kB
 
