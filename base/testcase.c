@@ -20,7 +20,7 @@ void stopClock( char *name ) {
     getrusage( RUSAGE_SELF, &rus );
     stopTime = rus.ru_utime.tv_sec * 1000 + rus.ru_utime.tv_usec / 1000;
 
-    printf( "%2s - %11s (%10.10s..) | ", glob_swName, glob_swDate, glob_inputFile );
+    printf( "%3s - %11s (%10.10s..) | ", glob_swName, glob_swDate, glob_inputFile );
     printf( "Test: %8s | ", name );
     printf( "Time: %5.2lf s | ", ( double )( stopTime - startTime ) / 1000.0 );
     printf( "Mem: %8ld kB\n", rus.ru_maxrss );
@@ -231,7 +231,7 @@ void test_flow( tTetranet tn ) {
     trMaxVol = NULL_TETRA;
     tetranet_iteratorInit( tn );
     while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
-        tetranet_setState( tn, tr, 1, 0.5 );
+        tetranet_setState( tn, tr, 0, 0.5 );
         if( tetranet_getTetraVolume( tn, tr ) > temp ) {
             trMaxVol = tr;
             temp = tetranet_getTetraVolume( tn, tr );
@@ -239,7 +239,7 @@ void test_flow( tTetranet tn ) {
     }
 
     // ertek a legnagyobb terfogatuba
-    tetranet_setState( tn, trMaxVol, 1, 0.999 );
+    tetranet_setState( tn, trMaxVol, 0, 0.999 );
 
     // kezdodik a ciklus
     for( i = 0; i < count; ++i ) {
