@@ -1,3 +1,10 @@
+/*
+ *  vector.c
+ *  
+ *  Vektorok, vektormuveletek
+ *  2010-2011 - Martin Jozsef
+ */
+
 #include "vector.h"
 #include <math.h>
 

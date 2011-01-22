@@ -1,3 +1,10 @@
+/*
+ *  vector.h
+ *  
+ *  Vektorok, vektormuveletek
+ *  2010-2011 - Martin Jozsef
+ */
+
 #ifndef VECTOR_H_
 #define VECTOR_H_
 

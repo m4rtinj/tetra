@@ -1,8 +1,8 @@
 /*
- * neighbour.h
- *
- *  Created on: 2010.02.16.
- *      Author: martinj
+ *  neighbour.h
+ *  
+ *  Oldalszomszedos tetraederek keresese
+ *  2010-2011 - Martin Jozsef
  */
 
 #ifndef NEIGHBOUR_H_

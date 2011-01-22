@@ -1,7 +1,11 @@
-/**
- *  Adott ponthoz tartozo tetraederek keresese
- *  Hash tablas megoldas.
- *
+/*
+ *  atvertex.c
+ *  
+ *  Adott ponthoz tartozo tetraederek keresese. hash-tablas verzio
+ *  2010-2011 - Martin Jozsef
+ */
+
+/*
  *  IndexArray
  *     |-->p1= tp11 -> tp12 ->  ... tp1n
  *     |

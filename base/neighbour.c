@@ -1,9 +1,10 @@
 /*
- * neighbour.c
- *
- *  Created on: 2010.02.16.
- *      Author: martinj
+ *  neighbour.c
+ *  
+ *  Oldalszomszedos tetraederek keresese
+ *  2010-2011 - Martin Jozsef
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,8 +1,8 @@
 /*
  *  nasreader.c
- *
- *  Created on: 06.10.2010
- *      Author: martinj
+ *  
+ *  nastran fajlok olvasasa, az adatok konvertalasa es elemkenti tovabbadasa
+ *  2010-2011 - Martin Jozsef
  */
 
 #include <stdio.h>

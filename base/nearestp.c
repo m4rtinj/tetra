@@ -1,10 +1,8 @@
 /*
- * nearestp.c
- *
- * a kd-tree wikipedia szocikk alapjan: kiegyensulyozott kd-tree
- *
- *  Created on: 26.09.2010
- *      Author: martinj
+ *  nearestp.c
+ *  
+ *  Kd-tree es nearest neighbour search
+ *  2010-2011 - Martin Jozsef
  */
 
 #include "nearestp.h"

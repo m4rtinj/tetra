@@ -1,3 +1,10 @@
+/*
+ *  testcase.h
+ *  
+ *  Tesztesetek, meresekkel
+ *  2010-2011 - Martin Jozsef
+ */
+
 #ifndef TESTCASE_H_
 #define TESTCASE_H_
 

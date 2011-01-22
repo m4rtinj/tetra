@@ -1,7 +1,12 @@
+/*
+ *  common.h
+ *  
+ *  Altalanos informaciok, konstansok
+ *  2010-2011 - Martin Jozsef
+ */
+
 #ifndef COMMON_H_
 #define COMMON_H_
-
-/// Header fajl altalanos makrokhoz, egyebekhez
 
 /// boolean tipus definialasa
 typedef int bool;

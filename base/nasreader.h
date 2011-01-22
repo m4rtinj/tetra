@@ -1,8 +1,8 @@
 /*
  *  nasreader.h
- *
- *  Created on: 06.10.2010
- *      Author: Martin József
+ *  
+ *  nastran fajlok olvasasa, az adatok konvertalasa es elemkenti tovabbadasa
+ *  2010-2011 - Martin Jozsef
  */
 
 #ifndef NASREADER_H_

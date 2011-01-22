@@ -1,3 +1,10 @@
+/*
+ *  testcase.c
+ *  
+ *  Tesztesetek, meresekkel
+ *  2010-2011 - Martin Jozsef
+ */
+
 #include "testcase.h"
 #include "tetranet.h"
 #include "common.h"

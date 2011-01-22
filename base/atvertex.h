@@ -1,6 +1,10 @@
-/**
- *  Adott ponthoz tartozo tetraederek
+/*
+ *  atvertex.h
+ *  
+ *  Adott ponthoz tartozo tetraederek keresese.
+ *  2010-2011 - Martin Jozsef
  */
+
 #ifndef ATVERTEX_H_
 #define ATVERTEX_H_
 

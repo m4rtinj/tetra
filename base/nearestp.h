@@ -1,8 +1,8 @@
 /*
- * nearestp.h
- *
- *  Created on: 26.09.2010
- *      Author: martinj
+ *  nearestp.h
+ *  
+ *  Kd-tree es nearest neighbour search
+ *  2010-2011 - Martin Jozsef
  */
 
 #ifndef NEARESTP_H_

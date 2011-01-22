@@ -1,3 +1,10 @@
+/*
+ *  common.c
+ *  
+ *  Altalanos informaciok, konstansok
+ *  2010-2011 - Martin Jozsef
+ */
+
 #include <string.h>
 #include "common.h"
 

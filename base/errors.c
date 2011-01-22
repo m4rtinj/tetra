@@ -1,3 +1,10 @@
+/*
+ *  errors.c
+ *  
+ *  Hibajelzesek kiirasa
+ *  2010-2011 - Martin Jozsef
+ */
+
 #include "errors.h"
 #include <stdio.h>
 #include <stdlib.h>

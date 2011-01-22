@@ -1,8 +1,8 @@
 /*
- * tetranet.c
- *
- *  Created on: 27.03.2010
- *      Author: Martin József
+ *  tetranet.h
+ *  
+ *  A tetraederhalozat leirasa es alapmuveletei. Valtozat: V5X
+ *  2010-2011 - Martin Jozsef
  */
 
 #include <stdlib.h>

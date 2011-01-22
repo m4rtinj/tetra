@@ -1,3 +1,10 @@
+/*
+ *  errors.h
+ *  
+ *  Hibajelzesek kiirasa
+ *  2010-2011 - Martin Jozsef
+ */
+
 #ifndef ERRORS_H_
 #define ERRORS_H_
 
