@@ -1,6 +1,6 @@
 /*
  *  testcase.c
- *  
+ *
  *  Tesztesetek, meresekkel
  *  2010-2011 - Martin Jozsef
  */
@@ -115,7 +115,7 @@ void test_alfa( tTetranet tn ) {
 }
 
 void test_nearestp( tTetranet tn ) {
-#define epsylon 0.0005
+    const double epsylon = 0.05;
     unsigned long i;
     tPointRef np;
     tPoint p;
@@ -132,51 +132,6 @@ void test_nearestp( tTetranet tn ) {
     }
 }
 
-void test_pointLocation( tTetranet tn ) {
-    const double n = 10.0;
-    unsigned long found = 0;
-    tPointRef pr;
-    tPoint p;
-
-    p = tetranet_getPoint( tn, 1 );
-    double maxX = p.x;
-    double minX = p.x;
-    double maxY = p.y;
-    double minY = p.y;
-    double maxZ = p.z;
-    double minZ = p.z;
-
-    tPointRef last = tetranet_getLastPointRef( tn );
-    for( pr = 2; pr <= last; ++pr ) {
-        p = tetranet_getPoint( tn, pr );
-        if( p.x < minX ) minX = p.x;
-        if( p.x > maxX ) maxX = p.x;
-        if( p.y < minY ) minY = p.y;
-        if( p.y > maxY ) maxY = p.y;
-        if( p.z < minZ ) minZ = p.z;
-        if( p.z > maxZ ) maxZ = p.z;
-    }
-
-    double x, y, z;
-    double stepX = ( maxX - minX ) / n;
-    double stepY = ( maxY - minY ) / n;
-    double stepZ = ( maxZ - minZ ) / n;
-
-    startClock();
-    for( x = minX; x <= maxX; x += stepX ) {
-        for( y = minY; y <= maxY; y += stepY ) {
-            for( z = minZ; z <= maxZ; z += stepZ ) {
-                p.x = x;
-                p.y = y;
-                p.z = z;
-                //    printf( "%8lf %8lf %8lf -- %ld\n", x, y, z, found );
-                if( tetranet_getPointLocation( tn, p ) != NULL_TETRA ) ++found;
-            }
-        }
-    }
-    stopClock( "PointLoc" );
-}
-
 void test_massPointLocation( tTetranet tn ) {
     tTetraRef tr;
     tPoint p;
@@ -184,10 +139,36 @@ void test_massPointLocation( tTetranet tn ) {
     tetranet_iteratorInit( tn );
     while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
         if( tetranet_getPointLocation( tn, tetranet_getTetraMassPoint( tn, tr ) ) != tr ) {
-            printf( "getLocation fails by tr=%ld\n", tr );
+            printf( "massPLoc fails by tr=%ld\n", tr );
         }
     }
     stopClock( "massPLoc" );
+}
+
+void test_pointLocation( tTetranet tn ) {
+    const double c1 = 0.005;
+    const double c2 = ( 1 - c1 ) / 3;
+    unsigned long i;
+    tPointRef np;
+    tTetraRef tr;
+    tPoint p;
+    startClock();
+
+    tetranet_iteratorInit( tn );
+    while(( tr = tetranet_iteratorNext( tn ) ) != NULL_TETRA ) {
+        tPoint a = tetranet_getPoint( tn, tetranet_getVertex( tn, tr, 0 ) );
+        tPoint b = tetranet_getPoint( tn, tetranet_getVertex( tn, tr, 1 ) );
+        tPoint c = tetranet_getPoint( tn, tetranet_getVertex( tn, tr, 2 ) );
+        tPoint d = tetranet_getPoint( tn, tetranet_getVertex( tn, tr, 3 ) );
+        vector v;
+        v.x = c2 * ( a.x + b.x + c.x )  + c1 * d.x;
+        v.y = c2 * ( a.y + b.y + c.y ) + c1 * d.y ;
+        v.z = c2 * ( a.z + b.z + c.z ) + c1 * d.z ;
+        if( tetranet_getPointLocation( tn, v ) != tr ) {
+            printf( "PointLoc fails by tr=%ld\n", tr );
+        }
+    }
+    stopClock( "PointLoc" );
 }
 
 void test_delete( tTetranet tn ) {
@@ -283,6 +264,7 @@ void test_flow( tTetranet tn ) {
     stopClock( "flow" );
     printf( "Check value = %lf\n", tetranet_getState( tn, trMaxVol, 1 ) );
 }
+
 
 
 
